@@ -283,7 +283,7 @@
             title.style.color = 'var(--primary-color)';
             desc.textContent = 'Tu dirección de correo ha sido validada de forma segura. Ya puedes volver a la aplicación FirmApp para iniciar sesión.';
             action.innerHTML = `
-              <a href="intent://firmapp.arandulabs.dev/?mode=verifyEmail#Intent;scheme=https;package=dev.arandulabs.firmapp;end" class="action-btn">Abrir FirmApp</a>
+              <a href="/" class="action-btn">Continuar a la Web</a>
             `;
           } else {
             const errorMsg = data.error?.message === 'INVALID_OOB_CODE'
@@ -384,7 +384,7 @@
                   title.style.color = 'var(--primary-color)';
                   desc.textContent = 'Tu contraseña ha sido restablecida con éxito de forma segura. Ya puedes volver a abrir FirmApp.';
                   action.innerHTML = `
-                    <a href="intent://firmapp.arandulabs.dev/?mode=resetPassword#Intent;scheme=https;package=dev.arandulabs.firmapp;end" class="action-btn">Abrir FirmApp</a>
+                    <a href="/" class="action-btn">Continuar a la Web</a>
                   `;
                 } else {
                   alert('Error: ' + (resData.error?.message || 'No se pudo actualizar la contraseña.'));
