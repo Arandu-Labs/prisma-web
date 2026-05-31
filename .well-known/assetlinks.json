@@ -1,0 +1,13 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "dev.arandulabs.firmapp",
+      "sha256_cert_fingerprints": [
+        "47:BC:37:03:5C:ED:E9:3F:EF:3C:F2:3F:02:9C:05:6C:7A:DF:96:99:7D:8C:97:13:CD:DA:C7:27:31:3B:AB:CF",
+        "A0:7C:02:07:06:D8:9D:79:C2:9A:BF:DE:A9:82:70:48:DE:43:B1:63:EB:A9:5A:7A:94:EB:BF:3D:F4:FE:97:40"
+      ]
+    }
+  }
+]
