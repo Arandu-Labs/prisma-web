@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FirmApp | Firma Digital de PDFs Segura y Gratuita | Arandu Labs</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="../../assets/images/firmapp_logo.png">
+    <meta name="description" content="Firma tus documentos PDF de forma segura, rápida y sin suscripciones. Tus documentos no se suben al servidor: se procesan localmente en tu dispositivo para máxima privacidad.">
+    
+    <!-- Google Fonts: Outfit (headings) & Inter (body) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        dark: '#030712',      // Deep space black
+                        darkCard: '#0b0f19',  // Sleek glass card base
+                        electricBlue: '#3b82f6', // Glowing cyan-blue
+                        accentPurple: '#8b5cf6', // Premium violet
+                        neonPink: '#ec4899',    // Visual highlights
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        outfit: ['Outfit', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        body {
+            background-color: #030712;
+            color: #f3f4f6;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Custom text gradient */
+        .text-gradient {
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 50%, #ec4899 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Glassmorphism styling */
+        .glass {
+            background: rgba(11, 15, 25, 0.7);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+        }
+
+        /* Glowing background blobs */
+        .glow-blob {
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            border-radius: 50%;
+            filter: blur(120px);
+            opacity: 0.15;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Smooth border pulse */
+        .pulse-border {
+            animation: pulseGlow 3s infinite alternate;
+        }
+
+        @keyframes pulseGlow {
+            0% {
+                border-color: rgba(59, 130, 246, 0.2);
+                box-shadow: 0 0 15px rgba(59, 130, 246, 0.1);
+            }
+            100% {
+                border-color: rgba(139, 92, 246, 0.4);
+                box-shadow: 0 0 25px rgba(139, 92, 246, 0.25);
+            }
+        }
+
+        /* Signature Canvas styling */
+        #sig-canvas {
+            cursor: crosshair;
+            touch-action: none;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Glowing Background Elements -->
+    <div class="glow-blob bg-electricBlue top-10 -left-48"></div>
+    <div class="glow-blob bg-accentPurple top-[30%] -right-48"></div>
+    <div class="glow-blob bg-neonPink bottom-10 left-[20%]"></div>
+
+    <!-- Navigation Header -->
+    <header class="fixed w-full top-0 left-0 z-50 transition-all duration-300 border-b border-white/5 bg-dark/70 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <img src="../../assets/images/firmapp_logo.png" alt="FirmApp Logo" class="w-10 h-10 object-contain">
+                <span class="text-2xl font-outfit font-black tracking-tight text-white">FirmApp</span>
+            </div>
+
+            <!-- Desktop Links -->
+            <nav class="hidden md:flex items-center gap-8 text-sm font-semibold">
+                <a href="#beneficios" class="text-slate-300 hover:text-electricBlue transition-colors">Beneficios</a>
+                <a href="#como-funciona" class="text-slate-300 hover:text-electricBlue transition-colors">Cómo Funciona</a>
+                <a href="#demostración" class="text-slate-300 hover:text-electricBlue transition-colors">Prueba en Vivo</a>
+                <a href="privacy.html" class="text-slate-300 hover:text-electricBlue transition-colors">Privacidad</a>
+                <a href="terms.html" class="text-slate-300 hover:text-electricBlue transition-colors">Términos</a>
+            </nav>
+
+            <!-- Language & Action -->
+            <div class="flex items-center gap-6">
+                <!-- Language Selector -->
+                <div class="flex items-center gap-3 border-r border-white/10 pr-6 h-8">
+                    <span class="flex items-center text-white bg-white/5 px-2 py-0.5 rounded-md border border-white/10 text-xs font-bold gap-1.5">
+                        <img src="https://flagcdn.com/w20/es.png" width="16" alt="España" class="rounded-sm"> ES
+                    </span>
+                    <a href="../index.html" class="flex items-center hover:scale-110 transition-transform opacity-60 hover:opacity-100 text-xs font-bold gap-1.5">
+                        <img src="https://flagcdn.com/w20/us.png" width="16" alt="USA" class="rounded-sm"> EN
+                    </a>
+                    <a href="../pt/index.html" class="flex items-center hover:scale-110 transition-transform opacity-60 hover:opacity-100 text-xs font-bold gap-1.5">
+                        <img src="https://flagcdn.com/w20/br.png" width="16" alt="Brasil" class="rounded-sm"> PT
+                    </a>
+                </div>
+
+                <a href="#" class="hidden sm:inline-flex items-center justify-center px-5 h-10 rounded-full bg-gradient-to-r from-electricBlue to-accentPurple hover:from-electricBlue/90 hover:to-accentPurple/90 text-white text-xs font-bold uppercase tracking-widest transition-all duration-300 shadow-[0_4px_20px_rgba(59,130,246,0.3)] hover:shadow-[0_4px_30px_rgba(139,92,246,0.5)] hover:scale-[1.02]">
+                    Iniciar App
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative pt-44 pb-20 px-6 max-w-7xl mx-auto z-10">
+        <div class="grid lg:grid-cols-12 gap-16 items-center">
+            
+            <!-- Hero Text -->
+            <div class="lg:col-span-6 space-y-8 text-center lg:text-left">
+                <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-electricBlue/20 bg-electricBlue/5 text-electricBlue text-xs font-bold uppercase tracking-wider">
+                    <span class="w-1.5 h-1.5 rounded-full bg-electricBlue animate-pulse"></span>
+                    Seguridad y Privacidad Garantizada
+                </span>
+                
+                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-outfit font-black tracking-tight leading-[1.05] text-white">
+                    Tus documentos firmados con <span class="text-gradient italic font-extrabold">Cero Fricción</span>
+                </h1>
+                
+                <p class="text-slate-400 text-lg leading-relaxed font-light max-w-xl mx-auto lg:mx-0">
+                    La aplicación premium de firma digital que respeta tu privacidad. Carga tu PDF, dibuja o coloca tu firma y descárgalo firmado al instante. <strong class="text-white">Tus archivos nunca salen de tu ordenador.</strong>
+                </p>
+                
+                <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                    <a href="#" class="inline-flex items-center justify-center px-8 py-4 rounded-2xl bg-gradient-to-r from-electricBlue to-accentPurple hover:from-electricBlue/90 hover:to-accentPurple/90 text-white font-bold transition-all duration-300 shadow-[0_8px_30px_rgba(59,130,246,0.4)] hover:scale-[1.03] group">
+                        Iniciar Aplicación Gratis
+                        <svg class="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    </a>
+                    <a href="#demostración" class="inline-flex items-center justify-center px-8 py-4 rounded-2xl border border-white/10 hover:border-white/20 glass text-white font-medium transition-colors">
+                        Probar Firma en Vivo
+                    </a>
+                </div>
+
+                <!-- Trust Badges -->
+                <div class="pt-8 border-t border-white/5 grid grid-cols-3 gap-6 max-w-md mx-auto lg:mx-0 text-center lg:text-left">
+                    <div>
+                        <p class="text-2xl font-outfit font-black text-white">100%</p>
+                        <p class="text-xs text-slate-500 font-bold uppercase tracking-wider mt-1">Local / Offline</p>
+                    </div>
+                    <div>
+                        <p class="text-2xl font-outfit font-black text-white">Gratis</p>
+                        <p class="text-xs text-slate-500 font-bold uppercase tracking-wider mt-1">Sin Suscripción</p>
+                    </div>
+                    <div>
+                        <p class="text-2xl font-outfit font-black text-white">Seguro</p>
+                        <p class="text-xs text-slate-500 font-bold uppercase tracking-wider mt-1">Validez Legal</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hero Mockup (Interactive Application Preview) -->
+            <div class="lg:col-span-6 relative">
+                <div class="absolute -inset-4 bg-gradient-to-tr from-electricBlue/20 to-accentPurple/20 blur-3xl rounded-[3rem] opacity-60"></div>
+                <div class="relative rounded-3xl border border-white/10 glass p-6 overflow-hidden pulse-border">
+                    
+                    <!-- App Window Header Bar -->
+                    <div class="flex items-center justify-between pb-6 border-b border-white/5 mb-6">
+                        <div class="flex gap-2">
+                            <span class="w-3 h-3 rounded-full bg-red-500/80"></span>
+                            <span class="w-3 h-3 rounded-full bg-yellow-500/80"></span>
+                            <span class="w-3 h-3 rounded-full bg-green-500/80"></span>
+                        </div>
+                        <span class="text-[10px] text-slate-500 font-bold uppercase tracking-widest font-outfit">FirmApp Engine v2.0</span>
+                        <span class="w-3"></span>
+                    </div>
+
+                    <!-- Visual Drag-and-Drop Area Simulation -->
+                    <div class="border-2 border-dashed border-white/10 hover:border-electricBlue/40 rounded-2xl p-10 text-center bg-dark/40 transition-colors flex flex-col items-center justify-center gap-4 group cursor-pointer">
+                        <div class="w-16 h-16 rounded-2xl bg-electricBlue/10 flex items-center justify-center text-electricBlue group-hover:scale-110 transition-transform duration-300">
+                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
+                        </div>
+                        <div>
+                            <p class="text-sm font-bold text-white mb-1">Arrastra tu archivo PDF aquí</p>
+                            <p class="text-xs text-slate-500">o haz clic para explorar en tu disco</p>
+                        </div>
+                        <span class="inline-flex px-3 py-1 rounded bg-white/5 border border-white/5 text-[9px] font-bold text-slate-400 uppercase tracking-widest">Tamaño máximo: 100MB</span>
+                    </div>
+
+                    <!-- Simulated active layers sidebar -->
+                    <div class="mt-6 space-y-3">
+                        <div class="flex items-center justify-between p-3 rounded-xl border border-white/5 bg-white/5 text-xs">
+                            <div class="flex items-center gap-3">
+                                <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                <span class="font-medium text-slate-300">Contrato_de_Servicios.pdf</span>
+                            </div>
+                            <span class="text-slate-500 font-bold">1.2 MB</span>
+                        </div>
+                        <div class="flex items-center justify-between p-3 rounded-xl border border-electricBlue/20 bg-electricBlue/5 text-xs">
+                            <div class="flex items-center gap-3">
+                                <svg class="w-4 h-4 text-electricBlue" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
+                                <span class="font-bold text-white">Firma digital lista para arrastrar</span>
+                            </div>
+                            <span class="text-electricBlue font-bold uppercase tracking-widest text-[9px]">Listo</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Beneficios (Features) -->
+    <section id="beneficios" class="py-24 px-6 bg-dark/60 border-y border-white/5 relative z-10">
+        <div class="max-w-7xl mx-auto space-y-16">
+            
+            <div class="text-center space-y-4 max-w-xl mx-auto">
+                <span class="text-electricBlue font-black tracking-[0.2em] text-xs uppercase block">Beneficios de Élite</span>
+                <h2 class="text-3xl md:text-5xl font-outfit font-black tracking-tight leading-none text-white">
+                    Privacidad sin límites, rendimiento sin compromisos
+                </h2>
+                <div class="w-12 h-1 bg-electricBlue mx-auto rounded-full mt-4"></div>
+            </div>
+
+            <!-- Features Grid (Premium Horizontal mobile / standard desktop layout) -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+                
+                <!-- Seguridad Total -->
+                <div class="flex flex-row md:flex-col items-start md:items-center text-left md:text-center p-6 md:p-8 glass rounded-[2rem] md:rounded-3xl border border-white/5 hover:border-electricBlue/20 transition-all gap-4 md:gap-0">
+                    <div class="flex-shrink-0 w-12 h-12 md:w-14 md:h-14 md:mb-6 rounded-xl md:rounded-2xl bg-electricBlue/10 flex items-center justify-center text-electricBlue">
+                        <svg class="w-6 h-6 md:w-7 md:h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                    </div>
+                    <div>
+                        <h3 class="text-base md:text-lg font-bold mb-1 md:mb-3 text-white">Seguridad 100% Local</h3>
+                        <p class="text-xs md:text-sm text-slate-400 leading-relaxed font-light">Tus documentos nunca suben a la nube. El proceso de renderizado y firma ocurre localmente en tu navegador.</p>
+                    </div>
+                </div>
+
+                <!-- Cero Registro -->
+                <div class="flex flex-row md:flex-col items-start md:items-center text-left md:text-center p-6 md:p-8 glass rounded-[2rem] md:rounded-3xl border border-white/5 hover:border-electricBlue/20 transition-all gap-4 md:gap-0">
+                    <div class="flex-shrink-0 w-12 h-12 md:w-14 md:h-14 md:mb-6 rounded-xl md:rounded-2xl bg-electricBlue/10 flex items-center justify-center text-electricBlue">
+                        <svg class="w-6 h-6 md:w-7 md:h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"></path></svg>
+                    </div>
+                    <div>
+                        <h3 class="text-base md:text-lg font-bold mb-1 md:mb-3 text-white">Sin Cuentas Obligatorias</h3>
+                        <p class="text-xs md:text-sm text-slate-400 leading-relaxed font-light">Firma libre de barreras y fricción. Sin necesidad de registrarte, iniciar sesión o dejar tus datos.</p>
+                    </div>
+                </div>
+
+                <!-- Validez Estándar -->
+                <div class="flex flex-row md:flex-col items-start md:items-center text-left md:text-center p-6 md:p-8 glass rounded-[2rem] md:rounded-3xl border border-white/5 hover:border-electricBlue/20 transition-all gap-4 md:gap-0">
+                    <div class="flex-shrink-0 w-12 h-12 md:w-14 md:h-14 md:mb-6 rounded-xl md:rounded-2xl bg-electricBlue/10 flex items-center justify-center text-electricBlue">
+                        <svg class="w-6 h-6 md:w-7 md:h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                    </div>
+                    <div>
+                        <h3 class="text-base md:text-lg font-bold mb-1 md:mb-3 text-white">Validación Criptográfica</h3>
+                        <p class="text-xs md:text-sm text-slate-400 leading-relaxed font-light">Estructuramos tu firma digital siguiendo los estándares criptográficos para máxima integridad legal.</p>
+                    </div>
+                </div>
+
+                <!-- Ultra Liviana -->
+                <div class="flex flex-row md:flex-col items-start md:items-center text-left md:text-center p-6 md:p-8 glass rounded-[2rem] md:rounded-3xl border border-white/5 hover:border-electricBlue/20 transition-all gap-4 md:gap-0">
+                    <div class="flex-shrink-0 w-12 h-12 md:w-14 md:h-14 md:mb-6 rounded-xl md:rounded-2xl bg-electricBlue/10 flex items-center justify-center text-electricBlue">
+                        <svg class="w-6 h-6 md:w-7 md:h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                    </div>
+                    <div>
+                        <h3 class="text-base md:text-lg font-bold mb-1 md:mb-3 text-white">Rendimiento Extremo</h3>
+                        <p class="text-xs md:text-sm text-slate-400 leading-relaxed font-light">Código purificado y optimizado. Carga al instante tanto en el último ordenador de gama alta como en móviles.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Cómo funciona (Workflow) -->
+    <section id="como-funciona" class="py-24 px-6 max-w-7xl mx-auto z-10">
+        <div class="space-y-16">
+            
+            <div class="text-center space-y-4 max-w-xl mx-auto">
+                <span class="text-electricBlue font-black tracking-[0.2em] text-xs uppercase block">Proceso Ultra Rápido</span>
+                <h2 class="text-3xl md:text-5xl font-outfit font-black tracking-tight leading-none text-white">
+                    Firmado en tres pasos simples
+                </h2>
+                <div class="w-12 h-1 bg-electricBlue mx-auto rounded-full mt-4"></div>
+            </div>
+
+            <!-- Steps Grid -->
+            <div class="grid md:grid-cols-3 gap-8">
+                
+                <!-- Paso 1 -->
+                <div class="relative p-8 rounded-3xl border border-white/5 glass text-center flex flex-col items-center gap-6 group hover:border-electricBlue/20 transition-colors">
+                    <span class="absolute top-4 right-6 text-6xl font-outfit font-black text-white/5 group-hover:text-electricBlue/5 transition-colors">01</span>
+                    <div class="w-16 h-16 rounded-2xl bg-electricBlue/10 text-electricBlue flex items-center justify-center">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-white">Carga tu PDF</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed font-light">Arrastra tu documento al panel. Se renderiza localmente de forma privada en segundos.</p>
+                </div>
+
+                <!-- Paso 2 -->
+                <div class="relative p-8 rounded-3xl border border-white/5 glass text-center flex flex-col items-center gap-6 group hover:border-electricBlue/20 transition-colors">
+                    <span class="absolute top-4 right-6 text-6xl font-outfit font-black text-white/5 group-hover:text-electricBlue/5 transition-colors">02</span>
+                    <div class="w-16 h-16 rounded-2xl bg-electricBlue/10 text-electricBlue flex items-center justify-center">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-white">Dibuja o Coloca</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed font-light">Dibuja tu firma en el lienzo digital o arrastra un archivo de firma guardado, luego colócalo en el PDF.</p>
+                </div>
+
+                <!-- Paso 3 -->
+                <div class="relative p-8 rounded-3xl border border-white/5 glass text-center flex flex-col items-center gap-6 group hover:border-electricBlue/20 transition-colors">
+                    <span class="absolute top-4 right-6 text-6xl font-outfit font-black text-white/5 group-hover:text-electricBlue/5 transition-colors">03</span>
+                    <div class="w-16 h-16 rounded-2xl bg-electricBlue/10 text-electricBlue flex items-center justify-center">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-white">Descarga Firmado</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed font-light">Toca 'Finalizar' y tu archivo se descarga de inmediato. Rápido, nítido y completamente seguro.</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Demostración interactiva (Live Drawing Board Inside Landing) -->
+    <section id="demostración" class="py-24 px-6 bg-dark/60 border-t border-white/5 relative z-10">
+        <div class="max-w-4xl mx-auto space-y-16">
+            
+            <div class="text-center space-y-4 max-w-xl mx-auto">
+                <span class="text-electricBlue font-black tracking-[0.2em] text-xs uppercase block">Prueba la velocidad</span>
+                <h2 class="text-3xl md:text-5xl font-outfit font-black tracking-tight leading-none text-white">
+                    Pizarra de Firma Interactiva
+                </h2>
+                <p class="text-sm text-slate-400 leading-relaxed font-light">
+                    Dibuja tu firma a continuación con tu ratón o pantalla táctil para experimentar la velocidad de respuesta de nuestra tecnología.
+                </p>
+                <div class="w-12 h-1 bg-electricBlue mx-auto rounded-full mt-4"></div>
+            </div>
+
+            <!-- Signature Pad Box -->
+            <div class="relative rounded-3xl border border-white/10 glass p-6 overflow-hidden max-w-xl mx-auto pulse-border">
+                <div class="bg-dark/80 rounded-2xl border border-white/5 overflow-hidden">
+                    <canvas id="sig-canvas" width="500" height="260" class="w-full h-[260px] bg-dark"></canvas>
+                </div>
+
+                <!-- Action Controls -->
+                <div class="flex items-center justify-between mt-6">
+                    <button id="sig-clear-btn" class="px-5 py-2.5 rounded-xl border border-white/10 hover:border-white/20 hover:bg-white/5 text-xs font-bold uppercase tracking-widest text-slate-400 hover:text-white transition-all">
+                        Limpiar Lienzo
+                    </button>
+                    <button id="sig-submit-btn" class="px-6 py-2.5 rounded-xl bg-electricBlue hover:bg-electricBlue/90 text-dark font-bold text-xs uppercase tracking-widest transition-all">
+                        Guardar Firma
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-16 px-6 bg-dark border-t border-white/5 text-center relative z-10">
+        <div class="max-w-7xl mx-auto flex flex-col items-center gap-8">
+            <div class="flex items-center gap-3">
+                <img src="../../assets/images/firmapp_logo.png" alt="FirmApp Logo" class="w-12 h-12 object-contain grayscale opacity-60">
+                <span class="text-3xl font-outfit font-black text-white/60">FirmApp</span>
+            </div>
+            
+            <div class="flex flex-wrap gap-8 justify-center text-sm font-semibold text-slate-400">
+                <a href="#beneficios" class="hover:text-white transition-colors">Beneficios</a>
+                <a href="#como-funciona" class="hover:text-white transition-colors">Cómo Funciona</a>
+                <a href="privacy.html" class="hover:text-white transition-colors">Política de Privacidad</a>
+                <a href="terms.html" class="hover:text-white transition-colors">Términos de Servicio</a>
+                <a href="../delete-account/" class="hover:text-white transition-colors">Eliminar Cuenta</a>
+            </div>
+
+            <div class="w-12 h-[1px] bg-white/10"></div>
+
+            <p class="text-xs text-slate-500 font-bold uppercase tracking-[0.2em]">
+                &copy; 2026 Arandu Labs LLC | Desarrollado con integridad & seguridad
+            </p>
+        </div>
+    </footer>
+
+    <!-- Interactive Canvas Script -->
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            const canvas = document.getElementById('sig-canvas');
+            const ctx = canvas.getContext('2d');
+            const clearBtn = document.getElementById('sig-clear-btn');
+            const submitBtn = document.getElementById('sig-submit-btn');
+            
+            // Adjust canvas inner coordinates to match display size
+            function resizeCanvas() {
+                const rect = canvas.getBoundingClientRect();
+                canvas.width = rect.width;
+                canvas.height = rect.height;
+                
+                // Set sleek drawing styles
+                ctx.strokeStyle = '#3b82f6'; // electricBlue
+                ctx.lineWidth = 3;
+                ctx.lineCap = 'round';
+                ctx.lineJoin = 'round';
+            }
+            
+            resizeCanvas();
+            window.addEventListener('resize', resizeCanvas);
+
+            let drawing = false;
+            let lastX = 0;
+            let lastY = 0;
+
+            function getMousePos(canvasDom, e) {
+                const rect = canvasDom.getBoundingClientRect();
+                return {
+                    x: (e.clientX || (e.touches && e.touches[0].clientX)) - rect.left,
+                    y: (e.clientY || (e.touches && e.touches[0].clientY)) - rect.top
+                };
+            }
+
+            function startDrawing(e) {
+                drawing = true;
+                const pos = getMousePos(canvas, e);
+                lastX = pos.x;
+                lastY = pos.y;
+                ctx.beginPath();
+                ctx.moveTo(lastX, lastY);
+                e.preventDefault();
+            }
+
+            function draw(e) {
+                if (!drawing) return;
+                const pos = getMousePos(canvas, e);
+                ctx.beginPath();
+                ctx.moveTo(lastX, lastY);
+                ctx.lineTo(pos.x, pos.y);
+                ctx.stroke();
+                lastX = pos.x;
+                lastY = pos.y;
+                e.preventDefault();
+            }
+
+            function stopDrawing() {
+                drawing = false;
+            }
+
+            // Mouse events
+            canvas.addEventListener('mousedown', startDrawing);
+            canvas.addEventListener('mousemove', draw);
+            window.addEventListener('mouseup', stopDrawing);
+
+            // Touch events for mobile responsiveness
+            canvas.addEventListener('touchstart', startDrawing);
+            canvas.addEventListener('touchmove', draw);
+            window.addEventListener('touchend', stopDrawing);
+
+            // Clear canvas
+            clearBtn.addEventListener('click', () => {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+            });
+
+            // Action submit
+            submitBtn.addEventListener('click', () => {
+                alert('¡Firma capturada con éxito en memoria local! Esta demostración simula el renderizado ultrarrápido sin transferencias a servidores.');
+            });
+        });
+    </script>
+</body>
+</html>
