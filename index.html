@@ -224,7 +224,7 @@
     <div class="brand-logo">Firm<span>App</span></div>
     <h1 class="hero-title">Firma tus documentos PDF desde cualquier lugar</h1>
     <p class="hero-subtitle">Digitaliza tu firma con calidad profesional de forma 100% segura y local en tu dispositivo móvil. Sin suscripciones obligatorias.</p>
-    <a href="https://play.google.com/apps/testing/dev.arandulabs.firmapp" class="cta-button">Descargar Beta en Google Play</a>
+    <a href="https://play.google.com/store/apps/details?id=dev.arandulabs.firmapp" class="cta-button">Descargar Beta en Google Play</a>
   </div>
 
   <footer>
@@ -283,7 +283,7 @@
             title.style.color = 'var(--primary-color)';
             desc.textContent = 'Tu dirección de correo ha sido validada de forma segura. Ya puedes volver a la aplicación FirmApp para iniciar sesión.';
             action.innerHTML = `
-              <a href="/" class="action-btn">Continuar a la Web</a>
+              <a href="intent://firmapp.arandulabs.dev/?mode=verifyEmail#Intent;scheme=https;package=dev.arandulabs.firmapp;end" class="action-btn">Abrir FirmApp</a>
             `;
           } else {
             const errorMsg = data.error?.message === 'INVALID_OOB_CODE'
@@ -384,7 +384,7 @@
                   title.style.color = 'var(--primary-color)';
                   desc.textContent = 'Tu contraseña ha sido restablecida con éxito de forma segura. Ya puedes volver a abrir FirmApp.';
                   action.innerHTML = `
-                    <a href="/" class="action-btn">Continuar a la Web</a>
+                    <a href="intent://firmapp.arandulabs.dev/?mode=resetPassword#Intent;scheme=https;package=dev.arandulabs.firmapp;end" class="action-btn">Abrir FirmApp</a>
                   `;
                 } else {
                   alert('Error: ' + (resData.error?.message || 'No se pudo actualizar la contraseña.'));
