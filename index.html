@@ -246,18 +246,21 @@
   <!-- LÓGICA DE INTERCEPCIÓN FIREBASE REST API -->
   <script>
     (function() {
-      // 1. Capturar query params
+      // 1. Capturar query params de Firebase
       const urlParams = new URLSearchParams(window.location.search);
       const mode = urlParams.get('mode');
       const oobCode = urlParams.get('oobCode');
       const apiKey = urlParams.get('apiKey');
-
-      // 2. Si el link es de verificación de Firebase, interceptamos la pantalla
+      const overlay = document.getElementById('verify-overlay');
+      const visuals = document.getElementById('verify-visuals');
+      const title = document.getElementById('verify-card-title');
+      const desc = document.getElementById('verify-card-desc');
+      const action = document.getElementById('verify-card-action');
+      // ==========================================
+      // CASO A: VERIFICACIÓN DE EMAIL (YA EXISTENTE)
+      // ==========================================
       if (mode === 'verifyEmail' && oobCode && apiKey) {
-        const overlay = document.getElementById('verify-overlay');
-        overlay.style.display = 'flex'; // Mostrar pantalla de verificación
-
-        // 3. Consumir la API REST de Firebase Auth para confirmar el correo
+        overlay.style.display = 'flex'; // Mostrar modal
         fetch(`https://identitytoolkit.googleapis.com/v1/accounts:update?key=${apiKey}`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -268,13 +271,7 @@
         })
         .then(response => response.json())
         .then(data => {
-          const visuals = document.getElementById('verify-visuals');
-          const title = document.getElementById('verify-card-title');
-          const desc = document.getElementById('verify-card-desc');
-          const action = document.getElementById('verify-card-action');
-
           if (data.email && data.localId) {
-            // ÉXITO
             visuals.innerHTML = `
               <div class="verify-icon-box icon-success">
                 <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#00e676" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
@@ -285,17 +282,13 @@
             title.textContent = '¡Correo verificado!';
             title.style.color = 'var(--primary-color)';
             desc.textContent = 'Tu dirección de correo ha sido validada de forma segura. Ya puedes volver a la aplicación FirmApp para iniciar sesión.';
-            
-            // Intent/Deep Link para abrir la app nativa en el móvil
             action.innerHTML = `
               <a href="intent://firmapp.arandulabs.dev/?mode=verifyEmail#Intent;scheme=https;package=dev.arandulabs.firmapp;end" class="action-btn">Abrir FirmApp</a>
             `;
           } else {
-            // ERROR devuelto por Firebase (código inválido o expirado)
             const errorMsg = data.error?.message === 'INVALID_OOB_CODE'
               ? 'El código de validación es incorrecto o ya ha sido utilizado.'
               : 'El enlace ha expirado o ya no es válido.';
-
             visuals.innerHTML = `
               <div class="verify-icon-box icon-error">
                 <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#f44336" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
@@ -314,10 +307,6 @@
         })
         .catch(err => {
           console.error(err);
-          const visuals = document.getElementById('verify-visuals');
-          const title = document.getElementById('verify-card-title');
-          const desc = document.getElementById('verify-card-desc');
-          
           visuals.innerHTML = `
             <div class="verify-icon-box icon-error" style="border-color: #ff9800; background: rgba(255, 152, 0, 0.1);">
               <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#ff9800" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
@@ -329,7 +318,106 @@
           `;
           title.textContent = 'Error de Red';
           title.style.color = '#ff9800';
-          desc.textContent = 'No pudimos conectarnos a los servidores de Firebase. Por favor comprueba tu conexión e inténtalo de nuevo.';
+          desc.textContent = 'No pudimos conectarnos a los servidores. Por favor comprueba tu conexión.';
+        });
+      }
+      // ==========================================
+      // CASO B: RESTABLECER CONTRASEÑA (NUEVO)
+      // ==========================================
+      else if (mode === 'resetPassword' && oobCode && apiKey) {
+        overlay.style.display = 'flex'; // Mostrar modal
+        title.textContent = 'Cargando...';
+        desc.textContent = 'Validando tu solicitud de cambio de contraseña...';
+        // 1. Validar que el código del correo sea correcto y obtener el email del usuario
+        fetch(`https://identitytoolkit.googleapis.com/v1/accounts:verifyPasswordResetCode?key=${apiKey}`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ oobCode: oobCode })
+        })
+        .then(res => res.json())
+        .then(data => {
+          if (data.email) {
+            // El código es válido. Ocultamos el spinner y mostramos el campo de texto
+            visuals.innerHTML = ''; 
+            title.textContent = 'Nueva Contraseña';
+            desc.innerHTML = `Ingresa una contraseña segura para <strong style="color:var(--primary-color)">${data.email}</strong>:`;
+            
+            // Inyectamos el campo de contraseña y el botón de guardar
+            action.innerHTML = `
+              <div style="margin-bottom: 20px;">
+                <input type="password" id="new-password" placeholder="Mínimo 6 caracteres" 
+                       style="width: 100%; padding: 14px; border-radius: 12px; border: 1px solid var(--card-border); background: rgba(255,255,255,0.05); color: #fff; font-size: 16px; outline: none; margin-bottom: 16px; text-align: center; font-family: sans-serif;">
+                <button id="btn-reset-submit" class="action-btn" style="border: none; cursor: pointer; display: block; width: 100%;">Guardar Contraseña</button>
+              </div>
+            `;
+            // Lógica al enviar la nueva contraseña
+            document.getElementById('btn-reset-submit').addEventListener('click', () => {
+              const newPassword = document.getElementById('new-password').value;
+              if (newPassword.length < 6) {
+                alert('La contraseña debe tener al menos 6 caracteres.');
+                return;
+              }
+              const btn = document.getElementById('btn-reset-submit');
+              btn.textContent = 'Guardando...';
+              btn.disabled = true;
+              // 2. Confirmar el cambio en Firebase
+              fetch(`https://identitytoolkit.googleapis.com/v1/accounts:resetPassword?key=${apiKey}`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                  oobCode: oobCode,
+                  newPassword: newPassword
+                })
+              })
+              .then(res => res.json())
+              .then(resData => {
+                if (resData.email) {
+                  // Éxito al cambiar la contraseña
+                  visuals.innerHTML = `
+                    <div class="verify-icon-box icon-success">
+                      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#00e676" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="20 6 9 17 4 12"></polyline>
+                      </svg>
+                    </div>
+                  `;
+                  title.textContent = '¡Contraseña Cambiada!';
+                  title.style.color = 'var(--primary-color)';
+                  desc.textContent = 'Tu contraseña ha sido restablecida con éxito de forma segura. Ya puedes volver a abrir FirmApp.';
+                  action.innerHTML = `
+                    <a href="intent://firmapp.arandulabs.dev/?mode=resetPassword#Intent;scheme=https;package=dev.arandulabs.firmapp;end" class="action-btn">Abrir FirmApp</a>
+                  `;
+                } else {
+                  alert('Error: ' + (resData.error?.message || 'No se pudo actualizar la contraseña.'));
+                  btn.textContent = 'Guardar Contraseña';
+                  btn.disabled = false;
+                }
+              })
+              .catch(err => {
+                alert('Error de red al intentar guardar la contraseña.');
+                btn.textContent = 'Guardar Contraseña';
+                btn.disabled = false;
+              });
+            });
+          } else {
+            // El enlace ya expiró o no es válido
+            visuals.innerHTML = `
+              <div class="verify-icon-box icon-error">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#f44336" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="18" y1="6" x2="6" y2="18"></line>
+                  <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+              </div>
+            `;
+            title.textContent = 'Enlace Vencido';
+            title.style.color = 'var(--error-color)';
+            desc.textContent = 'Este enlace de restablecimiento ya ha expirado o ya fue utilizado.';
+            action.innerHTML = `<a href="/" class="action-btn btn-error">Ir a la Web</a>`;
+          }
+        })
+        .catch(err => {
+          console.error(err);
+          title.textContent = 'Error';
+          desc.textContent = 'No pudimos validar tu enlace. Por favor, solicita uno nuevo.';
         });
       }
     })();
