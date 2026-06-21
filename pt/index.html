@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AssinApp | Assinatura Digital de PDFs Segura e Gratuita | Arandu Labs</title>
+    <title>Prisma Notícias | O Leitor de Notícias Plural e Inteligente | Arandu Labs</title>
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="../../assets/images/firmapp_logo.png">
-    <meta name="description" content="Assine seus documentos PDF de forma segura, rápida e sem assinaturas de serviço. Seus documentos não são enviados ao servidor: processados localmente no seu dispositivo.">
+    <link rel="icon" type="image/png" href="../assets/images/prisma_logo.png">
+    <meta name="description" content="Descubre o Prisma Notícias: o quiosque e agregador de imprensa inteligente que te mostra o espectro político, revela pontos cegos e compara a cobertura de diferentes jornais de LATAM. Privacidade total.">
     
     <!-- Google Fonts: Outfit (headings) & Inter (body) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -20,11 +20,14 @@
             theme: {
                 extend: {
                     colors: {
-                        dark: '#030712',      // Deep space black
-                        darkCard: '#0b0f19',  // Sleek glass card base
-                        electricBlue: '#3b82f6', // Glowing cyan-blue
-                        accentPurple: '#8b5cf6', // Premium violet
-                        neonPink: '#ec4899',    // Visual highlights
+                        dark: '#0B0E14',      // Obsidian Dark
+                        darkCard: '#161B22',  // Card background
+                        logoRed: '#FF4444',
+                        logoOrange: '#FF9933',
+                        logoYellow: '#FFFF66',
+                        logoGreen: '#66FF66',
+                        logoCeleste: '#66CCFF',
+                        logoBlue: '#4444FF'
                     },
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
@@ -37,86 +40,92 @@
     
     <style>
         body {
-            background-color: #030712;
+            background-color: #0B0E14;
             color: #f3f4f6;
             font-family: 'Inter', sans-serif;
             overflow-x: hidden;
         }
 
-        /* Custom text gradient */
-        .text-gradient {
-            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 50%, #ec4899 100%);
+        /* Prisma Spectrum Gradients */
+        .text-prisma {
+            background: linear-gradient(135deg, #FF4444 0%, #FF9933 20%, #FFFF66 40%, #66FF66 60%, #66CCFF 80%, #4444FF 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+        }
+        .bg-prisma {
+            background: linear-gradient(135deg, #FF4444 0%, #FF9933 20%, #FFFF66 40%, #66FF66 60%, #66CCFF 80%, #4444FF 100%);
+        }
+        .border-prisma-interactive {
+            border: 1px solid transparent;
+            background: linear-gradient(to right, #161B22, #161B22), linear-gradient(135deg, #FF4444 0%, #FF9933 20%, #FFFF66 40%, #66FF66 60%, #66CCFF 80%, #4444FF 100%);
+            background-clip: padding-box, border-box;
+            background-origin: padding-box, border-box;
         }
 
         /* Glassmorphism styling */
         .glass {
-            background: rgba(11, 15, 25, 0.7);
+            background: rgba(22, 27, 34, 0.8);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
         }
 
-        /* Glowing background blobs */
-        .glow-blob {
+        /* Glowing background blobs with prisma colors */
+        .glow-blob-1 {
             position: absolute;
-            width: 400px;
-            height: 400px;
+            width: 450px;
+            height: 450px;
             border-radius: 50%;
-            filter: blur(120px);
-            opacity: 0.15;
+            filter: blur(130px);
+            opacity: 0.08;
             pointer-events: none;
             z-index: 0;
+            background: radial-gradient(circle, #FF4444, #FF9933, #FFFF66);
+        }
+        .glow-blob-2 {
+            position: absolute;
+            width: 450px;
+            height: 450px;
+            border-radius: 50%;
+            filter: blur(130px);
+            opacity: 0.08;
+            pointer-events: none;
+            z-index: 0;
+            background: radial-gradient(circle, #66FF66, #66CCFF, #4444FF);
         }
 
         /* Smooth border pulse */
         .pulse-border {
-            animation: pulseGlow 3s infinite alternate;
+            animation: pulseGlow 4s infinite alternate;
         }
-
         @keyframes pulseGlow {
             0% {
-                border-color: rgba(59, 130, 246, 0.2);
-                box-shadow: 0 0 15px rgba(59, 130, 246, 0.1);
+                box-shadow: 0 0 15px rgba(102, 204, 255, 0.05);
             }
             100% {
-                border-color: rgba(139, 92, 246, 0.4);
-                box-shadow: 0 0 25px rgba(139, 92, 246, 0.25);
+                box-shadow: 0 0 30px rgba(255, 153, 51, 0.15);
             }
-        }
-
-        /* Signature Canvas styling */
-        #sig-canvas {
-            cursor: crosshair;
-            touch-action: none;
         }
     </style>
 </head>
 <body class="antialiased">
 
     <!-- Glowing Background Elements -->
-    <div class="glow-blob bg-electricBlue top-10 -left-48"></div>
-    <div class="glow-blob bg-accentPurple top-[30%] -right-48"></div>
-    <div class="glow-blob bg-neonPink bottom-10 left-[20%]"></div>
+    <div class="glow-blob-1 top-10 -left-48"></div>
+    <div class="glow-blob-2 top-[40%] -right-48"></div>
+    <div class="glow-blob-1 bottom-10 left-[20%]"></div>
 
     <!-- Navigation Header -->
     <header class="fixed w-full top-0 left-0 z-50 transition-all duration-300 border-b border-white/5 bg-dark/70 backdrop-blur-md">
         <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
             <div class="flex items-center gap-3">
-                <img src="../../assets/images/firmapp_logo.png" alt="AssinApp Logo" class="w-10 h-10 object-contain">
-                <span class="text-2xl font-outfit font-black tracking-tight text-white">AssinApp</span>
+                <img src="../assets/images/prisma_logo.png" alt="Prisma Notícias Logo" class="w-10 h-10 object-contain">
+                <div class="flex flex-col sm:flex-row sm:items-baseline">
+                    <span class="text-2xl font-outfit font-black tracking-tight text-white">Prisma Notícias</span>
+                    <span class="text-[10px] text-slate-500 font-normal sm:ml-2">by Arandu Labs</span>
+                </div>
             </div>
 
-            <!-- Desktop Links -->
-            <nav class="hidden md:flex items-center gap-8 text-sm font-semibold">
-                <a href="#beneficios" class="text-slate-300 hover:text-electricBlue transition-colors">Benefícios</a>
-                <a href="#como-funciona" class="text-slate-300 hover:text-electricBlue transition-colors">Como Funciona</a>
-                <a href="#demo" class="text-slate-300 hover:text-electricBlue transition-colors">Demonstração</a>
-                <a href="../privacy.html" class="text-slate-300 hover:text-electricBlue transition-colors">Privacidade</a>
-                <a href="../terms.html" class="text-slate-300 hover:text-electricBlue transition-colors">Termos</a>
-            </nav>
-
-            <!-- Language & Action -->
+            <!-- Language & Action (No center links, just logo, name, languages, and Arandu Labs button) -->
             <div class="flex items-center gap-6">
                 <!-- Language Selector -->
                 <div class="flex items-center gap-3 border-r border-white/10 pr-6 h-8">
@@ -131,8 +140,8 @@
                     </span>
                 </div>
 
-                <a href="#" class="hidden sm:inline-flex items-center justify-center px-5 h-10 rounded-full bg-gradient-to-r from-electricBlue to-accentPurple hover:from-electricBlue/90 hover:to-accentPurple/90 text-white text-xs font-bold uppercase tracking-widest transition-all duration-300 shadow-[0_4px_20px_rgba(59,130,246,0.3)] hover:shadow-[0_4px_30px_rgba(139,92,246,0.5)] hover:scale-[1.02]">
-                    Iniciar App
+                <a href="https://arandulabs.dev" target="_blank" class="px-5 py-2 rounded-full border border-white/10 hover:border-white/20 glass text-xs font-bold uppercase tracking-widest text-white transition-all">
+                    Arandu Labs
                 </a>
             </div>
         </div>
@@ -144,92 +153,66 @@
             
             <!-- Hero Text -->
             <div class="lg:col-span-6 space-y-8 text-center lg:text-left">
-                <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-electricBlue/20 bg-electricBlue/5 text-electricBlue text-xs font-bold uppercase tracking-wider">
-                    <span class="w-1.5 h-1.5 rounded-full bg-electricBlue animate-pulse"></span>
-                    Segurança e Privacidade Garantidas
+                <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-white/10 bg-white/5 text-slate-300 text-xs font-bold uppercase tracking-wider">
+                    <span class="w-1.5 h-1.5 rounded-full bg-logoOrange animate-pulse"></span>
+                    Quiosque & Agregador Plural
                 </span>
                 
                 <h1 class="text-4xl sm:text-5xl lg:text-6xl font-outfit font-black tracking-tight leading-[1.05] text-white">
-                    Assine documentos PDF com <span class="text-gradient italic font-extrabold">Zero Fricção</span>
+                    Toda a imprensa sob todos os <span class="text-prisma italic font-extrabold">Espectros</span>
                 </h1>
                 
                 <p class="text-slate-400 text-lg leading-relaxed font-light max-w-xl mx-auto lg:mx-0">
-                    O aplicativo premium de assinatura digital que respeita sua privacidade. Carregue seu PDF, desenhe ou coloque sua assinatura e baixe assinado imediatamente. <strong class="text-white">Seus arquivos nunca saem do seu dispositivo.</strong>
+                    Prisma Notícias é um quiosque digital e agregador inteligente inspirado na transparência informativa do Ground News. Compare a mesma notícia sob diferentes tendências políticas, descubra pontos cegos de cobertura e visualize notícias regionais. <strong class="text-white">Privacidade total, sem algoritmos ou cadastros.</strong>
                 </p>
                 
                 <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                    <a href="#" class="inline-flex items-center justify-center px-8 py-4 rounded-2xl bg-gradient-to-r from-electricBlue to-accentPurple hover:from-electricBlue/90 hover:to-accentPurple/90 text-white font-bold transition-all duration-300 shadow-[0_8px_30px_rgba(59,130,246,0.4)] hover:scale-[1.03] group">
-                        Iniciar Aplicativo Grátis
+                    <a href="https://play.google.com/store/apps/details?id=dev.arandulabs.prisma&pli=1" target="_blank" class="inline-flex items-center justify-center px-8 py-4 rounded-2xl bg-prisma text-dark font-bold transition-all duration-300 shadow-xl hover:scale-[1.03] group">
+                        Baixar no Google Play
                         <svg class="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                     </a>
-                    <a href="#demo" class="inline-flex items-center justify-center px-8 py-4 rounded-2xl border border-white/10 hover:border-white/20 glass text-white font-medium transition-colors">
-                        Testar Assinatura ao Vivo
+                    <a href="#beneficios" class="inline-flex items-center justify-center px-8 py-4 rounded-2xl border border-white/10 hover:border-white/20 glass text-white font-medium transition-colors">
+                        Explorar Recursos
                     </a>
                 </div>
 
                 <!-- Trust Badges -->
                 <div class="pt-8 border-t border-white/5 grid grid-cols-3 gap-6 max-w-md mx-auto lg:mx-0 text-center lg:text-left">
                     <div>
-                        <p class="text-2xl font-outfit font-black text-white">100%</p>
-                        <p class="text-xs text-slate-500 font-bold uppercase tracking-wider mt-1">Local / Offline</p>
+                        <p class="text-2xl font-outfit font-black text-white">Multicolor</p>
+                        <p class="text-xs text-slate-500 font-bold uppercase tracking-wider mt-1">Prisma Editorial</p>
                     </div>
                     <div>
-                        <p class="text-2xl font-outfit font-black text-white">Grátis</p>
-                        <p class="text-xs text-slate-500 font-bold uppercase tracking-wider mt-1">Sem Assinatura</p>
+                        <p class="text-2xl font-outfit font-black text-white">Sem Viés</p>
+                        <p class="text-xs text-slate-500 font-bold uppercase tracking-wider mt-1">Comparativa Real</p>
                     </div>
                     <div>
-                        <p class="text-2xl font-outfit font-black text-white">Seguro</p>
-                        <p class="text-xs text-slate-500 font-bold uppercase tracking-wider mt-1">Validade Legal</p>
+                        <p class="text-2xl font-outfit font-black text-white">100% Livre</p>
+                        <p class="text-xs text-slate-500 font-bold uppercase tracking-wider mt-1">Sem Rastreadores</p>
                     </div>
                 </div>
             </div>
 
-            <!-- Hero Mockup (Interactive Application Preview) -->
+            <!-- Hero Mockup (App Image Showcase) -->
             <div class="lg:col-span-6 relative">
-                <div class="absolute -inset-4 bg-gradient-to-tr from-electricBlue/20 to-accentPurple/20 blur-3xl rounded-[3rem] opacity-60"></div>
-                <div class="relative rounded-3xl border border-white/10 glass p-6 overflow-hidden pulse-border">
+                <div class="absolute -inset-4 bg-gradient-to-tr from-logoCeleste/10 to-logoOrange/10 blur-3xl rounded-[3rem] opacity-60"></div>
+                <div class="relative rounded-3xl border-prisma-interactive glass p-4 overflow-hidden pulse-border flex flex-col items-center">
                     
-                    <!-- App Window Header Bar -->
-                    <div class="flex items-center justify-between pb-6 border-b border-white/5 mb-6">
+                    <!-- App Card Header -->
+                    <div class="flex items-center justify-between w-full pb-4 border-b border-white/5 mb-4">
                         <div class="flex gap-2">
-                            <span class="w-3 h-3 rounded-full bg-red-500/80"></span>
-                            <span class="w-3 h-3 rounded-full bg-yellow-500/80"></span>
-                            <span class="w-3 h-3 rounded-full bg-green-500/80"></span>
+                            <span class="w-3 h-3 rounded-full bg-logoRed"></span>
+                            <span class="w-3 h-3 rounded-full bg-logoOrange"></span>
+                            <span class="w-3 h-3 rounded-full bg-logoGreen"></span>
                         </div>
-                        <span class="text-[10px] text-slate-500 font-bold uppercase tracking-widest font-outfit">AssinApp Engine v2.0</span>
+                        <span class="text-[10px] text-slate-500 font-bold uppercase tracking-widest font-outfit">Prisma Notícias - América Latina</span>
                         <span class="w-3"></span>
                     </div>
 
-                    <!-- Visual Drag-and-Drop Area Simulation -->
-                    <div class="border-2 border-dashed border-white/10 hover:border-electricBlue/40 rounded-2xl p-10 text-center bg-dark/40 transition-colors flex flex-col items-center justify-center gap-4 group cursor-pointer">
-                        <div class="w-16 h-16 rounded-2xl bg-electricBlue/10 flex items-center justify-center text-electricBlue group-hover:scale-110 transition-transform duration-300">
-                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
-                        </div>
-                        <div>
-                            <p class="text-sm font-bold text-white mb-1">Arraste seu arquivo PDF aqui</p>
-                            <p class="text-xs text-slate-500">ou clique para explorar no seu disco</p>
-                        </div>
-                        <span class="inline-flex px-3 py-1 rounded bg-white/5 border border-white/5 text-[9px] font-bold text-slate-400 uppercase tracking-widest">Tamanho Máx: 100MB</span>
+                    <!-- App Identity Graphic Showcase -->
+                    <div class="w-full overflow-hidden rounded-2xl">
+                        <img src="../assets/images/identity.png" alt="Prisma Notícias LATAM Showcase" class="w-full h-auto object-cover hover:scale-[1.02] transition-transform duration-500">
                     </div>
-
-                    <!-- Simulated active layers sidebar -->
-                    <div class="mt-6 space-y-3">
-                        <div class="flex items-center justify-between p-3 rounded-xl border border-white/5 bg-white/5 text-xs">
-                            <div class="flex items-center gap-3">
-                                <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                                <span class="font-medium text-slate-300">Contrato_de_Prestacao.pdf</span>
-                            </div>
-                            <span class="text-slate-500 font-bold">1.2 MB</span>
-                        </div>
-                        <div class="flex items-center justify-between p-3 rounded-xl border border-electricBlue/20 bg-electricBlue/5 text-xs">
-                            <div class="flex items-center gap-3">
-                                <svg class="w-4 h-4 text-electricBlue" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
-                                <span class="font-bold text-white">Assinatura digital pronta para arrastar</span>
-                            </div>
-                            <span class="text-electricBlue font-bold uppercase tracking-widest text-[9px]">Pronto</span>
-                        </div>
-                    </div>
-
                 </div>
             </div>
 
@@ -241,60 +224,109 @@
         <div class="max-w-7xl mx-auto space-y-16">
             
             <div class="text-center space-y-4 max-w-xl mx-auto">
-                <span class="text-electricBlue font-black tracking-[0.2em] text-xs uppercase block">Benefícios de Elite</span>
+                <span class="text-prisma font-black tracking-[0.2em] text-xs uppercase block">Recursos & Vantagens</span>
                 <h2 class="text-3xl md:text-5xl font-outfit font-black tracking-tight leading-none text-white">
-                    Privacidade sem limites, performance sem compromissos
+                    Descubra o que a mídia não te conta
                 </h2>
-                <div class="w-12 h-1 bg-electricBlue mx-auto rounded-full mt-4"></div>
+                <div class="w-12 h-1 bg-prisma mx-auto rounded-full mt-4"></div>
             </div>
 
-            <!-- Features Grid (Premium Horizontal mobile / standard desktop layout) -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+            <!-- Features Grid (6 Perks) -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
                 
-                <!-- Seguridad Total -->
-                <div class="flex flex-row md:flex-col items-start md:items-center text-left md:text-center p-6 md:p-8 glass rounded-[2rem] md:rounded-3xl border border-white/5 hover:border-electricBlue/20 transition-all gap-4 md:gap-0">
-                    <div class="flex-shrink-0 w-12 h-12 md:w-14 md:h-14 md:mb-6 rounded-xl md:rounded-2xl bg-electricBlue/10 flex items-center justify-center text-electricBlue">
-                        <svg class="w-6 h-6 md:w-7 md:h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                <!-- Kiosco de Prensa -->
+                <div class="flex flex-col items-start p-8 glass rounded-3xl border border-white/5 hover:border-logoRed/20 transition-all gap-4">
+                    <div class="w-12 h-12 rounded-xl bg-logoRed/10 flex items-center justify-center text-logoRed">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 4a2 2 0 00-2-2m-2 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                     </div>
                     <div>
-                        <h3 class="text-base md:text-lg font-bold mb-1 md:mb-3 text-white">Segurança 100% Local</h3>
-                        <p class="text-xs md:text-sm text-slate-400 leading-relaxed font-light">Seus documentos não sobem à nuvem. Todo o processo de renderização e assinatura ocorre localmente no navegador.</p>
+                        <h3 class="text-lg font-bold mb-2 text-white">Quiosque de Imprensa</h3>
+                        <p class="text-sm text-slate-400 leading-relaxed font-light">Explore as capas do dia e acesse as publicações impressas de forma visual e intuitiva.</p>
                     </div>
                 </div>
 
-                <!-- Cero Registro -->
-                <div class="flex flex-row md:flex-col items-start md:items-center text-left md:text-center p-6 md:p-8 glass rounded-[2rem] md:rounded-3xl border border-white/5 hover:border-electricBlue/20 transition-all gap-4 md:gap-0">
-                    <div class="flex-shrink-0 w-12 h-12 md:w-14 md:h-14 md:mb-6 rounded-xl md:rounded-2xl bg-electricBlue/10 flex items-center justify-center text-electricBlue">
-                        <svg class="w-6 h-6 md:w-7 md:h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"></path></svg>
+                <!-- Agregador Inteligente -->
+                <div class="flex flex-col items-start p-8 glass rounded-3xl border border-white/5 hover:border-logoOrange/20 transition-all gap-4">
+                    <div class="w-12 h-12 rounded-xl bg-logoOrange/10 flex items-center justify-center text-logoOrange">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
                     </div>
                     <div>
-                        <h3 class="text-base md:text-lg font-bold mb-1 md:mb-3 text-white">Sem Cadastro Obrigatório</h3>
-                        <p class="text-xs md:text-sm text-slate-400 leading-relaxed font-light">Assinatura livre de barreiras e fricções. Não é necessário fazer cadastro, fazer login ou ceder dados.</p>
+                        <h3 class="text-lg font-bold mb-2 text-white">Agregador de Notícias</h3>
+                        <p class="text-sm text-slate-400 leading-relaxed font-light">Reúna informações em tempo real provenientes de milhares de agências locais, nacionais e internacionais.</p>
                     </div>
                 </div>
 
-                <!-- Validez Estándar -->
-                <div class="flex flex-row md:flex-col items-start md:items-center text-left md:text-center p-6 md:p-8 glass rounded-[2rem] md:rounded-3xl border border-white/5 hover:border-electricBlue/20 transition-all gap-4 md:gap-0">
-                    <div class="flex-shrink-0 w-12 h-12 md:w-14 md:h-14 md:mb-6 rounded-xl md:rounded-2xl bg-electricBlue/10 flex items-center justify-center text-electricBlue">
-                        <svg class="w-6 h-6 md:w-7 md:h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                <!-- Comparativa de Tendencia -->
+                <div class="flex flex-col items-start p-8 glass rounded-3xl border border-white/5 hover:border-logoYellow/20 transition-all gap-4">
+                    <div class="w-12 h-12 rounded-xl bg-logoYellow/10 flex items-center justify-center text-logoYellow">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
                     </div>
                     <div>
-                        <h3 class="text-base md:text-lg font-bold mb-1 md:mb-3 text-white">Integridade Criptográfica</h3>
-                        <p class="text-xs md:text-sm text-slate-400 leading-relaxed font-light">Estruturamos sua assinatura digital seguindo rígidos padrões criptográficos para máxima validade legal.</p>
+                        <h3 class="text-lg font-bold mb-2 text-white">Espectro Político Comparado</h3>
+                        <p class="text-sm text-slate-400 leading-relaxed font-light">Leia a mesma notícia coberta por diferentes jornais de esquerda, centro e direita em paralelo e compare as narrativas.</p>
                     </div>
                 </div>
 
-                <!-- Ultra Liviana -->
-                <div class="flex flex-row md:flex-col items-start md:items-center text-left md:text-center p-6 md:p-8 glass rounded-[2rem] md:rounded-3xl border border-white/5 hover:border-electricBlue/20 transition-all gap-4 md:gap-0">
-                    <div class="flex-shrink-0 w-12 h-12 md:w-14 md:h-14 md:mb-6 rounded-xl md:rounded-2xl bg-electricBlue/10 flex items-center justify-center text-electricBlue">
-                        <svg class="w-6 h-6 md:w-7 md:h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                <!-- Puntos Ciegos (Blindspots) -->
+                <div class="flex flex-col items-start p-8 glass rounded-3xl border border-white/5 hover:border-logoGreen/20 transition-all gap-4">
+                    <div class="w-12 h-12 rounded-xl bg-logoGreen/10 flex items-center justify-center text-logoGreen">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
                     </div>
                     <div>
-                        <h3 class="text-base md:text-lg font-bold mb-1 md:mb-3 text-white">Performance Extrema</h3>
-                        <p class="text-xs md:text-sm text-slate-400 leading-relaxed font-light">Código purificado e altamente otimizado. Carrega instantaneamente em celulares e PCs de qualquer geração.</p>
+                        <h3 class="text-lg font-bold mb-2 text-white">Pontos Cegos Revelados</h3>
+                        <p class="text-sm text-slate-400 leading-relaxed font-light">Descubra quais histórias estão sendo ignoradas pela esquerda ou pela direita e evite vieses de omissão involuntários.</p>
                     </div>
                 </div>
 
+                <!-- Enfoque 100% LATAM -->
+                <div class="flex flex-col items-start p-8 glass rounded-3xl border border-white/5 hover:border-logoCeleste/20 transition-all gap-4">
+                    <div class="w-12 h-12 rounded-xl bg-logoCeleste/10 flex items-center justify-center text-logoCeleste">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 002 2h1.5A2.5 2.5 0 0019 9.5V8a2 2 0 00-2-2h-1a2 2 0 01-2-2v-.935M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold mb-2 text-white">Foco na América Latina</h3>
+                        <p class="text-sm text-slate-400 leading-relaxed font-light">Cobertura especializada do ecossistema informativo de LATAM. Acesse os veículos de imprensa mais relevantes da região.</p>
+                    </div>
+                </div>
+
+                <!-- Regionalización y Filtros -->
+                <div class="flex flex-col items-start p-8 glass rounded-3xl border border-white/5 hover:border-logoBlue/20 transition-all gap-4">
+                    <div class="w-12 h-12 rounded-xl bg-logoBlue/10 flex items-center justify-center text-logoBlue">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold mb-2 text-white">Filtros por País e Estado</h3>
+                        <p class="text-sm text-slate-400 leading-relaxed font-light">Explore o que acontece no seu estado ou cidade, filtrando veículos locais junto aos grandes jornais globais.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Visual Middle Section (LATAM References) -->
+    <section class="py-20 px-6 max-w-7xl mx-auto z-10">
+        <div class="relative rounded-[2.5rem] border border-white/10 glass p-8 sm:p-12 overflow-hidden flex flex-col lg:flex-row items-center gap-12">
+            <div class="absolute top-0 left-0 w-64 h-64 bg-logoBlue/5 blur-3xl -ml-24 -mt-24"></div>
+            
+            <div class="w-full lg:w-1/2 space-y-6">
+                <span class="text-prisma font-black tracking-[0.2em] text-xs uppercase block">Conectado com sua Região</span>
+                <h2 class="text-3xl sm:text-4xl font-outfit font-black text-white leading-tight">
+                    Cobertura profunda de veículos latino-americanos e capas locais
+                </h2>
+                <p class="text-slate-400 text-sm leading-relaxed font-light">
+                    O Prisma Notícias reúne notícias provenientes de múltiplos veículos de toda a América Latina. Compare a linha editorial dos principais jornais da sua região e filtre os acontecimentos diários com filtros de localização precisos para entender a política local sob diversos pontos de vista.
+                </p>
+                <div class="flex gap-4">
+                    <span class="px-3 py-1 rounded bg-white/5 border border-white/5 text-xs text-slate-300 font-semibold">Argentina</span>
+                    <span class="px-3 py-1 rounded bg-white/5 border border-white/5 text-xs text-slate-300 font-semibold">Uruguai</span>
+                    <span class="px-3 py-1 rounded bg-white/5 border border-white/5 text-xs text-slate-300 font-semibold">Brasil</span>
+                    <span class="px-3 py-1 rounded bg-white/5 border border-white/5 text-xs text-slate-300 font-semibold">Chile</span>
+                </div>
+            </div>
+            
+            <div class="w-full lg:w-1/2 overflow-hidden rounded-2xl border border-white/5 bg-dark">
+                <img src="../assets/images/base.png" alt="Prisma Noticias App Base" class="w-full h-auto object-cover hover:scale-[1.01] transition-transform duration-500">
             </div>
         </div>
     </section>
@@ -304,80 +336,46 @@
         <div class="space-y-16">
             
             <div class="text-center space-y-4 max-w-xl mx-auto">
-                <span class="text-electricBlue font-black tracking-[0.2em] text-xs uppercase block">Processo Ultra Rápido</span>
+                <span class="text-prisma font-black tracking-[0.2em] text-xs uppercase block">Três passos simples</span>
                 <h2 class="text-3xl md:text-5xl font-outfit font-black tracking-tight leading-none text-white">
-                    Assinado em três passos simples
+                    Comece a ler com critério próprio
                 </h2>
-                <div class="w-12 h-1 bg-electricBlue mx-auto rounded-full mt-4"></div>
+                <div class="w-12 h-1 bg-prisma mx-auto rounded-full mt-4"></div>
             </div>
 
             <!-- Steps Grid -->
             <div class="grid md:grid-cols-3 gap-8">
                 
                 <!-- Paso 1 -->
-                <div class="relative p-8 rounded-3xl border border-white/5 glass text-center flex flex-col items-center gap-6 group hover:border-electricBlue/20 transition-colors">
-                    <span class="absolute top-4 right-6 text-6xl font-outfit font-black text-white/5 group-hover:text-electricBlue/5 transition-colors">01</span>
-                    <div class="w-16 h-16 rounded-2xl bg-electricBlue/10 text-electricBlue flex items-center justify-center">
-                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                <div class="relative p-8 rounded-3xl border border-white/5 glass text-center flex flex-col items-center gap-6 group hover:border-logoRed/20 transition-all">
+                    <span class="absolute top-4 right-6 text-6xl font-outfit font-black text-white/5 group-hover:text-logoRed/5 transition-colors">01</span>
+                    <div class="w-16 h-16 rounded-2xl bg-logoRed/10 text-logoRed flex items-center justify-center">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
                     </div>
-                    <h3 class="text-xl font-bold text-white">Carregue seu PDF</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed font-light">Arraste seu documento. Ele é renderizado localmente no dispositivo em segundos de forma segura.</p>
+                    <h3 class="text-xl font-bold text-white">Instale o App</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed font-light">Baixe o Prisma Notícias gratuitamente no seu dispositivo Android através da Google Play Store.</p>
                 </div>
 
                 <!-- Paso 2 -->
-                <div class="relative p-8 rounded-3xl border border-white/5 glass text-center flex flex-col items-center gap-6 group hover:border-electricBlue/20 transition-colors">
-                    <span class="absolute top-4 right-6 text-6xl font-outfit font-black text-white/5 group-hover:text-electricBlue/5 transition-colors">02</span>
-                    <div class="w-16 h-16 rounded-2xl bg-electricBlue/10 text-electricBlue flex items-center justify-center">
-                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
+                <div class="relative p-8 rounded-3xl border border-white/5 glass text-center flex flex-col items-center gap-6 group hover:border-logoOrange/20 transition-all">
+                    <span class="absolute top-4 right-6 text-6xl font-outfit font-black text-white/5 group-hover:text-logoOrange/5 transition-colors">02</span>
+                    <div class="w-16 h-16 rounded-2xl bg-logoOrange/10 text-logoOrange flex items-center justify-center">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path></svg>
                     </div>
-                    <h3 class="text-xl font-bold text-white">Desenhe e Posicione</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed font-light">Desenhe sua assinatura na tela ou importe uma salva e posicione perfeitamente sobre o PDF.</p>
+                    <h3 class="text-xl font-bold text-white">Ajuste seus Filtros</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed font-light">Personalize seu feed indicando seus temas preferidos, países, estados e visualize o viés das notícias.</p>
                 </div>
 
                 <!-- Paso 3 -->
-                <div class="relative p-8 rounded-3xl border border-white/5 glass text-center flex flex-col items-center gap-6 group hover:border-electricBlue/20 transition-colors">
-                    <span class="absolute top-4 right-6 text-6xl font-outfit font-black text-white/5 group-hover:text-electricBlue/5 transition-colors">03</span>
-                    <div class="w-16 h-16 rounded-2xl bg-electricBlue/10 text-electricBlue flex items-center justify-center">
-                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                <div class="relative p-8 rounded-3xl border border-white/5 glass text-center flex flex-col items-center gap-6 group hover:border-logoGreen/20 transition-all">
+                    <span class="absolute top-4 right-6 text-6xl font-outfit font-black text-white/5 group-hover:text-logoGreen/5 transition-colors">03</span>
+                    <div class="w-16 h-16 rounded-2xl bg-logoGreen/10 text-logoGreen flex items-center justify-center">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
                     </div>
-                    <h3 class="text-xl font-bold text-white">Baixe seu PDF</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed font-light">Clique em 'Finalizar' e o arquivo assinado será baixado instantaneamente. Seguro e limpo.</p>
+                    <h3 class="text-xl font-bold text-white">Compare e Leia</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed font-light">Clique em qualquer artigo para ver como outros jornais o cobrem e evite a manipulação algorítmica.</p>
                 </div>
 
-            </div>
-        </div>
-    </section>
-
-    <!-- Demostración interactiva (Live Drawing Board Inside Landing) -->
-    <section id="demo" class="py-24 px-6 bg-dark/60 border-t border-white/5 relative z-10">
-        <div class="max-w-4xl mx-auto space-y-16">
-            
-            <div class="text-center space-y-4 max-w-xl mx-auto">
-                <span class="text-electricBlue font-black tracking-[0.2em] text-xs uppercase block">Sinta a velocidade</span>
-                <h2 class="text-3xl md:text-5xl font-outfit font-black tracking-tight leading-none text-white">
-                    Tela de Assinatura Interativa
-                </h2>
-                <p class="text-sm text-slate-400 leading-relaxed font-light">
-                    Desenhe sua assinatura abaixo usando seu mouse ou tela de toque para ver a velocidade de resposta da nossa tecnologia local.
-                </p>
-                <div class="w-12 h-1 bg-electricBlue mx-auto rounded-full mt-4"></div>
-            </div>
-
-            <!-- Signature Pad Box -->
-            <div class="relative rounded-3xl border border-white/10 glass p-6 overflow-hidden max-w-xl mx-auto pulse-border">
-                <div class="bg-dark/80 rounded-2xl border border-white/5 overflow-hidden">
-                    <canvas id="sig-canvas" width="500" height="260" class="w-full h-[260px] bg-dark"></canvas>
-                </div>
-
-                <!-- Action Controls -->
-                <div class="flex items-center justify-between mt-6">
-                    <button id="sig-clear-btn" class="px-5 py-2.5 rounded-xl border border-white/10 hover:border-white/20 hover:bg-white/5 text-xs font-bold uppercase tracking-widest text-slate-400 hover:text-white transition-all">
-                        Limpar Tela
-                    </button>
-                    <button id="sig-submit-btn" class="px-6 py-2.5 rounded-xl bg-electricBlue hover:bg-electricBlue/90 text-dark font-bold text-xs uppercase tracking-widest transition-all">
-                        Salvar Assinatura
-                    </button>
-                </div>
             </div>
         </div>
     </section>
@@ -386,15 +384,13 @@
     <footer class="py-16 px-6 bg-dark border-t border-white/5 text-center relative z-10">
         <div class="max-w-7xl mx-auto flex flex-col items-center gap-8">
             <div class="flex items-center gap-3">
-                <img src="../../assets/images/firmapp_logo.png" alt="AssinApp Logo" class="w-12 h-12 object-contain grayscale opacity-60">
-                <span class="text-3xl font-outfit font-black text-white/60">AssinApp</span>
+                <img src="../assets/images/prisma_logo.png" alt="Prisma Notícias Logo" class="w-12 h-12 object-contain grayscale opacity-60">
+                <span class="text-3xl font-outfit font-black text-white/60">Prisma Notícias</span>
             </div>
             
             <div class="flex flex-wrap gap-8 justify-center text-sm font-semibold text-slate-400">
-                <a href="#beneficios" class="hover:text-white transition-colors">Benefícios</a>
-                <a href="#como-funciona" class="hover:text-white transition-colors">Como Funciona</a>
-                <a href="../privacy.html" class="hover:text-white transition-colors">Política de Privacidade</a>
-                <a href="../terms.html" class="hover:text-white transition-colors">Termos de Serviço</a>
+                <a href="privacy.html" class="hover:text-white transition-colors">Política de Privacidade</a>
+                <a href="terms.html" class="hover:text-white transition-colors">Termos de Serviço</a>
                 <a href="../delete-account/" class="hover:text-white transition-colors">Excluir Conta</a>
             </div>
 
@@ -405,89 +401,5 @@
             </p>
         </div>
     </footer>
-
-    <!-- Interactive Canvas Script -->
-    <script>
-        window.addEventListener('DOMContentLoaded', () => {
-            const canvas = document.getElementById('sig-canvas');
-            const ctx = canvas.getContext('2d');
-            const clearBtn = document.getElementById('sig-clear-btn');
-            const submitBtn = document.getElementById('sig-submit-btn');
-            
-            // Adjust canvas inner coordinates to match display size
-            function resizeCanvas() {
-                const rect = canvas.getBoundingClientRect();
-                canvas.width = rect.width;
-                canvas.height = rect.height;
-                
-                // Set drawing styles
-                ctx.strokeStyle = '#3b82f6'; // electricBlue
-                ctx.lineWidth = 3;
-                ctx.lineCap = 'round';
-                ctx.lineJoin = 'round';
-            }
-            
-            resizeCanvas();
-            window.addEventListener('resize', resizeCanvas);
-
-            let drawing = false;
-            let lastX = 0;
-            let lastY = 0;
-
-            function getMousePos(canvasDom, e) {
-                const rect = canvasDom.getBoundingClientRect();
-                return {
-                    x: (e.clientX || (e.touches && e.touches[0].clientX)) - rect.left,
-                    y: (e.clientY || (e.touches && e.touches[0].clientY)) - rect.top
-                };
-            }
-
-            function startDrawing(e) {
-                drawing = true;
-                const pos = getMousePos(canvas, e);
-                lastX = pos.x;
-                lastY = pos.y;
-                ctx.beginPath();
-                ctx.moveTo(lastX, lastY);
-                e.preventDefault();
-            }
-
-            function draw(e) {
-                if (!drawing) return;
-                const pos = getMousePos(canvas, e);
-                ctx.beginPath();
-                ctx.moveTo(lastX, lastY);
-                ctx.lineTo(pos.x, pos.y);
-                ctx.stroke();
-                lastX = pos.x;
-                lastY = pos.y;
-                e.preventDefault();
-            }
-
-            function stopDrawing() {
-                drawing = false;
-            }
-
-            // Mouse events
-            canvas.addEventListener('mousedown', startDrawing);
-            canvas.addEventListener('mousemove', draw);
-            window.addEventListener('mouseup', stopDrawing);
-
-            // Touch events for mobile
-            canvas.addEventListener('touchstart', startDrawing);
-            canvas.addEventListener('touchmove', draw);
-            window.addEventListener('touchend', stopDrawing);
-
-            // Clear canvas
-            clearBtn.addEventListener('click', () => {
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-            });
-
-            // Action submit
-            submitBtn.addEventListener('click', () => {
-                alert('Assinatura capturada com sucesso em memória local! Esta demonstração simula o processamento local ultra-rápido sem transferências para servidores.');
-            });
-        });
-    </script>
 </body>
 </html>

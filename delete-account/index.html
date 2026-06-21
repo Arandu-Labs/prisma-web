@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Delete Account | Solicitud de Eliminación de Cuenta | Exclusão de Conta | FirmApp</title>
+    <title>Delete Account | Eliminación de Cuenta | Exclusão de Conta - Prisma Noticias</title>
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="../../assets/images/firmapp_logo.png">
-    <meta name="description" content="Solicitud de eliminación de cuenta y datos para FirmApp. Aprende cómo borrar tu cuenta y qué datos se eliminan. Account deletion request for FirmApp.">
+    <link rel="icon" type="image/png" href="../assets/images/prisma_logo.png">
+    <meta name="description" content="Solicitud de eliminación de cuenta y datos para Prisma Noticias. Account deletion request for Prisma Noticias.">
     
     <!-- Google Fonts: Outfit (headings) & Inter (body) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -20,11 +20,14 @@
             theme: {
                 extend: {
                     colors: {
-                        dark: '#030712',      // Deep space black
-                        darkCard: '#0b0f19',  // Sleek glass card base
-                        electricBlue: '#3b82f6', // Glowing cyan-blue
-                        accentPurple: '#8b5cf6', // Premium violet
-                        neonPink: '#ec4899',    // Visual highlights
+                        dark: '#0B0E14',      // Obsidian Dark
+                        darkCard: '#161B22',  // Card background
+                        logoRed: '#FF4444',
+                        logoOrange: '#FF9933',
+                        logoYellow: '#FFFF66',
+                        logoGreen: '#66FF66',
+                        logoCeleste: '#66CCFF',
+                        logoBlue: '#4444FF'
                     },
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
@@ -37,51 +40,63 @@
     
     <style>
         body {
-            background-color: #030712;
+            background-color: #0B0E14;
             color: #f3f4f6;
             font-family: 'Inter', sans-serif;
             overflow-x: hidden;
         }
-
-        /* Custom text gradient */
-        .text-gradient {
-            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 50%, #ec4899 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        /* Glassmorphism styling */
         .glass {
-            background: rgba(11, 15, 25, 0.7);
+            background: rgba(22, 27, 34, 0.8);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
         }
-
-        /* Glowing background blobs */
-        .glow-blob {
+        /* Glowing background blobs with prisma spectrum */
+        .glow-blob-1 {
             position: absolute;
-            width: 400px;
-            height: 400px;
+            width: 350px;
+            height: 350px;
             border-radius: 50%;
-            filter: blur(120px);
-            opacity: 0.15;
+            filter: blur(100px);
+            opacity: 0.08;
             pointer-events: none;
             z-index: 0;
+            background: radial-gradient(circle, #FF4444, #FF9933, #FFFF66);
         }
-
-        /* Smooth border pulse */
+        .glow-blob-2 {
+            position: absolute;
+            width: 350px;
+            height: 350px;
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: 0.08;
+            pointer-events: none;
+            z-index: 0;
+            background: radial-gradient(circle, #66FF66, #66CCFF, #4444FF);
+        }
+        /* Prisma Spectrum Gradients */
+        .text-prisma {
+            background: linear-gradient(135deg, #FF4444 0%, #FF9933 20%, #FFFF66 40%, #66FF66 60%, #66CCFF 80%, #4444FF 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .bg-prisma {
+            background: linear-gradient(135deg, #FF4444 0%, #FF9933 20%, #FFFF66 40%, #66FF66 60%, #66CCFF 80%, #4444FF 100%);
+        }
+        .border-prisma-interactive {
+            border: 1px solid transparent;
+            background: linear-gradient(to right, #161B22, #161B22), linear-gradient(135deg, #FF4444 0%, #FF9933 20%, #FFFF66 40%, #66FF66 60%, #66CCFF 80%, #4444FF 100%);
+            background-clip: padding-box, border-box;
+            background-origin: padding-box, border-box;
+        }
         .pulse-border {
             animation: pulseGlow 3s infinite alternate;
         }
-
         @keyframes pulseGlow {
             0% {
-                border-color: rgba(59, 130, 246, 0.2);
-                box-shadow: 0 0 15px rgba(59, 130, 246, 0.1);
+                box-shadow: 0 0 15px rgba(102, 204, 255, 0.05);
             }
             100% {
-                border-color: rgba(139, 92, 246, 0.4);
-                box-shadow: 0 0 25px rgba(139, 92, 246, 0.25);
+                box-shadow: 0 0 25px rgba(255, 153, 51, 0.15);
             }
         }
     </style>
@@ -89,23 +104,22 @@
 <body class="antialiased min-h-screen flex flex-col justify-between">
 
     <!-- Glowing Background Elements -->
-    <div class="glow-blob bg-electricBlue top-10 -left-48"></div>
-    <div class="glow-blob bg-accentPurple top-[30%] -right-48"></div>
-    <div class="glow-blob bg-neonPink bottom-10 left-[20%]"></div>
+    <div class="glow-blob-1 top-10 -left-36"></div>
+    <div class="glow-blob-2 bottom-10 -right-36"></div>
 
     <!-- Navigation Header -->
     <header class="fixed w-full top-0 left-0 z-50 border-b border-white/5 bg-dark/70 backdrop-blur-md">
         <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
             <div class="flex items-center gap-3">
                 <a href="../index.html" class="flex items-center gap-3 group">
-                    <img src="../../assets/images/firmapp_logo.png" alt="FirmApp Logo" class="w-10 h-10 object-contain">
-                    <span class="text-2xl font-outfit font-black tracking-tight text-white group-hover:text-electricBlue transition-colors">FirmApp</span>
+                    <img src="../assets/images/prisma_logo.png" alt="Prisma Noticias Logo" class="w-10 h-10 object-contain">
+                    <span class="text-2xl font-outfit font-black tracking-tight text-white group-hover:text-prisma transition-colors">Prisma Noticias</span>
                 </a>
             </div>
 
             <!-- Language Switcher Buttons (ES, EN, PT) -->
             <div class="flex items-center gap-2 bg-white/5 border border-white/10 p-1 rounded-full">
-                <button id="btn-es" onclick="switchLanguage('es')" class="px-3.5 py-1.5 rounded-full text-xs font-bold transition-all bg-electricBlue text-dark">
+                <button id="btn-es" onclick="switchLanguage('es')" class="px-3.5 py-1.5 rounded-full text-xs font-bold transition-all bg-prisma text-dark">
                     ES
                 </button>
                 <button id="btn-en" onclick="switchLanguage('en')" class="px-3.5 py-1.5 rounded-full text-xs font-bold transition-all text-slate-400 hover:text-white">
@@ -125,24 +139,24 @@
         <section id="lang-es" class="space-y-12">
             <!-- Header Title -->
             <div class="space-y-4">
-                <span class="text-electricBlue font-black tracking-[0.2em] text-xs uppercase block">Soporte y Privacidad</span>
+                <span class="text-prisma font-black tracking-[0.2em] text-xs uppercase block">Soporte y Privacidad</span>
                 <h1 class="text-3xl sm:text-5xl font-outfit font-black tracking-tight leading-none text-white">
                     Eliminación de Cuenta y Datos
                 </h1>
                 <p class="text-slate-400 text-base sm:text-lg leading-relaxed font-light">
-                    Solicitud de eliminación de cuenta para la aplicación <strong class="text-white">FirmApp</strong>, desarrollada por <strong class="text-white">Arandu Labs LLC</strong>.
+                    Solicitud de eliminación de cuenta para la aplicación <strong class="text-white">Prisma Noticias</strong>, desarrollada por <strong class="text-white">Arandu Labs LLC</strong>.
                 </p>
-                <div class="w-16 h-1 bg-gradient-to-r from-electricBlue to-accentPurple rounded-full mt-4"></div>
+                <div class="w-16 h-1 bg-prisma rounded-full mt-4"></div>
             </div>
 
             <!-- Play Store Mandatory Notice -->
-            <div class="p-6 rounded-2xl border border-electricBlue/20 bg-electricBlue/5 space-y-3">
+            <div class="p-6 rounded-2xl border-prisma-interactive space-y-3">
                 <h3 class="text-lg font-bold text-white flex items-center gap-2">
-                    <svg class="w-5 h-5 text-electricBlue" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    <svg class="w-5 h-5 text-logoOrange" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                     Nota importante de cumplimiento (Google Play)
                 </h3>
                 <p class="text-sm text-slate-300 leading-relaxed">
-                    Para solicitar la eliminación de tu cuenta de <strong>FirmApp</strong> y todos sus datos asociados, por favor envíanos un correo a <a href="mailto:soporte@arandulabs.dev" class="text-electricBlue font-bold underline">soporte@arandulabs.dev</a> o completa el formulario que encontrarás al final de esta página. Los datos de autenticación se eliminarán de nuestros servidores de Firebase en un plazo de 72 horas.
+                    Para solicitar la eliminación de tu cuenta de <strong>Prisma Noticias</strong> y todos sus datos asociados, por favor envíanos un correo a <a href="mailto:soporte@arandulabs.dev" class="text-logoCeleste font-bold underline">soporte@arandulabs.dev</a> o completa el formulario que encontrarás al final de esta página. Los datos de autenticación se eliminarán de nuestros servidores de Firebase en un plazo de 72 horas.
                 </p>
             </div>
 
@@ -153,19 +167,19 @@
                 <div class="grid md:grid-cols-3 gap-6">
                     <!-- Paso 1 -->
                     <div class="p-6 rounded-2xl border border-white/5 bg-white/5 space-y-3">
-                        <div class="w-10 h-10 rounded-xl bg-electricBlue/10 text-electricBlue flex items-center justify-center font-bold text-lg">1</div>
+                        <div class="w-10 h-10 rounded-xl bg-white/5 text-logoRed flex items-center justify-center font-bold text-lg">1</div>
                         <h4 class="font-bold text-white">Elige un método</h4>
                         <p class="text-xs text-slate-400 leading-relaxed">Envíanos un correo directo o rellena el formulario de solicitud en esta página indicando tu cuenta.</p>
                     </div>
                     <!-- Paso 2 -->
                     <div class="p-6 rounded-2xl border border-white/5 bg-white/5 space-y-3">
-                        <div class="w-10 h-10 rounded-xl bg-electricBlue/10 text-electricBlue flex items-center justify-center font-bold text-lg">2</div>
+                        <div class="w-10 h-10 rounded-xl bg-white/5 text-logoGreen flex items-center justify-center font-bold text-lg">2</div>
                         <h4 class="font-bold text-white">Verificación</h4>
                         <p class="text-xs text-slate-400 leading-relaxed">Procesaremos tu solicitud y verificaremos los datos de autenticación asociados a tu correo.</p>
                     </div>
                     <!-- Paso 3 -->
                     <div class="p-6 rounded-2xl border border-white/5 bg-white/5 space-y-3">
-                        <div class="w-10 h-10 rounded-xl bg-electricBlue/10 text-electricBlue flex items-center justify-center font-bold text-lg">3</div>
+                        <div class="w-10 h-10 rounded-xl bg-white/5 text-logoBlue flex items-center justify-center font-bold text-lg">3</div>
                         <h4 class="font-bold text-white">Eliminación Final</h4>
                         <p class="text-xs text-slate-400 leading-relaxed">Tus credenciales y datos serán purgados de Firebase de forma permanente en un plazo de 72 horas.</p>
                     </div>
@@ -191,13 +205,13 @@
                                 <td class="p-4">Máximo 72 horas tras procesar la solicitud.</td>
                             </tr>
                             <tr>
-                                <td class="p-4 font-bold text-white">Documentos PDF y Firmas cargadas</td>
-                                <td class="p-4">Nunca se subieron a un servidor. Se procesan de forma estrictamente local y offline en tu dispositivo.</td>
-                                <td class="p-4">N/A (No almacenados).</td>
+                                <td class="p-4 font-bold text-white">Preferencias de lectura e historial</td>
+                                <td class="p-4">Las preferencias locales y favoritos guardados en el dispositivo se eliminan al desinstalar la app. Los datos agregados son completamente anónimos.</td>
+                                <td class="p-4">Inmediato tras desinstalación / No asociados a tu identidad.</td>
                             </tr>
                             <tr>
                                 <td class="p-4 font-bold text-white">Datos analíticos y de rendimiento</td>
-                                <td class="p-4">Datos completamente anonimizados utilizados únicamente para informes de errores (Crashlytics).</td>
+                                <td class="p-4">Datos de rendimiento y errores anonimizados (Crashlytics).</td>
                                 <td class="p-4">Sin vinculación personal.</td>
                             </tr>
                         </tbody>
@@ -210,24 +224,24 @@
         <section id="lang-en" class="hidden space-y-12">
             <!-- Header Title -->
             <div class="space-y-4">
-                <span class="text-electricBlue font-black tracking-[0.2em] text-xs uppercase block">Support & Privacy</span>
+                <span class="text-prisma font-black tracking-[0.2em] text-xs uppercase block">Support & Privacy</span>
                 <h1 class="text-3xl sm:text-5xl font-outfit font-black tracking-tight leading-none text-white">
                     Account and Data Deletion
                 </h1>
                 <p class="text-slate-400 text-base sm:text-lg leading-relaxed font-light">
-                    Account deletion request for the <strong class="text-white">FirmApp</strong> application (also known as <strong class="text-white">SignApp</strong>), developed by <strong class="text-white">Arandu Labs LLC</strong>.
+                    Account deletion request for the <strong class="text-white">Prisma Noticias</strong> application, developed by <strong class="text-white">Arandu Labs LLC</strong>.
                 </p>
-                <div class="w-16 h-1 bg-gradient-to-r from-electricBlue to-accentPurple rounded-full mt-4"></div>
+                <div class="w-16 h-1 bg-prisma rounded-full mt-4"></div>
             </div>
 
             <!-- Play Store Mandatory Notice -->
-            <div class="p-6 rounded-2xl border border-electricBlue/20 bg-electricBlue/5 space-y-3">
+            <div class="p-6 rounded-2xl border-prisma-interactive space-y-3">
                 <h3 class="text-lg font-bold text-white flex items-center gap-2">
-                    <svg class="w-5 h-5 text-electricBlue" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    <svg class="w-5 h-5 text-logoOrange" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                     Important Compliance Notice (Google Play)
                 </h3>
                 <p class="text-sm text-slate-300 leading-relaxed">
-                    To request the deletion of your <strong>FirmApp</strong> account and all its associated data, please send us an email at <a href="mailto:soporte@arandulabs.dev" class="text-electricBlue font-bold underline">soporte@arandulabs.dev</a> or complete the form at the bottom of this page. Your authentication data will be deleted from our Firebase servers within a maximum of 72 hours.
+                    To request the deletion of your <strong>Prisma Noticias</strong> account and all its associated data, please send us an email at <a href="mailto:soporte@arandulabs.dev" class="text-logoCeleste font-bold underline">soporte@arandulabs.dev</a> or complete the form at the bottom of this page. Your authentication data will be deleted from our Firebase servers within a maximum of 72 hours.
                 </p>
             </div>
 
@@ -238,19 +252,19 @@
                 <div class="grid md:grid-cols-3 gap-6">
                     <!-- Step 1 -->
                     <div class="p-6 rounded-2xl border border-white/5 bg-white/5 space-y-3">
-                        <div class="w-10 h-10 rounded-xl bg-electricBlue/10 text-electricBlue flex items-center justify-center font-bold text-lg">1</div>
+                        <div class="w-10 h-10 rounded-xl bg-white/5 text-logoRed flex items-center justify-center font-bold text-lg">1</div>
                         <h4 class="font-bold text-white">Choose a Method</h4>
                         <p class="text-xs text-slate-400 leading-relaxed">Send us a direct email or fill out the request form on this page indicating your account email.</p>
                     </div>
                     <!-- Step 2 -->
                     <div class="p-6 rounded-2xl border border-white/5 bg-white/5 space-y-3">
-                        <div class="w-10 h-10 rounded-xl bg-electricBlue/10 text-electricBlue flex items-center justify-center font-bold text-lg">2</div>
+                        <div class="w-10 h-10 rounded-xl bg-white/5 text-logoGreen flex items-center justify-center font-bold text-lg">2</div>
                         <h4 class="font-bold text-white">Verification</h4>
                         <p class="text-xs text-slate-400 leading-relaxed">We will process your request and verify the authentication data associated with your email.</p>
                     </div>
                     <!-- Step 3 -->
                     <div class="p-6 rounded-2xl border border-white/5 bg-white/5 space-y-3">
-                        <div class="w-10 h-10 rounded-xl bg-electricBlue/10 text-electricBlue flex items-center justify-center font-bold text-lg">3</div>
+                        <div class="w-10 h-10 rounded-xl bg-white/5 text-logoBlue flex items-center justify-center font-bold text-lg">3</div>
                         <h4 class="font-bold text-white">Final Deletion</h4>
                         <p class="text-xs text-slate-400 leading-relaxed">Your credentials and data will be permanently purged from Firebase within 72 hours.</p>
                     </div>
@@ -276,9 +290,9 @@
                                 <td class="p-4">Maximum of 72 hours after request processing.</td>
                             </tr>
                             <tr>
-                                <td class="p-4 font-bold text-white">PDF Documents and Signatures</td>
-                                <td class="p-4">Never uploaded to any server. Everything is processed strictly locally and offline on your device.</td>
-                                <td class="p-4">N/A (Not stored).</td>
+                                <td class="p-4 font-bold text-white">Reading preferences and history</td>
+                                <td class="p-4">Local preferences and bookmarks stored on the device are removed upon uninstalling the app. Aggregated data is completely anonymous.</td>
+                                <td class="p-4">Immediate upon uninstallation / Not linked to identity.</td>
                             </tr>
                             <tr>
                                 <td class="p-4 font-bold text-white">Analytical & Performance Data</td>
@@ -295,24 +309,24 @@
         <section id="lang-pt" class="hidden space-y-12">
             <!-- Header Title -->
             <div class="space-y-4">
-                <span class="text-electricBlue font-black tracking-[0.2em] text-xs uppercase block">Suporte e Privacidade</span>
+                <span class="text-prisma font-black tracking-[0.2em] text-xs uppercase block">Suporte e Privacidade</span>
                 <h1 class="text-3xl sm:text-5xl font-outfit font-black tracking-tight leading-none text-white">
                     Exclusão de Conta e Dados
                 </h1>
                 <p class="text-slate-400 text-base sm:text-lg leading-relaxed font-light">
-                    Solicitação de exclusão de conta para o aplicativo <strong class="text-white">FirmApp</strong> (também conhecido como <strong class="text-white">AssinApp</strong>), desenvolvido por <strong class="text-white">Arandu Labs LLC</strong>.
+                    Solicitação de exclusão de conta para o aplicativo <strong class="text-white">Prisma Notícias</strong>, desenvolvido por <strong class="text-white">Arandu Labs LLC</strong>.
                 </p>
-                <div class="w-16 h-1 bg-gradient-to-r from-electricBlue to-accentPurple rounded-full mt-4"></div>
+                <div class="w-16 h-1 bg-prisma rounded-full mt-4"></div>
             </div>
 
             <!-- Play Store Mandatory Notice -->
-            <div class="p-6 rounded-2xl border border-electricBlue/20 bg-electricBlue/5 space-y-3">
+            <div class="p-6 rounded-2xl border-prisma-interactive space-y-3">
                 <h3 class="text-lg font-bold text-white flex items-center gap-2">
-                    <svg class="w-5 h-5 text-electricBlue" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    <svg class="w-5 h-5 text-logoOrange" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                     Nota Importante de Conformidade (Google Play)
                 </h3>
                 <p class="text-sm text-slate-300 leading-relaxed">
-                    Para solicitar a exclusão da sua conta do <strong>FirmApp</strong> e de todos os seus dados associados, envie um e-mail para <a href="mailto:soporte@arandulabs.dev" class="text-electricBlue font-bold underline">soporte@arandulabs.dev</a> ou preencha o formulário no final desta página. Os dados de autenticação serão excluídos dos nossos servidores do Firebase no prazo de 72 horas.
+                    Para solicitar a exclusão da sua conta do <strong>Prisma Notícias</strong> e de todos os seus dados associados, envie um e-mail para <a href="mailto:soporte@arandulabs.dev" class="text-logoCeleste font-bold underline">soporte@arandulabs.dev</a> ou preencha o formulário no final desta página. Os dados de autenticação serão excluídos dos nossos servidores do Firebase no prazo de 72 horas.
                 </p>
             </div>
 
@@ -323,19 +337,19 @@
                 <div class="grid md:grid-cols-3 gap-6">
                     <!-- Passo 1 -->
                     <div class="p-6 rounded-2xl border border-white/5 bg-white/5 space-y-3">
-                        <div class="w-10 h-10 rounded-xl bg-electricBlue/10 text-electricBlue flex items-center justify-center font-bold text-lg">1</div>
+                        <div class="w-10 h-10 rounded-xl bg-white/5 text-logoRed flex items-center justify-center font-bold text-lg">1</div>
                         <h4 class="font-bold text-white">Escolha um Método</h4>
                         <p class="text-xs text-slate-400 leading-relaxed">Envie um e-mail direto ou preencha o formulário de solicitação nesta página informando sua conta.</p>
                     </div>
                     <!-- Passo 2 -->
                     <div class="p-6 rounded-2xl border border-white/5 bg-white/5 space-y-3">
-                        <div class="w-10 h-10 rounded-xl bg-electricBlue/10 text-electricBlue flex items-center justify-center font-bold text-lg">2</div>
+                        <div class="w-10 h-10 rounded-xl bg-white/5 text-logoGreen flex items-center justify-center font-bold text-lg">2</div>
                         <h4 class="font-bold text-white">Verificação</h4>
                         <p class="text-xs text-slate-400 leading-relaxed">Processaremos sua solicitação e verificaremos os dados de autenticação associados ao seu e-mail.</p>
                     </div>
                     <!-- Passo 3 -->
                     <div class="p-6 rounded-2xl border border-white/5 bg-white/5 space-y-3">
-                        <div class="w-10 h-10 rounded-xl bg-electricBlue/10 text-electricBlue flex items-center justify-center font-bold text-lg">3</div>
+                        <div class="w-10 h-10 rounded-xl bg-white/5 text-logoBlue flex items-center justify-center font-bold text-lg">3</div>
                         <h4 class="font-bold text-white">Exclusão Final</h4>
                         <p class="text-xs text-slate-400 leading-relaxed">Suas credenciais e dados serão excluídos do Firebase permanentemente no prazo de 72 horas.</p>
                     </div>
@@ -361,13 +375,13 @@
                                 <td class="p-4">Máximo de 72 horas após o processamento da solicitação.</td>
                             </tr>
                             <tr>
-                                <td class="p-4 font-bold text-white">Documentos PDF e Assinaturas</td>
-                                <td class="p-4">Nunca foram enviados para um servidor. São processados de forma estritamente local e offline no seu dispositivo.</td>
-                                <td class="p-4">N/A (Não armazenados).</td>
+                                <td class="p-4 font-bold text-white">Preferências e histórico de leitura</td>
+                                <td class="p-4">Preferências locais e favoritos armazenados no dispositivo são removidos ao desinstalar o app. Dados agregados são anônimos.</td>
+                                <td class="p-4">Imediato após desinstalação / Sem ligação com identidade.</td>
                             </tr>
                             <tr>
                                 <td class="p-4 font-bold text-white">Dados Analíticos e de Desempenho</td>
-                                <td class="p-4">Logs completamente anonimizados usados estritamente para relatórios de erros (Crashlytics).</td>
+                                <td class="p-4">Logs anonimizados usados para relatórios de falhas (Crashlytics).</td>
                                 <td class="p-4">Sem vinculação pessoal.</td>
                             </tr>
                         </tbody>
@@ -379,11 +393,11 @@
         <!-- ==================== FORM SECTION (COMMON / BILINGUAL RESPONSIVE) ==================== -->
         <section class="mt-16 pt-16 border-t border-white/10 max-w-xl mx-auto">
             <div class="relative rounded-3xl border border-white/10 glass p-8 overflow-hidden pulse-border">
-                <div class="absolute top-0 right-0 w-32 h-32 bg-electricBlue/10 blur-3xl -mr-16 -mt-16"></div>
+                <div class="absolute top-0 right-0 w-32 h-32 bg-logoCeleste/10 blur-3xl -mr-16 -mt-16"></div>
                 
                 <!-- Success Container -->
                 <div id="fs-success" class="hidden flex flex-col items-center text-center py-12">
-                    <div class="w-20 h-20 bg-electricBlue/10 rounded-full flex items-center justify-center text-electricBlue mb-6">
+                    <div class="w-20 h-20 bg-logoGreen/10 rounded-full flex items-center justify-center text-logoGreen mb-6">
                         <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
                     </div>
                     <h4 class="text-2xl font-black mb-4 italic font-outfit text-white" id="success-title">¡Solicitud Enviada!</h4>
@@ -403,22 +417,22 @@
 
                     <div class="space-y-2">
                         <label class="text-[10px] font-bold text-slate-400 uppercase tracking-widest block" id="lbl-email">Correo Electrónico de la Cuenta</label>
-                        <input type="email" id="email" required placeholder="tu-usuario@correo.com" class="w-full px-5 py-4 bg-white/5 border border-white/10 rounded-2xl focus:outline-none focus:border-electricBlue/50 text-slate-200 transition-all text-sm">
+                        <input type="email" id="email" required placeholder="tu-usuario@correo.com" class="w-full px-5 py-4 bg-white/5 border border-white/10 rounded-2xl focus:outline-none focus:border-logoCeleste/50 text-slate-200 transition-all text-sm">
                     </div>
 
                     <div class="space-y-2">
                         <label class="text-[10px] font-bold text-slate-400 uppercase tracking-widest block" id="lbl-reason">Motivo de la baja (Opcional)</label>
-                        <textarea id="reason" rows="3" placeholder="Cuéntanos brevemente por qué deseas darte de baja..." class="w-full px-5 py-4 bg-white/5 border border-white/10 rounded-2xl focus:outline-none focus:border-electricBlue/50 text-slate-200 transition-all text-sm"></textarea>
+                        <textarea id="reason" rows="3" placeholder="Cuéntanos brevemente por qué deseas darte de baja..." class="w-full px-5 py-4 bg-white/5 border border-white/10 rounded-2xl focus:outline-none focus:border-logoCeleste/50 text-slate-200 transition-all text-sm"></textarea>
                     </div>
 
                     <div class="flex items-start gap-3">
-                        <input type="checkbox" id="confirm" required class="mt-1 accent-electricBlue w-4 h-4 rounded border-white/10 bg-white/5 text-dark">
+                        <input type="checkbox" id="confirm" required class="mt-1 accent-logoCeleste w-4 h-4 rounded border-white/10 bg-white/5 text-dark">
                         <label for="confirm" class="text-xs text-slate-400 leading-normal" id="lbl-confirm">
-                            Confirmo que deseo eliminar mi cuenta de FirmApp de manera irreversible, incluyendo mi historial y credenciales de autenticación.
+                            Confirmo que deseo eliminar mi cuenta de Prisma Noticias de manera irreversible, incluyendo mi historial y credenciales de autenticación.
                         </label>
                     </div>
 
-                    <button type="submit" id="btn-submit" class="w-full py-4 bg-electricBlue text-dark font-black rounded-2xl hover:opacity-90 active:scale-[0.98] transition-all shadow-xl shadow-electricBlue/20 text-xs font-bold uppercase tracking-widest">
+                    <button type="submit" id="btn-submit" class="w-full py-4 bg-prisma text-dark font-black rounded-2xl hover:opacity-90 active:scale-[0.98] transition-all shadow-xl text-xs font-bold uppercase tracking-widest">
                         Enviar Solicitud
                     </button>
                 </form>
@@ -430,8 +444,8 @@
     <footer class="py-12 px-6 bg-dark border-t border-white/5 text-center z-10">
         <div class="max-w-7xl mx-auto flex flex-col items-center gap-6">
             <div class="flex items-center gap-3">
-                <img src="../../assets/images/firmapp_logo.png" alt="FirmApp Logo" class="w-10 h-10 object-contain grayscale opacity-60">
-                <span class="text-2xl font-outfit font-black text-white/60">FirmApp</span>
+                <img src="../assets/images/prisma_logo.png" alt="Prisma Noticias Logo" class="w-10 h-10 object-contain grayscale opacity-60">
+                <span class="text-2xl font-outfit font-black text-white/60">Prisma Noticias</span>
             </div>
             
             <p class="text-xs text-slate-500 font-bold uppercase tracking-[0.2em]" id="txt-footer">
@@ -467,7 +481,7 @@
 
             // Reset active button classes
             [btnEs, btnEn, btnPt].forEach(btn => {
-                btn.classList.remove('bg-electricBlue', 'text-dark');
+                btn.classList.remove('bg-prisma', 'text-dark');
                 btn.classList.add('text-slate-400', 'hover:text-white');
             });
 
@@ -478,7 +492,7 @@
 
             if (lang === 'es') {
                 esSec.classList.remove('hidden');
-                btnEs.classList.add('bg-electricBlue', 'text-dark');
+                btnEs.classList.add('bg-prisma', 'text-dark');
                 btnEs.classList.remove('text-slate-400', 'hover:text-white');
 
                 // Form ES
@@ -486,14 +500,14 @@
                 formSubtitle.textContent = "Completa los datos de la cuenta que deseas eliminar permanentemente.";
                 lblEmail.textContent = "Correo Electrónico de la Cuenta";
                 lblReason.textContent = "Motivo de la baja (Opcional)";
-                lblConfirm.textContent = "Confirmo que deseo eliminar mi cuenta de FirmApp de manera irreversible, incluyendo mi historial y credenciales de autenticación.";
+                lblConfirm.textContent = "Confirmo que deseo eliminar mi cuenta de Prisma Noticias de manera irreversible, incluyendo mi historial y credenciales de autenticación.";
                 btnSubmit.textContent = "Enviar Solicitud";
                 emailInput.placeholder = "tu-usuario@correo.com";
                 reasonInput.placeholder = "Cuéntanos brevemente por qué deseas darte de baja...";
                 txtFooter.innerHTML = "&copy; 2026 Arandu Labs LLC | Desarrollado con integridad & seguridad";
             } else if (lang === 'en') {
                 enSec.classList.remove('hidden');
-                btnEn.classList.add('bg-electricBlue', 'text-dark');
+                btnEn.classList.add('bg-prisma', 'text-dark');
                 btnEn.classList.remove('text-slate-400', 'hover:text-white');
 
                 // Form EN
@@ -501,14 +515,14 @@
                 formSubtitle.textContent = "Enter the details of the account you want to permanently delete.";
                 lblEmail.textContent = "Account Email Address";
                 lblReason.textContent = "Reason for deletion (Optional)";
-                lblConfirm.textContent = "I confirm that I want to delete my FirmApp account irreversibly, including my logs and authentication credentials.";
+                lblConfirm.textContent = "I confirm that I want to delete my Prisma Noticias account irreversibly, including my logs and authentication credentials.";
                 btnSubmit.textContent = "Submit Request";
                 emailInput.placeholder = "your-email@domain.com";
                 reasonInput.placeholder = "Tell us briefly why you want to delete your account...";
                 txtFooter.innerHTML = "&copy; 2026 Arandu Labs LLC | Developed with integrity & security";
             } else if (lang === 'pt') {
                 ptSec.classList.remove('hidden');
-                btnPt.classList.add('bg-electricBlue', 'text-dark');
+                btnPt.classList.add('bg-prisma', 'text-dark');
                 btnPt.classList.remove('text-slate-400', 'hover:text-white');
 
                 // Form PT
@@ -516,7 +530,7 @@
                 formSubtitle.textContent = "Preencha os dados da conta que deseja excluir permanentemente.";
                 lblEmail.textContent = "E-mail da Conta";
                 lblReason.textContent = "Motivo do cancelamento (Opcional)";
-                lblConfirm.textContent = "Confirmo que desejo excluir minha conta do FirmApp de forma irreversível, incluindo meu histórico e credenciais de autenticação.";
+                lblConfirm.textContent = "Confirmo que desejo excluir minha conta do Prisma Notícias de forma irreversível, incluindo meu histórico e credenciais de autenticação.";
                 btnSubmit.textContent = "Enviar Solicitação";
                 emailInput.placeholder = "seu-email@dominio.com";
                 reasonInput.placeholder = "Conte-nos brevemente por que deseja cancelar...";
@@ -542,7 +556,7 @@
             
             submitBtn.textContent = loadingText;
 
-            // Use established Formspree ID
+            // Send submission
             fetch("https://formspree.io/f/mzdovkyr", {
                 method: "POST",
                 headers: {
@@ -551,7 +565,7 @@
                 },
                 body: JSON.stringify({
                     email: email,
-                    message: `Account Deletion Request for FirmApp\nEmail to delete: ${email}\nReason: ${reason}`
+                    message: `Account Deletion Request for Prisma Noticias\nEmail to delete: ${email}\nReason: ${reason}`
                 })
             })
             .then(response => {
