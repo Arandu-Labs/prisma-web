@@ -1,16 +1,13 @@
 [
   {
     "relation": [
-      "delegate_permission/common.handle_all_urls",
-      "delegate_permission/common.get_login_creds"
+      "delegate_permission/common.handle_all_urls"
     ],
     "target": {
       "namespace": "android_app",
       "package_name": "dev.arandulabs.prisma",
       "sha256_cert_fingerprints": [
-        "47:BC:37:03:5C:ED:E9:3F:EF:3C:F2:3F:02:9C:05:6C:7A:DF:96:99:7D:8C:97:13:CD:DA:C7:27:31:3B:AB:CF",
-        "A0:7C:02:07:06:D8:9D:79:C2:9A:BF:DE:A9:82:70:48:DE:43:B1:63:EB:A9:5A:7A:94:EB:BF:3D:F4:FE:97:40",
-        "37:3D:F7:33:4F:CC:0D:E0:8D:16:F5:73:C8:DF:C4:B1:75:4D:E4:32:F2:FF:E5:94:60:66:A6:73:C0:06:E1:E4"
+        "4C:9D:69:A3:34:64:12:F1:68:55:0C:6D:E7:A1:6A:B9:9E:D4:57:9F:50:FA:AA:EB:E6:DC:1D:95:C7:E2:0F:CC"
       ]
     }
   }
