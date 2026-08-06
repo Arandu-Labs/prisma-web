@@ -166,13 +166,12 @@
                     Prisma Notícias é um quiosque digital e agregador inteligente inspirado na transparência informativa do Ground News. Compare a mesma notícia sob diferentes tendências políticas, descubra pontos cegos de cobertura e visualize notícias regionais. <strong class="text-white">Privacidade total, sem algoritmos ou cadastros.</strong>
                 </p>
                 
-                <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                    <a href="https://play.google.com/store/apps/details?id=dev.arandulabs.prisma&pli=1" target="_blank" class="inline-flex items-center justify-center px-8 py-4 rounded-2xl bg-prisma text-dark font-bold transition-all duration-300 shadow-xl hover:scale-[1.03] group">
-                        Baixar no Google Play
-                        <svg class="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start items-center">
+                    <a href="https://play.google.com/store/apps/details?id=dev.arandulabs.prisma&pli=1" target="_blank" class="inline-block transition-transform duration-300 hover:scale-[1.04]">
+                        <img src="../assets/images/download-google.svg" alt="Baixar no Google Play" class="h-14 w-auto">
                     </a>
                     <a href="#beneficios" class="inline-flex items-center justify-center px-8 py-4 rounded-2xl border border-white/10 hover:border-white/20 glass text-white font-medium transition-colors">
-                        Explorar Recursos
+                        Explorar Vantagens
                     </a>
                 </div>
 
@@ -304,29 +303,38 @@
         </div>
     </section>
 
-    <!-- Visual Middle Section (LATAM References) -->
-    <section class="py-20 px-6 max-w-7xl mx-auto z-10">
-        <div class="relative rounded-[2.5rem] border border-white/10 glass p-8 sm:p-12 overflow-hidden flex flex-col lg:flex-row items-center gap-12">
-            <div class="absolute top-0 left-0 w-64 h-64 bg-logoBlue/5 blur-3xl -ml-24 -mt-24"></div>
-            
-            <div class="w-full lg:w-1/2 space-y-6">
-                <span class="text-prisma font-black tracking-[0.2em] text-xs uppercase block">Conectado com sua Região</span>
-                <h2 class="text-3xl sm:text-4xl font-outfit font-black text-white leading-tight">
-                    Cobertura profunda de veículos latino-americanos e capas locais
+    <!-- Visual Middle Section (App Screenshots Gallery) -->
+    <section id="capturas" class="py-20 px-6 max-w-7xl mx-auto z-10">
+        <div class="space-y-12">
+            <div class="text-center space-y-4 max-w-xl mx-auto">
+                <span class="text-prisma font-black tracking-[0.2em] text-xs uppercase block">Interface do Aplicativo</span>
+                <h2 class="text-3xl md:text-5xl font-outfit font-black tracking-tight leading-none text-white">
+                    Explore a Experiência Mobile
                 </h2>
-                <p class="text-slate-400 text-sm leading-relaxed font-light">
-                    O Prisma Notícias reúne notícias provenientes de múltiplos veículos de toda a América Latina. Compare a linha editorial dos principais jornais da sua região e filtre os acontecimentos diários com filtros de localização precisos para entender a política local sob diversos pontos de vista.
-                </p>
-                <div class="flex gap-4">
-                    <span class="px-3 py-1 rounded bg-white/5 border border-white/5 text-xs text-slate-300 font-semibold">Argentina</span>
-                    <span class="px-3 py-1 rounded bg-white/5 border border-white/5 text-xs text-slate-300 font-semibold">Uruguai</span>
-                    <span class="px-3 py-1 rounded bg-white/5 border border-white/5 text-xs text-slate-300 font-semibold">Brasil</span>
-                    <span class="px-3 py-1 rounded bg-white/5 border border-white/5 text-xs text-slate-300 font-semibold">Chile</span>
-                </div>
+                <p class="text-slate-400 text-sm font-light">Confira as principais telas do Prisma Notícias em ação</p>
+                <div class="w-12 h-1 bg-prisma mx-auto rounded-full mt-4"></div>
             </div>
-            
-            <div class="w-full lg:w-1/2 overflow-hidden rounded-2xl border border-white/5 bg-dark">
-                <img src="../assets/images/base.png" alt="Prisma Noticias App Base" class="w-full h-auto object-cover hover:scale-[1.01] transition-transform duration-500">
+
+            <!-- Screenshots Grid / Scroll Container -->
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 md:gap-6">
+                <div class="group relative rounded-2xl overflow-hidden border border-white/10 glass hover:border-prisma/50 transition-all duration-300 shadow-xl hover:-translate-y-1">
+                    <img src="../assets/images/pantalla_1.jpeg" alt="Tela 1 - Prisma Notícias" class="w-full h-auto object-cover rounded-2xl">
+                </div>
+                <div class="group relative rounded-2xl overflow-hidden border border-white/10 glass hover:border-prisma/50 transition-all duration-300 shadow-xl hover:-translate-y-1">
+                    <img src="../assets/images/pantalla_2.jpeg" alt="Tela 2 - Prisma Notícias" class="w-full h-auto object-cover rounded-2xl">
+                </div>
+                <div class="group relative rounded-2xl overflow-hidden border border-white/10 glass hover:border-prisma/50 transition-all duration-300 shadow-xl hover:-translate-y-1">
+                    <img src="../assets/images/pantalla_3.jpeg" alt="Tela 3 - Prisma Notícias" class="w-full h-auto object-cover rounded-2xl">
+                </div>
+                <div class="group relative rounded-2xl overflow-hidden border border-white/10 glass hover:border-prisma/50 transition-all duration-300 shadow-xl hover:-translate-y-1">
+                    <img src="../assets/images/pantalla_4.jpeg" alt="Tela 4 - Prisma Notícias" class="w-full h-auto object-cover rounded-2xl">
+                </div>
+                <div class="group relative rounded-2xl overflow-hidden border border-white/10 glass hover:border-prisma/50 transition-all duration-300 shadow-xl hover:-translate-y-1">
+                    <img src="../assets/images/pantalla_5.jpeg" alt="Tela 5 - Prisma Notícias" class="w-full h-auto object-cover rounded-2xl">
+                </div>
+                <div class="group relative rounded-2xl overflow-hidden border border-white/10 glass hover:border-prisma/50 transition-all duration-300 shadow-xl hover:-translate-y-1">
+                    <img src="../assets/images/pantalla_6.jpeg" alt="Tela 6 - Prisma Notícias" class="w-full h-auto object-cover rounded-2xl">
+                </div>
             </div>
         </div>
     </section>
