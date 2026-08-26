@@ -163,17 +163,11 @@
                 <div class="w-16 h-1 bg-prisma mx-auto rounded-full mt-4"></div>
             </div>
 
-            <!-- Controls: Search and Language Tabs -->
-            <div class="flex flex-col sm:flex-row gap-4 items-center justify-between p-4 rounded-2xl glass border border-white/10">
-                <div class="relative w-full sm:flex-1">
+            <!-- Search Bar -->
+            <div class="relative w-full p-2 glass rounded-2xl border border-white/10">
+                <div class="relative w-full">
                     <svg class="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-                    <input type="text" id="faqSearchInput" placeholder="Buscar preguntas o palabras clave..." class="w-full pl-11 pr-4 py-3 bg-dark/80 border border-white/10 rounded-xl text-white text-sm placeholder-slate-500 focus:outline-none focus:border-logoCeleste/50 transition-colors">
-                </div>
-                <div class="flex items-center gap-1.5 overflow-x-auto w-full sm:w-auto pb-1 sm:pb-0" id="faqLangTabs">
-                    <button class="faq-lang-btn px-4 py-2 rounded-xl text-xs font-bold transition-all bg-white/10 text-white border border-white/10" data-lang="es">ES</button>
-                    <button class="faq-lang-btn px-4 py-2 rounded-xl text-xs font-bold transition-all text-slate-400 hover:text-white border border-transparent" data-lang="en">EN</button>
-                    <button class="faq-lang-btn px-4 py-2 rounded-xl text-xs font-bold transition-all text-slate-400 hover:text-white border border-transparent" data-lang="pt">PT</button>
-                    <button class="faq-lang-btn px-4 py-2 rounded-xl text-xs font-bold transition-all text-slate-400 hover:text-white border border-transparent" data-lang="gn">GN</button>
+                    <input type="text" id="faqSearchInput" placeholder="Buscar preguntas o palabras clave..." class="w-full pl-11 pr-4 py-3.5 bg-dark/80 border border-white/10 rounded-xl text-white text-sm placeholder-slate-500 focus:outline-none focus:border-logoCeleste/50 transition-colors">
                 </div>
             </div>
 
@@ -499,18 +493,6 @@
         }
 
         document.addEventListener('DOMContentLoaded', () => {
-            const tabs = document.querySelectorAll('.faq-lang-btn');
-            tabs.forEach(btn => {
-                btn.addEventListener('click', () => {
-                    tabs.forEach(b => {
-                        b.className = 'faq-lang-btn px-4 py-2 rounded-xl text-xs font-bold transition-all text-slate-400 hover:text-white border border-transparent';
-                    });
-                    btn.className = 'faq-lang-btn px-4 py-2 rounded-xl text-xs font-bold transition-all bg-white/10 text-white border border-white/10';
-                    currentFaqLang = btn.dataset.lang;
-                    renderFAQSection(document.getElementById('faqSearchInput').value);
-                });
-            });
-
             document.getElementById('faqSearchInput').addEventListener('input', (e) => {
                 renderFAQSection(e.target.value);
             });
