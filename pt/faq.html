@@ -156,7 +156,7 @@
         <div class="space-y-12">
             <!-- Header Title -->
             <div class="space-y-4 text-center">
-                <span class="text-prisma font-black tracking-[0.2em] text-xs uppercase block">Help & Support</span>
+                <span id="faqBadge" class="text-prisma font-black tracking-[0.2em] text-xs uppercase block">Help & Support</span>
                 <h1 id="faqTitle" class="text-4xl md:text-5xl font-outfit font-black tracking-tight leading-none text-white">
                     Frequently Asked Questions
                 </h1>
@@ -462,10 +462,21 @@
             const container = document.getElementById('faqListContainer');
             const noResults = document.getElementById('faqNoResults');
             
-            document.getElementById('faqTitle').textContent = data.title;
-            document.getElementById('faqSubtitle').textContent = data.subtitle;
-            document.getElementById('faqSearchInput').placeholder = data.searchPlaceholder;
-            document.getElementById('faqNoResultsText').textContent = data.noResults;
+            if (document.getElementById('faqTitle')) document.getElementById('faqTitle').textContent = data.title;
+            if (document.getElementById('faqSubtitle')) document.getElementById('faqSubtitle').textContent = data.subtitle;
+            if (document.getElementById('faqSearchInput')) document.getElementById('faqSearchInput').placeholder = data.searchPlaceholder;
+            if (document.getElementById('faqNoResultsText')) document.getElementById('faqNoResultsText').textContent = data.noResults;
+
+            // Update badge text according to language
+            const badge = document.getElementById('faqBadge');
+            if (badge) {
+                if (currentFaqLang === 'es') badge.textContent = 'Ayuda & Soporte';
+                else if (currentFaqLang === 'pt') badge.textContent = 'Ajuda & Suporte';
+                else if (currentFaqLang === 'gn') badge.textContent = 'Pytyvõ & Ñepytyvõ';
+                else badge.textContent = 'Help & Support';
+            }
+
+            if (!container) return;
 
             const filter = filterText.toLowerCase().trim();
             let visibleCount = 0;
@@ -520,23 +531,34 @@
                 }
             });
 
-            if (visibleCount === 0) {
-                noResults.classList.remove('hidden');
-            } else {
-                noResults.classList.add('hidden');
+            if (noResults) {
+                if (visibleCount === 0) {
+                    noResults.classList.remove('hidden');
+                } else {
+                    noResults.classList.add('hidden');
+                }
             }
         }
 
-        document.addEventListener('DOMContentLoaded', () => {
+        function initFAQ() {
             currentFaqLang = getInitialLanguage();
             updateNavbarLang();
-
-            document.getElementById('faqSearchInput').addEventListener('input', (e) => {
-                renderFAQSection(e.target.value);
-            });
+            
+            const searchInput = document.getElementById('faqSearchInput');
+            if (searchInput) {
+                searchInput.addEventListener('input', (e) => {
+                    renderFAQSection(e.target.value);
+                });
+            }
 
             renderFAQSection();
-        });
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initFAQ);
+        } else {
+            initFAQ();
+        }
     </script>
 </body>
 </html>
