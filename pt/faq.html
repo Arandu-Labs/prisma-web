@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="pt" class="scroll-smooth">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Perguntas Frequentes (FAQ) | Prisma Notícias</title>
+    <title>Frequently Asked Questions (FAQ) | Prisma Noticias</title>
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="../assets/images/prisma_logo.png">
-    <meta name="description" content="Perguntas frequentes sobre o Prisma Notícias: funcionalidades, cobertura, espectro político multidimensional, configurações, anúncios e privacidade.">
+    <meta name="description" content="Frequently asked questions about Prisma Noticias: features, coverage, multidimensional political spectrum, configuration, ad support, and privacy.">
     
     <!-- Google Fonts: Outfit (headings) & Inter (body) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -118,9 +118,9 @@
         <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
             <div class="flex items-center gap-3">
                 <a href="index.html" class="flex items-center gap-3 group">
-                    <img src="../assets/images/prisma_logo.png" alt="Prisma Notícias Logo" class="w-10 h-10 object-contain">
+                    <img src="../assets/images/prisma_logo.png" alt="Prisma Noticias Logo" class="w-10 h-10 object-contain">
                     <div class="flex flex-col sm:flex-row sm:items-baseline">
-                        <span class="text-2xl font-outfit font-black tracking-tight text-white group-hover:text-prisma transition-colors">Prisma Notícias</span>
+                        <span class="text-2xl font-outfit font-black tracking-tight text-white group-hover:text-prisma transition-colors">Prisma Noticias</span>
                         <span class="text-[10px] text-slate-500 font-normal sm:ml-2">by Arandu Labs</span>
                     </div>
                 </a>
@@ -129,20 +129,23 @@
             <!-- Language & Action -->
             <div class="flex items-center gap-6">
                 <!-- Language Selector -->
-                <div class="flex items-center gap-3 border-r border-white/10 pr-6 h-8">
-                    <a href="../es/faq.html" class="flex items-center hover:scale-110 transition-transform opacity-60 hover:opacity-100 text-xs font-bold gap-1.5 text-slate-300">
-                        <img src="https://flagcdn.com/w20/es.png" width="16" alt="Espanha" class="rounded-sm"> ES
-                    </a>
-                    <a href="../faq.html" class="flex items-center hover:scale-110 transition-transform opacity-60 hover:opacity-100 text-xs font-bold gap-1.5 text-slate-300">
-                        <img src="https://flagcdn.com/w20/us.png" width="16" alt="EUA" class="rounded-sm"> EN
-                    </a>
-                    <span class="flex items-center text-white bg-white/5 px-2 py-0.5 rounded-md border border-white/10 text-xs font-bold gap-1.5">
-                        <img src="https://flagcdn.com/w20/br.png" width="16" alt="Brasil" class="rounded-sm"> PT
-                    </span>
+                <div class="flex items-center gap-2 border-r border-white/10 pr-4 sm:pr-6 h-8" id="navLangContainer">
+                    <button type="button" onclick="setLanguage('es')" data-nav-lang="es" class="flex items-center px-2 py-1 rounded-md text-xs font-bold gap-1.5 transition-all text-slate-400 hover:text-white opacity-70 hover:opacity-100">
+                        <img src="https://flagcdn.com/w20/es.png" width="16" alt="ES" class="rounded-sm"> ES
+                    </button>
+                    <button type="button" onclick="setLanguage('en')" data-nav-lang="en" class="flex items-center px-2 py-1 rounded-md text-xs font-bold gap-1.5 transition-all text-slate-400 hover:text-white opacity-70 hover:opacity-100">
+                        <img src="https://flagcdn.com/w20/us.png" width="16" alt="EN" class="rounded-sm"> EN
+                    </button>
+                    <button type="button" onclick="setLanguage('pt')" data-nav-lang="pt" class="flex items-center px-2 py-1 rounded-md text-xs font-bold gap-1.5 transition-all text-slate-400 hover:text-white opacity-70 hover:opacity-100">
+                        <img src="https://flagcdn.com/w20/br.png" width="16" alt="PT" class="rounded-sm"> PT
+                    </button>
+                    <button type="button" onclick="setLanguage('gn')" data-nav-lang="gn" class="flex items-center px-2 py-1 rounded-md text-xs font-bold gap-1.5 transition-all text-slate-400 hover:text-white opacity-70 hover:opacity-100">
+                        <img src="https://flagcdn.com/w20/py.png" width="16" alt="GN" class="rounded-sm"> GN
+                    </button>
                 </div>
 
-                <a href="index.html" class="px-5 py-2 rounded-full border border-white/10 hover:border-white/20 glass text-xs font-bold uppercase tracking-widest text-white hover:text-prisma transition-all">
-                    Início
+                <a href="index.html" class="px-4 sm:px-5 py-2 rounded-full border border-white/10 hover:border-white/20 glass text-xs font-bold uppercase tracking-widest text-white hover:text-prisma transition-all">
+                    Home
                 </a>
             </div>
         </div>
@@ -153,12 +156,12 @@
         <div class="space-y-12">
             <!-- Header Title -->
             <div class="space-y-4 text-center">
-                <span class="text-prisma font-black tracking-[0.2em] text-xs uppercase block">Ajuda & Suporte</span>
+                <span class="text-prisma font-black tracking-[0.2em] text-xs uppercase block">Help & Support</span>
                 <h1 id="faqTitle" class="text-4xl md:text-5xl font-outfit font-black tracking-tight leading-none text-white">
-                    Perguntas Frequentes
+                    Frequently Asked Questions
                 </h1>
                 <p id="faqSubtitle" class="text-slate-400 text-base font-light max-w-2xl mx-auto">
-                    Encontre respostas rápidas sobre as funcionalidades, configurações, espectro político multidimensional e cobertura do Prisma Notícias.
+                    Find quick answers about Prisma Noticias features, settings, multidimensional bias analysis, and coverage.
                 </p>
                 <div class="w-16 h-1 bg-prisma mx-auto rounded-full mt-4"></div>
             </div>
@@ -167,7 +170,7 @@
             <div class="relative w-full p-2 glass rounded-2xl border border-white/10">
                 <div class="relative w-full">
                     <svg class="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-                    <input type="text" id="faqSearchInput" placeholder="Pesquisar perguntas ou palavras-chave..." class="w-full pl-11 pr-4 py-3.5 bg-dark/80 border border-white/10 rounded-xl text-white text-sm placeholder-slate-500 focus:outline-none focus:border-logoCeleste/50 transition-colors">
+                    <input type="text" id="faqSearchInput" placeholder="Search questions or keywords..." class="w-full pl-11 pr-4 py-3.5 bg-dark/80 border border-white/10 rounded-xl text-white text-sm placeholder-slate-500 focus:outline-none focus:border-logoCeleste/50 transition-colors">
                 </div>
             </div>
 
@@ -179,7 +182,7 @@
             <!-- No Results -->
             <div id="faqNoResults" class="hidden text-center py-16 text-slate-400">
                 <svg class="w-12 h-12 mx-auto mb-3 text-slate-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
-                <p id="faqNoResultsText" class="text-base">Nenhum resultado encontrado para sua pesquisa.</p>
+                <p id="faqNoResultsText" class="text-base">No results found for your search.</p>
             </div>
         </div>
     </main>
@@ -188,21 +191,21 @@
     <footer class="py-16 px-6 bg-dark border-t border-white/5 text-center relative z-10">
         <div class="max-w-7xl mx-auto flex flex-col items-center gap-8">
             <div class="flex items-center gap-3">
-                <img src="../assets/images/prisma_logo.png" alt="Prisma Notícias Logo" class="w-12 h-12 object-contain grayscale opacity-60">
-                <span class="text-3xl font-outfit font-black text-white/60">Prisma Notícias</span>
+                <img src="../assets/images/prisma_logo.png" alt="Prisma Noticias Logo" class="w-12 h-12 object-contain grayscale opacity-60">
+                <span class="text-3xl font-outfit font-black text-white/60">Prisma Noticias</span>
             </div>
             
             <div class="flex flex-wrap gap-8 justify-center text-sm font-semibold text-slate-400">
                 <a href="faq.html" class="text-white hover:text-prisma transition-colors font-bold">FAQ</a>
-                <a href="privacy.html" class="hover:text-white transition-colors">Política de Privacidade</a>
-                <a href="terms.html" class="hover:text-white transition-colors">Termos de Serviço</a>
-                <a href="../delete-account/" class="hover:text-white transition-colors">Excluir Conta</a>
+                <a href="privacy.html" class="hover:text-white transition-colors">Privacy Policy</a>
+                <a href="terms.html" class="hover:text-white transition-colors">Terms of Service</a>
+                <a href="../delete-account/" class="hover:text-white transition-colors">Delete Account</a>
             </div>
 
             <div class="w-12 h-[1px] bg-white/10"></div>
 
             <p class="text-xs text-slate-500 font-bold uppercase tracking-[0.2em]">
-                &copy; 2026 Arandu Labs LLC | Desenvolvido com integridade & segurança
+                &copy; 2026 Arandu Labs LLC | Developed with integrity & security
             </p>
         </div>
     </footer>
@@ -210,110 +213,6 @@
     <!-- FAQ Logic & Multilingual Dataset -->
     <script>
         const FAQ_DATA = {
-            pt: {
-                title: "Perguntas Frequentes",
-                subtitle: "Encontre respostas rápidas sobre as funcionalidades, configurações, espectro político multidimensional e cobertura do Prisma Notícias.",
-                searchPlaceholder: "Pesquisar perguntas ou palavras-chave...",
-                noResults: "Nenhum resultado encontrado para sua pesquisa.",
-                items: [
-                    {
-                        q: "O que é Prisma Noticias?",
-                        a: "Prisma Noticias é um aplicativo móvel que permite acessar notícias dos principais meios de comunicação da América Latina em um só lugar. O aplicativo agrupa notícias por país, meio e tema, oferecendo uma visão diversa e equilibrada da informação."
-                    },
-                    {
-                        q: "O que encontro na seção Quiosque (📰)?",
-                        a: "O Quiosque é o ponto de entrada principal onde você pode explorar todos os meios de comunicação de cada país. Aqui você pode navegar pelos jornais, reagrupá-los e filtrar os que deseja seguir efetivamente. A interface se adapta automaticamente ao seu dispositivo (móvel, tablet ou desktop) para uma experiência ideal."
-                    },
-                    {
-                        q: "O que encontro na seção Notícias (📋)?",
-                        a: "A seção Notícias é o feed onde você encontrará as últimas publicações de todos os meios que selecionou. As notícias são exibidas em ordem cronológica, permitindo ficar atualizado com as informações mais recentes dos seus meios favoritos."
-                    },
-                    {
-                        q: "O que encontro na seção Análise (📊)?",
-                        a: "A seção Análise agrupa publicações por notícias discriminando o espectro político de cada linha editorial, oferecendo uma perspectiva equilibrada de como diferentes meios cobrem os mesmos eventos. É ideal para entender as nuances ideológicas na cobertura informativa."
-                    },
-                    {
-                        q: "O que encontro na seção Vários (🎭)?",
-                        a: "A seção Vários é um espaço dedicado a conteúdo complementar como previsões do tempo, efemérides históricas e astrologia. Você pode filtrar por categoria para encontrar rapidamente o conteúdo de seu interesse."
-                    },
-                    {
-                        q: "Como é valorizado o espectro político de cada meio?",
-                        a: "Para avaliar a postura de cada meio, expande-se a simplificação tradicional de \"esquerda vs. direita\" e aplica-se uma análise de conteúdo baseada em 6 eixos multidimensionais. A posição não é definida por opiniões subjetivas, mas avaliando sistematicamente o comportamento do meio frente às notícias: sua agenda (quais temas prioriza ou omite), seu enquadramento (quais adjetivos usa nos títulos) e as fontes às quais dá voz. Com base nesta análise, cada meio recebe uma pontuação de 1 a 5 nos seguintes eixos, onde 3 sempre representa o ponto de neutralidade ou equilíbrio:\n\n• Econômico: Do intervencionismo estatal (1) até o livre mercado absoluto (5).\n• Social e Cultural: Do progressismo (1) até o conservadorismo (5).\n• Institucional: Do garantismo civil (1) até a doutrina de \"lei e ordem\" (5).\n• Geopolítico: Do globalismo (1) até o nacionalismo/soberania (5).\n• Linha Editorial: Da defesa das instituições tradicionais (1) até posturas anti-sistema ou \"anti-casta\" (5).\n• Estilo Informativo: Do rigor técnico baseado em dados (1) até o sensacionalismo ou o jornalismo de militância (5)."
-                    },
-                    {
-                        q: "Como configuro países e o que significa fazer isso?",
-                        a: "Para configurar os países:\n• Vá em Ajustes → \"Configurar Países\"\n• Selecione os países dos quais deseja receber notícias\n\nO que significa configurar países?\nAo selecionar países, você filtra o conteúdo que o aplicativo baixa. Apenas notícias dos meios que pertencem aos países que escolheu serão mostradas. Isso permite personalizar sua experiência de acordo com seus interesses geográficos, otimizar o uso da internet e reduzir o ruído de informações que não é relevante para você."
-                    },
-                    {
-                        q: "O que é o Navegador Avançado e como o ativo?",
-                        a: "O que é?\nO Navegador Avançado é um modo de navegação integrado que oferece funcionalidades adicionais ao abrir links de notícias, como histórico de navegação, gerenciamento de abas e opções de download.\n\nComo o ativo?\n1. Vá em Ajustes → \"Conteúdo\"\n2. Ative o interruptor \"Navegador Avançado\"\n\nO modo leve (padrão) é mais rápido e consome menos recursos, enquanto o modo avançado oferece mais controle sobre a navegação."
-                    },
-                    {
-                        q: "Como funcionam os anúncios e que função cumprem?",
-                        a: "Para manter o aplicativo gratuito e cobrir os custos do serviço, é estabelecido um requisito diário de um máximo de anúncios por dia. Uma vez atingido esse número, o aplicativo fica totalmente livre de anúncios até o dia seguinte para seu maior conforto.\n\nInfelizmente, esse limite é o estritamente necessário para cobrir os custos de infraestrutura, e nosso compromisso firme é mantê-lo sempre no mínimo possível.\n\nVocê pode ver esses anúncios de forma gradual enquanto navega normalmente entre as notícias ou vê-los diretamente em Ajustes → \"Anúncios vistos hoje\" para liberar o aplicativo imediatamente, ou uma combinação de ambos.\n\nO contador de anúncios vistos encontra-se em Ajustes."
-                    },
-                    {
-                        q: "Como mudo o idioma?",
-                        a: "Para mudar o idioma do aplicativo:\n1. Vá em Ajustes → \"Idioma\"\n2. Selecione seu idioma preferido no menu suspenso:\n   • Español\n   • English\n   • Português\n   • Avañe'ẽ (Guaraní)\n\nA mudança é aplicada imediatamente a toda a interface do aplicativo."
-                    },
-                    {
-                        q: "Os dados são salvos na nuvem?",
-                        a: "Autenticação: Sua conta de usuário (se criar uma vinculando email) é salva com segurança no Firebase para permitir sincronizar suas preferências entre dispositivos.\n\nNotícias e conteúdo: As notícias e meios são públicos e baixados de servidores externos. Não salvamos seu histórico de leitura nem suas preferências de visualização na nuvem.\n\nPrivacidade: Seus dados pessoais são tratados de acordo com nossa Política de Privacidade disponível em Ajustes. Não compartilhamos suas informações com terceiros e você pode excluir sua conta a qualquer momento."
-                    }
-                ]
-            },
-            es: {
-                title: "Preguntas Frecuentes",
-                subtitle: "Encuentra respuestas rápidas sobre las funciones, configuración, espectro político multidimensional y cobertura de Prisma Noticias.",
-                searchPlaceholder: "Buscar preguntas o palabras clave...",
-                noResults: "No se encontraron resultados para tu búsqueda.",
-                items: [
-                    {
-                        q: "¿Qué es Prisma Noticias?",
-                        a: "Prisma Noticias es una aplicación móvil que te permite acceder a noticias de los principales medios de comunicación de Latinoamérica en un solo lugar. La app agrupa noticias por país, medio y tema, ofreciéndote una visión diversa y equilibrada de la información."
-                    },
-                    {
-                        q: "¿Qué encuentro en la sección Kiosco (📰)?",
-                        a: "El Kiosco es el punto de entrada principal donde puedes explorar todos los medios de comunicación de cada país. Aquí puedes navegar por los diarios, reagruparlos y filtrar los que deseas seguir efectivamente. La interfaz se adapta automáticamente a tu dispositivo (móvil, tablet o desktop) para una experiencia óptima."
-                    },
-                    {
-                        q: "¿Qué encuentro en la sección Noticias (📋)?",
-                        a: "La sección Noticias es el feed donde encontrarás las últimas publicaciones de todos los medios que has seleccionado. Las noticias se muestran en orden cronológico, permitiéndote estar al día con la información más reciente de tus medios favoritos."
-                    },
-                    {
-                        q: "¿Qué encuentro en la sección Análisis (📊)?",
-                        a: "La sección Análisis agrupa las publicaciones por noticias discriminando el espectro político de cada línea editorial, ofreciéndote una perspectiva equilibrada de cómo diferentes medios cubren los mismos eventos. Es ideal para entender los matices ideológicos en la cobertura informativa."
-                    },
-                    {
-                        q: "¿Qué encuentro en la sección Varios (🎭)?",
-                        a: "La sección Varios es un espacio dedicado a contenido complementario como pronósticos del clima, efemérides históricas y astrología. Puedes filtrar por categoría para encontrar rápidamente el contenido de tu interés."
-                    },
-                    {
-                        q: "¿Cómo se valora el espectro político de cada medio?",
-                        a: "Para evaluar la postura de cada medio, se amplía la simplificación tradicional de \"izquierda vs. derecha\" y se aplica un análisis de contenido basado en 6 ejes multidimensionales. La posición no se define por opiniones subjetivas, sino evaluando sistemáticamente el comportamiento del medio frente a las noticias: su agenda (qué temas priorizan u omiten), su encuadre (qué adjetivos utilizan en sus titulares) y las fuentes a las que dan voz. En base a este análisis, cada medio recibe una puntuación del 1 al 5 en los siguientes ejes, donde el 3 siempre representa el punto de neutralidad o equilibrio:\n\n• Económico: Desde el intervencionismo estatal (1) hasta el libre mercado absoluto (5).\n• Social y Cultural: Desde el progresismo (1) hasta el conservadurismo (5).\n• Institucional: Desde el garantismo civil (1) hasta la doctrina de \"ley y orden\" (5).\n• Geopolítico: Desde el globalismo (1) hasta el nationalismo/soberanismo (5).\n• Línea Editorial: Desde la defensa de las instituciones tradicionales (1) hasta posturas anti-sistema o \"anti-casta\" (5).\n• Estilo Informativo: Desde el rigor técnico basado en datos (1) hasta el sensacionalismo o el periodismo de militancia (5)."
-                    },
-                    {
-                        q: "¿Cómo configuro países y qué significa hacerlo?",
-                        a: "Para configurar los países:\n• Ve a Ajustes → \"Configurar Países\"\n• Selecciona los países de los que deseas recibir noticias\n\n¿Qué significa configurar países?\nAl seleccionar países, filtras el contenido que descarga la aplicación. Solo se mostrarán noticias de los medios que pertenecen a los países que hayas elegido. Esto te permite personalizar tu experiencia según tus intereses geográficos, optimizar el uso de internet y reducir el ruido de información que no es relevante para ti."
-                    },
-                    {
-                        q: "¿Qué es el Navegador Avanzado y cómo lo activo?",
-                        a: "¿Qué es?\nEl Navegador Avanzado es un modo de navegación integrado que ofrece funcionalidades adicionales al abrir enlaces de noticias, como historial de navegación, gestión de pestañas y opciones de descarga.\n\n¿Cómo lo activo?\n1. Ve a Ajustes → \"Contenido\"\n2. Activa el interruptor \"Navegador Avanzado\"\n\nEl modo ligero (por defecto) es más rápido y consume menos recursos, mientras que el modo avanzado ofrece más control sobre la navegación."
-                    },
-                    {
-                        q: "¿Cómo funcionan los anuncios y qué función cumplen?",
-                        a: "Para mantener la aplicación gratuita y cubrir los costes del servicio, se establece un requerimiento diario de un máximo de anuncios por día. Una vez alcanzado ese número, la aplicación queda totalmente libre de anuncios hasta el día siguiente para tu mayor comodidad.\n\nInfelizmente, este límite es el necesario para sufragar los gastos de infraestructura y nuestro compromiso firme es mantenerlo siempre en el mínimo posible.\n\nPuedes ver estos anuncios en forma paulatina mientras navegas normalmente entre noticias o verlos de forma directa desde Ajustes → \"Anuncios vistos hoy\" para liberar la aplicación inmediatamente o una combinación de ambas.\n\nEl contador de anuncios vistos se encuentra en Ajustes."
-                    },
-                    {
-                        q: "¿Cómo cambio el idioma?",
-                        a: "Para cambiar el idioma de la aplicación:\n1. Ve a Ajustes → \"Idioma\"\n2. Selecciona tu idioma preferido del menú desplegable:\n   • Español\n   • English\n   • Português\n   • Avañe'ẽ (Guaraní)\n\nEl cambio se aplica inmediatamente a toda la interfaz de la aplicación."
-                    },
-                    {
-                        q: "¿Los datos se guardan en la nube?",
-                        a: "Autenticación: Tu cuenta de usuario (si creas una vinculando email) se guarda de forma segura en Firebase para permitirte sincronizar tus preferencias entre dispositivos.\n\nNoticias y contenido: Las noticias y medios son públicos y se descargan desde servidores externos. No guardamos tu historial de lectura ni tus preferencias de visualización en la nube.\n\nPrivacidad: Tus datos personales se manejan conforme a nuestra Política de Privacidad disponible en Ajustes. No compartimos tu información con terceros y puedes eliminar tu cuenta en cualquier momento."
-                    }
-                ]
-            },
             en: {
                 title: "Frequently Asked Questions",
                 subtitle: "Find quick answers about Prisma Noticias features, settings, multidimensional bias analysis, and coverage.",
@@ -363,6 +262,110 @@
                     {
                         q: "Are data saved in the cloud?",
                         a: "Authentication: Your user account (if you create one by linking email) is securely saved in Firebase to allow you to sync your preferences between devices.\n\nNews and content: News and media are public and downloaded from external servers. We do not save your reading history or viewing preferences in the cloud.\n\nPrivacy: Your personal data is handled according to our Privacy Policy available in Settings. We do not share your information with third parties and you can delete your account at any time."
+                    }
+                ]
+            },
+            es: {
+                title: "Preguntas Frecuentes",
+                subtitle: "Encuentra respuestas rápidas sobre las funciones, configuración, espectro político multidimensional y cobertura de Prisma Noticias.",
+                searchPlaceholder: "Buscar preguntas o palabras clave...",
+                noResults: "No se encontraron resultados para tu búsqueda.",
+                items: [
+                    {
+                        q: "¿Qué es Prisma Noticias?",
+                        a: "Prisma Noticias es una aplicación móvil que te permite acceder a noticias de los principales medios de comunicación de Latinoamérica en un solo lugar. La app agrupa noticias por país, medio y tema, ofreciéndote una visión diversa y equilibrada de la información."
+                    },
+                    {
+                        q: "¿Qué encuentro en la sección Kiosco (📰)?",
+                        a: "El Kiosco es el punto de entrada principal donde puedes explorar todos los medios de comunicación de cada país. Aquí puedes navegar por los diarios, reagruparlos y filtrar los que deseas seguir efectivamente. La interfaz se adapta automáticamente a tu dispositivo (móvil, tablet o desktop) para una experiencia óptima."
+                    },
+                    {
+                        q: "¿Qué encuentro en la sección Noticias (📋)?",
+                        a: "La sección Noticias es el feed donde encontrarás las últimas publicaciones de todos los medios que has seleccionado. Las noticias se muestran en orden cronológico, permitiéndote estar al día con la información más reciente de tus medios favoritos."
+                    },
+                    {
+                        q: "¿Qué encuentro en la sección Análisis (📊)?",
+                        a: "La sección Análisis agrupa las publicaciones por noticias discriminando el espectro político de cada línea editorial, ofreciéndote una perspectiva equilibrada de cómo diferentes medios cubren los mismos eventos. Es ideal para entender los matices ideológicos en la cobertura informativa."
+                    },
+                    {
+                        q: "¿Qué encuentro en la sección Varios (🎭)?",
+                        a: "La sección Varios es un espacio dedicado a contenido complementario como pronósticos del clima, efemérides históricas y astrología. Puedes filtrar por categoría para encontrar rápidamente el contenido de tu interés."
+                    },
+                    {
+                        q: "¿Cómo se valora el espectro político de cada medio?",
+                        a: "Para evaluar la postura de cada medio, se amplía la simplificación tradicional de \"izquierda vs. derecha\" y se aplica un análisis de contenido basado en 6 ejes multidimensionales. La posición no se define por opiniones subjetivas, sino evaluando sistemáticamente el comportamiento del medio frente a las noticias: su agenda (qué temas priorizan u omiten), su encuadre (qué adjetivos utilizan en sus titulares) y las fuentes a las que dan voz. En base a este análisis, cada medio recibe una puntuación del 1 al 5 en los siguientes ejes, donde el 3 siempre representa el punto de neutralidad o equilibrio:\n\n• Económico: Desde el intervencionismo estatal (1) hasta el libre mercado absoluto (5).\n• Social y Cultural: Desde el progresismo (1) hasta el conservadurismo (5).\n• Institucional: Desde el garantismo civil (1) hasta la doctrina de \"ley y orden\" (5).\n• Geopolítico: Desde el globalismo (1) hasta el nacionalismo/soberanismo (5).\n• Línea Editorial: Desde la defensa de las instituciones tradicionales (1) hasta posturas anti-sistema o \"anti-casta\" (5).\n• Estilo Informativo: Desde el rigor técnico basado en datos (1) hasta el sensacionalismo o el periodismo de militancia (5)."
+                    },
+                    {
+                        q: "¿Cómo configuro países y qué significa hacerlo?",
+                        a: "Para configurar los países:\n• Ve a Ajustes → \"Configurar Países\"\n• Selecciona los países de los que deseas recibir noticias\n\n¿Qué significa configurar países?\nAl seleccionar países, filtras el contenido que descarga la aplicación. Solo se mostrarán noticias de los medios que pertenecen a los países que hayas elegido. Esto te permite personalizar tu experiencia según tus intereses geográficos, optimizar el uso de internet y reducir el ruido de información que no es relevante para ti."
+                    },
+                    {
+                        q: "¿Qué es el Navegador Avanzado y cómo lo activo?",
+                        a: "¿Qué es?\nEl Navegador Avanzado es un modo de navegación integrado que ofrece funcionalidades adicionales al abrir enlaces de noticias, como historial de navegación, gestión de pestañas y opciones de descarga.\n\n¿Cómo lo activo?\n1. Ve a Ajustes → \"Contenido\"\n2. Activa el interruptor \"Navegador Avanzado\"\n\nEl modo ligero (por defecto) es más rápido y consume menos recursos, mientras que el modo avanzado ofrece más control sobre la navegación."
+                    },
+                    {
+                        q: "¿Cómo funcionan los anuncios y qué función cumplen?",
+                        a: "Para mantener la aplicación gratuita y cubrir los costes del servicio, se establece un requerimiento diario de un máximo de anuncios por día. Una vez alcanzado ese número, la aplicación queda totalmente libre de anuncios hasta el día siguiente para tu mayor comodidad.\n\nInfelizmente, este límite es el necesario para sufragar los gastos de infraestructura y nuestro compromiso firme es mantenerlo siempre en el mínimo posible.\n\nPuedes ver estos anuncios en forma paulatina mientras navegas normalmente entre noticias o verlos de forma directa desde Ajustes → \"Anuncios vistos hoy\" para liberar la aplicación inmediatamente o una combinación de ambas.\n\nEl contador de anuncios vistos se encuentra en Ajustes."
+                    },
+                    {
+                        q: "¿Cómo cambio el idioma?",
+                        a: "Para cambiar el idioma de la aplicación:\n1. Ve a Ajustes → \"Idioma\"\n2. Selecciona tu idioma preferido del menú desplegable:\n   • Español\n   • English\n   • Português\n   • Avañe'ẽ (Guaraní)\n\nEl cambio se aplica inmediatamente a toda la interfaz de la aplicación."
+                    },
+                    {
+                        q: "¿Los datos se guardan en la nube?",
+                        a: "Autenticación: Tu cuenta de usuario (si creas una vinculando email) se guarda de forma segura en Firebase para permitirte sincronizar tus preferencias entre dispositivos.\n\nNoticias y contenido: Las noticias y medios son públicos y se descargan desde servidores externos. No guardamos tu historial de lectura ni tus preferencias de visualización en la nube.\n\nPrivacidad: Tus datos personales se manejan conforme a nuestra Política de Privacidad disponible en Ajustes. No compartimos tu información con terceros y puedes eliminar tu cuenta en cualquier momento."
+                    }
+                ]
+            },
+            pt: {
+                title: "Perguntas Frequentes",
+                subtitle: "Encontre respostas rápidas sobre os recursos, configurações, espectro político multidimensional e cobertura do Prisma Noticias.",
+                searchPlaceholder: "Pesquisar perguntas ou palavras-chave...",
+                noResults: "Nenhum resultado encontrado para sua pesquisa.",
+                items: [
+                    {
+                        q: "O que é Prisma Noticias?",
+                        a: "Prisma Noticias é um aplicativo móvel que permite acessar notícias dos principais meios de comunicação da América Latina em um só lugar. O aplicativo agrupa notícias por país, meio e tema, oferecendo uma visão diversa e equilibrada da informação."
+                    },
+                    {
+                        q: "O que encontro na seção Quiosque (📰)?",
+                        a: "O Quiosque é o ponto de entrada principal onde você pode explorar todos os meios de comunicação de cada país. Aqui você pode navegar pelos jornais, reagrupá-los e filtrar os que deseja seguir efetivamente. A interface se adapta automaticamente ao seu dispositivo (móvel, tablet ou desktop) para uma experiência ideal."
+                    },
+                    {
+                        q: "O que encontro na seção Notícias (📋)?",
+                        a: "A seção Notícias é o feed onde você encontrará as últimas publicações de todos os meios que selecionou. As notícias são exibidas em ordem cronológica, permitindo ficar atualizado com as informações mais recentes dos seus meios favoritos."
+                    },
+                    {
+                        q: "O que encontro na seção Análise (📊)?",
+                        a: "A seção Análise agrupa publicações por notícias discriminando o espectro político de cada linha editorial, oferecendo uma perspectiva equilibrada de como diferentes meios cobrem os mesmos eventos. É ideal para entender as nuances ideológicas na cobertura informativa."
+                    },
+                    {
+                        q: "O que encontro na seção Vários (🎭)?",
+                        a: "A seção Vários é um espaço dedicado a conteúdo complementar como previsões do tempo, efemérides históricas e astrologia. Você pode filtrar por categoria para encontrar rapidamente o conteúdo de seu interesse."
+                    },
+                    {
+                        q: "Como é valorizado o espectro político de cada meio?",
+                        a: "Para avaliar a postura de cada meio, expande-se a simplificação tradicional de \"esquerda vs. direita\" e aplica-se uma análise de conteúdo baseada em 6 eixos multidimensionais. A posição não é definida por opiniões subjetivas, mas avaliando sistematicamente o comportamento do meio frente às notícias: sua agenda (quais temas prioriza ou omite), seu enquadramento (quais adjetivos usa nos títulos) e as fontes às quais dá voz. Com base nesta análise, cada meio recebe uma pontuação de 1 a 5 nos seguintes eixos, onde 3 sempre representa o ponto de neutralidade ou equilíbrio:\n\n• Econômico: Do intervencionismo estatal (1) até o livre mercado absoluto (5).\n• Social e Cultural: Do progressismo (1) até o conservadorismo (5).\n• Institucional: Do garantismo civil (1) até a doutrina de \"lei e ordem\" (5).\n• Geopolítico: Do globalismo (1) até o nacionalismo/soberania (5).\n• Linha Editorial: Da defesa das instituições tradicionais (1) até posturas anti-sistema ou \"anti-casta\" (5).\n• Estilo Informativo: Do rigor técnico baseado em dados (1) até o sensacionalismo ou o jornalismo de militância (5)."
+                    },
+                    {
+                        q: "Como configuro países e o que significa fazer isso?",
+                        a: "Para configurar os países:\n• Vá em Ajustes → \"Configurar Países\"\n• Selecione os países dos quais deseja receber notícias\n\nO que significa configurar países?\nAo selecionar países, você filtra o conteúdo que o aplicativo baixa. Apenas notícias dos meios que pertencem aos países que escolheu serão mostradas. Isso permite personalizar sua experiência de acordo com seus interesses geográficos, otimizar o uso da internet e reduzir o ruído de informações que não é relevante para você."
+                    },
+                    {
+                        q: "O que é o Navegador Avançado e como o ativo?",
+                        a: "O que é?\nO Navegador Avançado é um modo de navegação integrado que oferece funcionalidades adicionais ao abrir links de notícias, como histórico de navegação, gerenciamento de abas e opções de download.\n\nComo o ativo?\n1. Vá em Ajustes → \"Conteúdo\"\n2. Ative o interruptor \"Navegador Avançado\"\n\nO modo leve (padrão) é mais rápido e consome menos recursos, enquanto o modo avançado oferece mais controle sobre a navegação."
+                    },
+                    {
+                        q: "Como funcionam os anúncios e que função cumprem?",
+                        a: "Para manter o aplicativo gratuito e cobrir os custos do serviço, é estabelecido um requisito diário de um máximo de anúncios por dia. Uma vez atingido esse número, o aplicativo fica totalmente livre de anúncios até o dia seguinte para seu maior conforto.\n\nInfelizmente, esse limite é o estritamente necessário para cobrir os custos de infraestrutura, e nosso compromisso firme é mantê-lo sempre no mínimo possível.\n\nVocê pode ver esses anúncios de forma gradual enquanto navega normalmente entre as notícias ou vê-los diretamente em Ajustes → \"Anúncios vistos hoje\" para liberar o aplicativo imediatamente, ou uma combinação de ambos.\n\nO contador de anúncios vistos encontra-se em Ajustes."
+                    },
+                    {
+                        q: "Como mudo o idioma?",
+                        a: "Para mudar o idioma do aplicativo:\n1. Vá em Ajustes → \"Idioma\"\n2. Selecione seu idioma preferido no menu suspenso:\n   • Español\n   • English\n   • Português\n   • Avañe'ẽ (Guaraní)\n\nA mudança é aplicada imediatamente a toda a interface do aplicativo."
+                    },
+                    {
+                        q: "Os dados são salvos na nuvem?",
+                        a: "Autenticação: Sua conta de usuário (se criar uma vinculando email) é salva com segurança no Firebase para permitir sincronizar suas preferências entre dispositivos.\n\nNotícias e conteúdo: As notícias e meios são públicos e baixados de servidores externos. Não salvamos seu histórico de leitura nem suas preferências de visualização na nuvem.\n\nPrivacidade: Seus dados pessoais são tratados de acordo com nossa Política de Privacidade disponível em Ajustes. Não compartilhamos suas informações com terceiros e você pode excluir sua conta a qualquer momento."
                     }
                 ]
             },
@@ -420,10 +423,42 @@
             }
         };
 
-        let currentFaqLang = 'pt';
+        let currentFaqLang = 'es';
+
+        function updateNavbarLang() {
+            const buttons = document.querySelectorAll('[data-nav-lang]');
+            buttons.forEach(btn => {
+                const lang = btn.getAttribute('data-nav-lang');
+                if (lang === currentFaqLang) {
+                    btn.className = 'flex items-center text-white bg-white/10 px-2 py-1 rounded-md border border-white/15 text-xs font-bold gap-1.5 opacity-100 shadow-sm';
+                } else {
+                    btn.className = 'flex items-center px-2 py-1 rounded-md text-xs font-bold gap-1.5 transition-all text-slate-400 hover:text-white opacity-70 hover:opacity-100 border border-transparent';
+                }
+            });
+        }
+
+        function setLanguage(lang) {
+            if (FAQ_DATA[lang]) {
+                currentFaqLang = lang;
+                updateNavbarLang();
+                renderFAQSection(document.getElementById('faqSearchInput').value);
+            }
+        }
+
+        function getInitialLanguage() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const param = (urlParams.get('idioma') || urlParams.get('lang') || urlParams.get('hl') || '').toLowerCase().trim();
+            
+            if (['es', 'spanish', 'esp'].includes(param)) return 'es';
+            if (['en', 'english', 'eng'].includes(param)) return 'en';
+            if (['pt', 'portuguese', 'por', 'pt-br', 'pt_br'].includes(param)) return 'pt';
+            if (['gn', 'guarani', 'gug', 'grn'].includes(param)) return 'gn';
+            
+            return 'es'; // default fallback
+        }
 
         function renderFAQSection(filterText = '') {
-            const data = FAQ_DATA[currentFaqLang] || FAQ_DATA['pt'];
+            const data = FAQ_DATA[currentFaqLang] || FAQ_DATA['es'];
             const container = document.getElementById('faqListContainer');
             const noResults = document.getElementById('faqNoResults');
             
@@ -493,6 +528,9 @@
         }
 
         document.addEventListener('DOMContentLoaded', () => {
+            currentFaqLang = getInitialLanguage();
+            updateNavbarLang();
+
             document.getElementById('faqSearchInput').addEventListener('input', (e) => {
                 renderFAQSection(e.target.value);
             });

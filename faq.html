@@ -129,19 +129,22 @@
             <!-- Language & Action -->
             <div class="flex items-center gap-6">
                 <!-- Language Selector -->
-                <div class="flex items-center gap-3 border-r border-white/10 pr-6 h-8">
-                    <a href="es/faq.html" class="flex items-center hover:scale-110 transition-transform opacity-60 hover:opacity-100 text-xs font-bold gap-1.5 text-slate-300">
-                        <img src="https://flagcdn.com/w20/es.png" width="16" alt="Spain" class="rounded-sm"> ES
-                    </a>
-                    <span class="flex items-center text-white bg-white/5 px-2 py-0.5 rounded-md border border-white/10 text-xs font-bold gap-1.5">
-                        <img src="https://flagcdn.com/w20/us.png" width="16" alt="USA" class="rounded-sm"> EN
-                    </span>
-                    <a href="pt/faq.html" class="flex items-center hover:scale-110 transition-transform opacity-60 hover:opacity-100 text-xs font-bold gap-1.5 text-slate-300">
-                        <img src="https://flagcdn.com/w20/br.png" width="16" alt="Brazil" class="rounded-sm"> PT
-                    </a>
+                <div class="flex items-center gap-2 border-r border-white/10 pr-4 sm:pr-6 h-8" id="navLangContainer">
+                    <button type="button" onclick="setLanguage('es')" data-nav-lang="es" class="flex items-center px-2 py-1 rounded-md text-xs font-bold gap-1.5 transition-all text-slate-400 hover:text-white opacity-70 hover:opacity-100">
+                        <img src="https://flagcdn.com/w20/es.png" width="16" alt="ES" class="rounded-sm"> ES
+                    </button>
+                    <button type="button" onclick="setLanguage('en')" data-nav-lang="en" class="flex items-center px-2 py-1 rounded-md text-xs font-bold gap-1.5 transition-all text-slate-400 hover:text-white opacity-70 hover:opacity-100">
+                        <img src="https://flagcdn.com/w20/us.png" width="16" alt="EN" class="rounded-sm"> EN
+                    </button>
+                    <button type="button" onclick="setLanguage('pt')" data-nav-lang="pt" class="flex items-center px-2 py-1 rounded-md text-xs font-bold gap-1.5 transition-all text-slate-400 hover:text-white opacity-70 hover:opacity-100">
+                        <img src="https://flagcdn.com/w20/br.png" width="16" alt="PT" class="rounded-sm"> PT
+                    </button>
+                    <button type="button" onclick="setLanguage('gn')" data-nav-lang="gn" class="flex items-center px-2 py-1 rounded-md text-xs font-bold gap-1.5 transition-all text-slate-400 hover:text-white opacity-70 hover:opacity-100">
+                        <img src="https://flagcdn.com/w20/py.png" width="16" alt="GN" class="rounded-sm"> GN
+                    </button>
                 </div>
 
-                <a href="index.html" class="px-5 py-2 rounded-full border border-white/10 hover:border-white/20 glass text-xs font-bold uppercase tracking-widest text-white hover:text-prisma transition-all">
+                <a href="index.html" class="px-4 sm:px-5 py-2 rounded-full border border-white/10 hover:border-white/20 glass text-xs font-bold uppercase tracking-widest text-white hover:text-prisma transition-all">
                     Home
                 </a>
             </div>
@@ -420,10 +423,42 @@
             }
         };
 
-        let currentFaqLang = 'en';
+        let currentFaqLang = 'es';
+
+        function updateNavbarLang() {
+            const buttons = document.querySelectorAll('[data-nav-lang]');
+            buttons.forEach(btn => {
+                const lang = btn.getAttribute('data-nav-lang');
+                if (lang === currentFaqLang) {
+                    btn.className = 'flex items-center text-white bg-white/10 px-2 py-1 rounded-md border border-white/15 text-xs font-bold gap-1.5 opacity-100 shadow-sm';
+                } else {
+                    btn.className = 'flex items-center px-2 py-1 rounded-md text-xs font-bold gap-1.5 transition-all text-slate-400 hover:text-white opacity-70 hover:opacity-100 border border-transparent';
+                }
+            });
+        }
+
+        function setLanguage(lang) {
+            if (FAQ_DATA[lang]) {
+                currentFaqLang = lang;
+                updateNavbarLang();
+                renderFAQSection(document.getElementById('faqSearchInput').value);
+            }
+        }
+
+        function getInitialLanguage() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const param = (urlParams.get('idioma') || urlParams.get('lang') || urlParams.get('hl') || '').toLowerCase().trim();
+            
+            if (['es', 'spanish', 'esp'].includes(param)) return 'es';
+            if (['en', 'english', 'eng'].includes(param)) return 'en';
+            if (['pt', 'portuguese', 'por', 'pt-br', 'pt_br'].includes(param)) return 'pt';
+            if (['gn', 'guarani', 'gug', 'grn'].includes(param)) return 'gn';
+            
+            return 'es'; // default fallback
+        }
 
         function renderFAQSection(filterText = '') {
-            const data = FAQ_DATA[currentFaqLang] || FAQ_DATA['en'];
+            const data = FAQ_DATA[currentFaqLang] || FAQ_DATA['es'];
             const container = document.getElementById('faqListContainer');
             const noResults = document.getElementById('faqNoResults');
             
@@ -493,6 +528,9 @@
         }
 
         document.addEventListener('DOMContentLoaded', () => {
+            currentFaqLang = getInitialLanguage();
+            updateNavbarLang();
+
             document.getElementById('faqSearchInput').addEventListener('input', (e) => {
                 renderFAQSection(e.target.value);
             });
