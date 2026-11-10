@@ -142,14 +142,16 @@
   border-radius: 14px; padding: 1.5rem;
 }
 .stats-embed .medio-detail.hidden { display: none; }
-.stats-embed .md-head { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: .6rem; margin-bottom: 1.2rem; }
-.stats-embed .md-name { font-size: 1.4rem; font-weight: 700; }
-.stats-embed .md-meta { color: var(--muted); font-size: .9rem; }
-.stats-embed .md-meta a { color: var(--accent2); }
+.stats-embed .md-head { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: nowrap; gap: .8rem; margin-bottom: 1.2rem; }
+.stats-embed .md-head > div:first-child { flex: 1; min-width: 0; }
+.stats-embed .md-name { font-size: 1.4rem; font-weight: 700; word-break: break-word; }
+.stats-embed .md-meta { color: var(--muted); font-size: .9rem; word-break: break-word; }
+.stats-embed .md-meta a { color: var(--accent2); word-break: break-all; }
 .stats-embed .md-close {
   background: none; border: 1px solid var(--border); color: var(--muted);
   width: 32px; height: 32px; border-radius: 8px; cursor: pointer;
-  font-size: 1rem; line-height: 1; flex-shrink: 0; padding: 0;
+  font-size: 1rem; line-height: 1; flex-shrink: 0; margin-left: auto;
+  display: flex; align-items: center; justify-content: center; padding: 0;
 }
 .stats-embed .md-close:hover { color: var(--text); border-color: var(--accent1); }
 .stats-embed .badge { padding: .25rem .7rem; border-radius: 999px; font-size: .78rem; font-weight: 600; }
