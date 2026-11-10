@@ -20,6 +20,8 @@ const I18N = {
     searchSub: "Escribe el nombre, país o categoría para ver su línea editorial.",
     searchPh: "Ej: Clarín, Página 12, G1, El Mercurio…",
     noResults: "Sin resultados",
+    tooManyResults: "medios coincidentes. Escribe más letras para acotar a 5 o menos.",
+    showFirst5: "Ver primeros 5",
     axesTitle: "Distribución por Perfil",
     axesSub: "Los medios (excluidas las categorías de Deportes, Entretenimiento y Estilo, y Ciencia y Tecnología) han sido clasificados en 6 dimensiones temáticas. Cada columna muestra cuántos medios caen en cada valor.",
     chartMap: "Medios por país — mapa",
@@ -55,6 +57,8 @@ const I18N = {
     searchSub: "Digite o nome, país ou categoria para ver sua linha editorial.",
     searchPh: "Ex: Folha, Estadão, O Globo, Clarín…",
     noResults: "Sem resultados",
+    tooManyResults: "veículos coincidentes. Digite mais caracteres para refinar para 5 ou menos.",
+    showFirst5: "Ver primeiros 5",
     axesTitle: "Distribuição por Perfil",
     axesSub: "Os veículos (excluídas as categorias de Esportes, Entretenimento e Estilo, e Ciência e Tecnologia) foram classificados em 6 dimensões temáticas. Cada coluna mostra quantos veículos caem em cada valor.",
     chartMap: "Veículos por país — mapa",
@@ -90,6 +94,8 @@ const I18N = {
     searchSub: "Type a name, country or category to see its editorial line.",
     searchPh: "E.g.: Clarín, Página 12, G1, El Mercurio…",
     noResults: "No results",
+    tooManyResults: "matching outlets. Type more letters to narrow down to 5 or fewer.",
+    showFirst5: "See first 5",
     axesTitle: "Profile Distribution",
     axesSub: "Outlets (excluding the Sports, Entertainment & Style, and Science & Technology categories) have been classified on 6 thematic dimensions. Each column shows how many outlets fall on each value.",
     chartMap: "Outlets by country — map",
@@ -353,7 +359,15 @@ searchInput.addEventListener("input", () => {
   debounce = setTimeout(runSearch, 120);
 });
 
-function runSearch() {
+searchInput.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") {
+    e.preventDefault();
+    clearTimeout(debounce);
+    runSearch(true);
+  }
+});
+
+function runSearch(forceLimit) {
   const q = norm(searchInput.value.trim());
   resultsEl.innerHTML = "";
   if (!q) { detailEl.classList.add("hidden"); return; }
@@ -366,7 +380,6 @@ function runSearch() {
     })
     .filter(Boolean)
     .sort((a, b) => a.score - b.score)
-    .slice(0, 30)
     .map(x => x.m);
 
   if (!matches.length) {
@@ -374,7 +387,25 @@ function runSearch() {
     return;
   }
 
-  matches.forEach(m => {
+  // Mostrar listado de sugerencias cuando la lista es <= 5 (no desplegar lista enorme)
+  if (matches.length > 5 && !forceLimit) {
+    const t = I18N[LANG];
+    const info = document.createElement("div");
+    info.className = "result-item";
+    info.style.cssText = "cursor:default;color:var(--muted);display:flex;justify-content:space-between;align-items:center;";
+    info.innerHTML = `<span>${matches.length} ${t.tooManyResults}</span>`
+      + `<button type="button" class="btn-top5" style="background:none;border:none;color:var(--accent1);cursor:pointer;font-size:.82rem;text-decoration:underline;padding:2px 6px;">${t.showFirst5}</button>`;
+    info.querySelector(".btn-top5").addEventListener("click", () => renderMatches(matches.slice(0, 5)));
+    resultsEl.appendChild(info);
+    return;
+  }
+
+  renderMatches(matches.slice(0, 5));
+}
+
+function renderMatches(list) {
+  resultsEl.innerHTML = "";
+  list.forEach(m => {
     const btn = document.createElement("button");
     btn.className = "result-item";
     btn.innerHTML = `
