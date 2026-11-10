@@ -125,7 +125,7 @@
 
 .stats-embed .results { margin-top: .8rem; display: flex; flex-direction: column; gap: .4rem; max-height: 380px; overflow-y: auto; }
 .stats-embed .result-item {
-  display: flex; justify-content: space-between; align-items: center; gap: 1rem;
+  display: flex; justify-content: space-between; align-items: center; gap: .6rem 1rem; flex-wrap: wrap;
   background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px;
   padding: .7rem 1rem; cursor: pointer; text-align: left; color: var(--text); width: 100%;
 }
@@ -336,6 +336,8 @@
 @media (max-width: 640px) {
   .stats-embed .bar-row { grid-template-columns: 90px 1fr 36px; font-size: .78rem; }
   .stats-embed .hero-inner { padding-top: 1rem; }
+  .stats-embed .kpis { grid-template-columns: repeat(2, 1fr); }
+  .stats-embed .kpi-flags { grid-column: 1 / -1; order: -1; }
 }
 @media (max-width: 720px) {
   .stats-embed #map { aspect-ratio: 1.15; }

@@ -307,7 +307,7 @@ function renderFlags() {
   // velocidad ~30px/s proporcional al ancho de una secuencia
   requestAnimationFrame(() => {
     const w = track.scrollWidth / 2;
-    track.style.setProperty("--flags-dur", `${Math.max(30, w / 75)}s`);
+    track.style.setProperty("--flags-dur", `${Math.max(30, w / 160)}s`);
   });
 }
 

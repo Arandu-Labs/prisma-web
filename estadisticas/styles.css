@@ -132,7 +132,7 @@ h3 { font-size: 1.05rem; margin-bottom: 1rem; }
 
 .results { margin-top: .8rem; display: flex; flex-direction: column; gap: .4rem; max-height: 380px; overflow-y: auto; }
 .result-item {
-  display: flex; justify-content: space-between; align-items: center; gap: 1rem;
+  display: flex; justify-content: space-between; align-items: center; gap: .6rem 1rem; flex-wrap: wrap;
   background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px;
   padding: .7rem 1rem; cursor: pointer; text-align: left; color: var(--text); width: 100%;
 }
@@ -343,6 +343,8 @@ h3 { font-size: 1.05rem; margin-bottom: 1rem; }
 @media (max-width: 640px) {
   .bar-row { grid-template-columns: 90px 1fr 36px; font-size: .78rem; }
   .hero-inner { padding-top: 1rem; }
+  .kpis { grid-template-columns: repeat(2, 1fr); }
+  .kpi-flags { grid-column: 1 / -1; order: -1; }
 }
 @media (max-width: 720px) {
   #map { aspect-ratio: 1.15; }
