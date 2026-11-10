@@ -753,17 +753,28 @@ function applyTickerFilter(force = false) {
     "USA": "🇺🇸", "España": "🇪🇸", "Espana": "🇪🇸", "Global": "🌐"
   };
 
+  // Set de medios regionales para mostrar región condicionalmente
+  const regSet = new Set(
+    (typeof MEDIOS !== "undefined" && Array.isArray(MEDIOS))
+      ? MEDIOS.filter(m => m && m.categoria === "Regionales").map(m => cleanName(m.nombre).toLowerCase())
+      : []
+  );
+
   // duplicar para loop continuo del marquee
   const html = items.map(n => {
     const fecha = n.f ? fmt.format(new Date(n.f)) : "";
-    const flag = FLAG_EMOJIS[n.p] || "🌐";
-    const lugar = flag + (n.r ? ` ${n.r}` : "");
+    const isGlobal = n.p === "Global" || !FLAG_EMOJIS[n.p];
+    const flag = isGlobal ? "🌐" : (FLAG_EMOJIS[n.p] || "🌐");
+    const mClean = cleanName(n.m).toLowerCase();
+    const isReg = n.cat === "Regionales" || regSet.has(mClean);
+    const regText = (isReg && n.r) ? ` (${n.r})` : "";
     return `
     <span class="ticker-item">
       <span class="t-dot">◆</span>
       <span class="t-date">${escapeHtml(fecha)}</span>
+      <span class="t-flag" title="${escapeHtml(n.p || '')}">${flag}</span>
       <a class="t-title" href="${escapeHtml(n.u)}" target="_blank" rel="noopener">${escapeHtml(cleanName(n.t))}</a>
-      <span class="t-meta">${escapeHtml(cleanName(n.m))} (${escapeHtml(lugar)})</span>
+      <span class="t-meta">${escapeHtml(cleanName(n.m))}${escapeHtml(regText)}</span>
     </span>`;
   }).join("");
   tickerTrack.innerHTML = html + html;
