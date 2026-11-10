@@ -12,7 +12,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-    
+
+    <!-- Estadísticas del catálogo de medios (embed) -->
+    <link rel="stylesheet" href="/estadisticas/embed.css">
+
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -105,6 +108,56 @@
                 box-shadow: 0 0 30px rgba(255, 153, 51, 0.15);
             }
         }
+
+        /* Hero vertical news feed (teleprompter) */
+        .hero-feed {
+            height: 400px;
+            position: relative;
+            overflow: hidden;
+            background: rgba(11, 14, 20, 0.55);
+        }
+        .hero-feed::before, .hero-feed::after {
+            content: ""; position: absolute; left: 0; right: 0; height: 64px; z-index: 2; pointer-events: none;
+        }
+        .hero-feed::before { top: 0; background: linear-gradient(to bottom, rgba(11,14,20,.9), transparent); }
+        .hero-feed::after { bottom: 0; background: linear-gradient(to top, rgba(11,14,20,.9), transparent); }
+        .hero-feed-track {
+            display: flex; flex-direction: column;
+            animation: heroFeedScroll 50s linear infinite;
+        }
+        .hero-feed:hover .hero-feed-track { animation-play-state: paused; }
+        @keyframes heroFeedScroll {
+            from { transform: translateY(0); }
+            to { transform: translateY(-50%); }
+        }
+        .hero-feed-item {
+            display: flex; gap: .75rem; padding: .8rem 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, .05);
+        }
+        @media (max-width: 640px) {
+            .hero-feed { height: 300px; }
+            #benefits .w-72, #beneficios .w-72 { width: min(18rem, 80vw) !important; }
+        }
+
+        /* Screenshots endless carousel */
+        .shot-carousel { position: relative; overflow: hidden; height: 460px; perspective: 1400px; }
+        .shot-carousel::before, .shot-carousel::after {
+            content: ""; position: absolute; top: 0; bottom: 0; width: 90px; z-index: 60; pointer-events: none;
+        }
+        .shot-carousel::before { left: 0; background: linear-gradient(90deg, #0B0E14, transparent); }
+        .shot-carousel::after { right: 0; background: linear-gradient(-90deg, #0B0E14, transparent); }
+        .shot-track { position: absolute; inset: 0; transform-style: preserve-3d; }
+        .shot-card { position: absolute; top: 50%; left: 0; width: 190px; backface-visibility: hidden; will-change: transform, opacity; }
+        .shot-card img {
+            display: block; width: 100%; height: 420px; object-fit: cover;
+            border-radius: 14px; border: 1px solid rgba(255,255,255,.12);
+            box-shadow: 0 12px 32px rgba(0,0,0,.55); background: #161B22;
+        }
+        @media (max-width: 640px) {
+            .shot-carousel { height: 370px; }
+            .shot-card { width: 150px; }
+            .shot-card img { height: 335px; }
+        }
     </style>
 </head>
 <body class="antialiased">
@@ -153,42 +206,18 @@
             
             <!-- Hero Text -->
             <div class="lg:col-span-6 space-y-8 text-center lg:text-left">
-                <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-white/10 bg-white/5 text-slate-300 text-xs font-bold uppercase tracking-wider">
-                    <span class="w-1.5 h-1.5 rounded-full bg-logoOrange animate-pulse"></span>
-                    Quiosque & Agregador Plural
-                </span>
-                
                 <h1 class="text-4xl sm:text-5xl lg:text-6xl font-outfit font-black tracking-tight leading-[1.05] text-white">
-                    Toda a imprensa sob todos os <span class="text-prisma italic font-extrabold">Espectros</span>
+                    Todos os veículos de Latam em um só lugar
                 </h1>
                 
                 <p class="text-slate-400 text-lg leading-relaxed font-light max-w-xl mx-auto lg:mx-0">
-                    Prisma Notícias é um quiosque digital e agregador inteligente inspirado na transparência informativa do Ground News. Compare a mesma notícia sob diferentes tendências políticas, descubra pontos cegos de cobertura e visualize notícias regionais. <strong class="text-white">Privacidade total, sem algoritmos ou cadastros.</strong>
+                    Prisma Notícias é um quiosque digital e agregador inteligente. Compare a mesma notícia sob diferentes tendências políticas, descubra pontos cegos de cobertura e visualize notícias regionais. <strong class="text-white">Privacidade total, sem algoritmos ou cadastros.</strong>
                 </p>
-                
-                <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start items-center">
-                    <a href="https://play.google.com/store/apps/details?id=dev.arandulabs.prisma&pli=1" target="_blank" class="inline-block transition-transform duration-300 hover:scale-[1.04]">
-                        <img src="../assets/images/download-google.svg" alt="Baixar no Google Play" class="h-14 w-auto">
-                    </a>
-                    <a href="#beneficios" class="inline-flex items-center justify-center px-8 py-4 rounded-2xl border border-white/10 hover:border-white/20 glass text-white font-medium transition-colors">
-                        Explorar Vantagens
-                    </a>
-                </div>
 
-                <!-- Trust Badges -->
-                <div class="pt-8 border-t border-white/5 grid grid-cols-3 gap-6 max-w-md mx-auto lg:mx-0 text-center lg:text-left">
-                    <div>
-                        <p class="text-2xl font-outfit font-black text-white">Multicolor</p>
-                        <p class="text-xs text-slate-500 font-bold uppercase tracking-wider mt-1">Prisma Editorial</p>
-                    </div>
-                    <div>
-                        <p class="text-2xl font-outfit font-black text-white">Sem Viés</p>
-                        <p class="text-xs text-slate-500 font-bold uppercase tracking-wider mt-1">Comparativa Real</p>
-                    </div>
-                    <div>
-                        <p class="text-2xl font-outfit font-black text-white">100% Livre</p>
-                        <p class="text-xs text-slate-500 font-bold uppercase tracking-wider mt-1">Sem Rastreadores</p>
-                    </div>
+                <div class="flex flex-wrap gap-4 justify-center lg:justify-start">
+                    <a href="#beneficios" class="inline-flex items-center justify-center px-6 py-3 rounded-2xl border border-white/10 hover:border-white/25 glass text-white text-sm font-semibold transition-colors">Características</a>
+                    <a href="#catalog" class="inline-flex items-center justify-center px-6 py-3 rounded-2xl border border-white/10 hover:border-white/25 glass text-white text-sm font-semibold transition-colors">Cobertura</a>
+                    <a href="#como-funciona" class="inline-flex items-center justify-center px-6 py-3 rounded-2xl border border-white/10 hover:border-white/25 glass text-white text-sm font-semibold transition-colors">Instalar</a>
                 </div>
             </div>
 
@@ -208,9 +237,9 @@
                         <span class="w-3"></span>
                     </div>
 
-                    <!-- App Identity Graphic Showcase -->
-                    <div class="w-full overflow-hidden rounded-2xl">
-                        <img src="../assets/images/identity.png" alt="Prisma Notícias LATAM Showcase" class="w-full h-auto object-cover hover:scale-[1.02] transition-transform duration-500">
+                    <!-- Vertical news feed showcase -->
+                    <div class="hero-feed w-full rounded-2xl" id="hero-feed">
+                        <div class="hero-feed-track" id="hero-feed-track"></div>
                     </div>
                 </div>
             </div>
@@ -223,85 +252,136 @@
         <div class="max-w-7xl mx-auto space-y-16">
             
             <div class="text-center space-y-4 max-w-xl mx-auto">
-                <span class="text-prisma font-black tracking-[0.2em] text-xs uppercase block">Recursos & Vantagens</span>
+                <span class="text-prisma font-black tracking-[0.2em] text-xs uppercase block">Vantagens</span>
                 <h2 class="text-3xl md:text-5xl font-outfit font-black tracking-tight leading-none text-white">
                     Descubra o que a mídia não te conta
                 </h2>
                 <div class="w-12 h-1 bg-prisma mx-auto rounded-full mt-4"></div>
             </div>
 
-            <!-- Features Grid (6 Perks) -->
+            <!-- Features Grid (5 Perks) -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-                
-                <!-- Kiosco de Prensa -->
-                <div class="flex flex-col items-start p-8 glass rounded-3xl border border-white/5 hover:border-logoRed/20 transition-all gap-4">
-                    <div class="w-12 h-12 rounded-xl bg-logoRed/10 flex items-center justify-center text-logoRed">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 4a2 2 0 00-2-2m-2 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+
+                <!-- Perk 01 -->
+                <div class="flex flex-col p-8 glass rounded-3xl border border-white/5 hover:border-logoCeleste/30 transition-all gap-5">
+                    <div class="flex items-start gap-4">
+                        <span class="text-4xl font-outfit font-black text-logoRed/70 leading-none pt-1">01</span>
+                        <h3 class="text-lg font-bold text-white leading-snug">Acesso a todos os veículos a partir de um só lugar</h3>
                     </div>
-                    <div>
-                        <h3 class="text-lg font-bold mb-2 text-white">Quiosque de Imprensa</h3>
-                        <p class="text-sm text-slate-400 leading-relaxed font-light">Explore as capas do dia e acesse as publicações impressas de forma visual e intuitiva.</p>
-                    </div>
+                    <ul class="space-y-3 pl-5 text-sm font-light list-disc marker:text-slate-500 text-slate-400">
+                        <li class="group relative cursor-help"><strong class="text-logoRed font-semibold">Hub integral de imprensa.</strong><span class="absolute bottom-full left-0 z-20 mb-2 hidden w-72 rounded-lg border border-white/10 bg-darkCard p-3 text-xs font-normal leading-relaxed text-slate-300 shadow-xl group-hover:block">Centraliza mais de 940 veículos (locais, provinciais, nacionais e internacionais) em um único ponto de acesso direto.</span></li>
+                        <li class="group relative cursor-help"><strong class="text-logoRed font-semibold">Quiosque digital por países e regiões.</strong><span class="absolute bottom-full left-0 z-20 mb-2 hidden w-72 rounded-lg border border-white/10 bg-darkCard p-3 text-xs font-normal leading-relaxed text-slate-300 shadow-xl group-hover:block">Permite explorar e acessar as edições digitais de cada jornal com um só toque, sem precisar lembrar URLs, abrir dezenas de abas ou navegar por navegadores saturados.</span></li>
+                        <li class="group relative cursor-help"><strong class="text-logoRed font-semibold">Configuração geográfica assistida.</strong><span class="absolute bottom-full left-0 z-20 mb-2 hidden w-72 rounded-lg border border-white/10 bg-darkCard p-3 text-xs font-normal leading-relaxed text-slate-300 shadow-xl group-hover:block">Mapa interativo para descobrir e priorizar veículos da sua província ou região, junto com os títulos de referência global (The Economist, Bloomberg Línea, El País, BBC, etc.).</span></li>
+                    </ul>
                 </div>
 
-                <!-- Agregador Inteligente -->
-                <div class="flex flex-col items-start p-8 glass rounded-3xl border border-white/5 hover:border-logoOrange/20 transition-all gap-4">
-                    <div class="w-12 h-12 rounded-xl bg-logoOrange/10 flex items-center justify-center text-logoOrange">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                <!-- Perk 02 -->
+                <div class="flex flex-col p-8 glass rounded-3xl border border-white/5 hover:border-logoOrange/30 transition-all gap-5">
+                    <div class="flex items-start gap-4">
+                        <span class="text-4xl font-outfit font-black text-logoOrange/70 leading-none pt-1">02</span>
+                        <h3 class="text-lg font-bold text-white leading-snug">Visão multi-perspectiva do espectro editorial</h3>
                     </div>
-                    <div>
-                        <h3 class="text-lg font-bold mb-2 text-white">Agregador de Notícias</h3>
-                        <p class="text-sm text-slate-400 leading-relaxed font-light">Reúna informações em tempo real provenientes de milhares de agências locais, nacionais e internacionais.</p>
-                    </div>
+                    <ul class="space-y-3 pl-5 text-sm font-light list-disc marker:text-slate-500 text-slate-400">
+                        <li class="group relative cursor-help"><strong class="text-logoOrange font-semibold">Contraste de linhas editoriais.</strong><span class="absolute bottom-full left-0 z-20 mb-2 hidden w-72 rounded-lg border border-white/10 bg-darkCard p-3 text-xs font-normal leading-relaxed text-slate-300 shadow-xl group-hover:block">Cada acontecimento reúne as diversas visões do espectro informativo (social, institucional, econômico e geopolítico), permitindo ao leitor ver como cada jornal enfoca, hierarquiza e titula a mesma realidade.</span></li>
+                        <li class="group relative cursor-help"><strong class="text-logoOrange font-semibold">Diversidade sem viés único.</strong><span class="absolute bottom-full left-0 z-20 mb-2 hidden w-72 rounded-lg border border-white/10 bg-darkCard p-3 text-xs font-normal leading-relaxed text-slate-300 shadow-xl group-hover:block">Rompe as bolhas de filtro ao colocar frente a frente veículos de diferentes tendências editoriais sobre o mesmo fato noticioso.</span></li>
+                        <li class="group relative cursor-help"><strong class="text-logoOrange font-semibold">Transparência da fonte.</strong><span class="absolute bottom-full left-0 z-20 mb-2 hidden w-72 rounded-lg border border-white/10 bg-darkCard p-3 text-xs font-normal leading-relaxed text-slate-300 shadow-xl group-hover:block">Identificação clara do veículo de origem, sua procedência e cobertura para fomentar um critério próprio no leitor.</span></li>
+                    </ul>
                 </div>
 
-                <!-- Comparativa de Tendencia -->
-                <div class="flex flex-col items-start p-8 glass rounded-3xl border border-white/5 hover:border-logoYellow/20 transition-all gap-4">
-                    <div class="w-12 h-12 rounded-xl bg-logoYellow/10 flex items-center justify-center text-logoYellow">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+                <!-- Perk 03 -->
+                <div class="flex flex-col p-8 glass rounded-3xl border border-white/5 hover:border-logoYellow/30 transition-all gap-5">
+                    <div class="flex items-start gap-4">
+                        <span class="text-4xl font-outfit font-black text-logoYellow/70 leading-none pt-1">03</span>
+                        <h3 class="text-lg font-bold text-white leading-snug">Agrupamento inteligente de notícias por evento</h3>
                     </div>
-                    <div>
-                        <h3 class="text-lg font-bold mb-2 text-white">Espectro Político Comparado</h3>
-                        <p class="text-sm text-slate-400 leading-relaxed font-light">Leia a mesma notícia coberta por diferentes jornais de esquerda, centro e direita em paralelo e compare as narrativas.</p>
-                    </div>
+                    <ul class="space-y-3 pl-5 text-sm font-light list-disc marker:text-slate-500 text-slate-400">
+                        <li class="group relative cursor-help"><strong class="text-logoYellow font-semibold">Um só cartão por acontecimento (Clusters).</strong><span class="absolute bottom-full left-0 z-20 mb-2 hidden w-72 rounded-lg border border-white/10 bg-darkCard p-3 text-xs font-normal leading-relaxed text-slate-300 shadow-xl group-hover:block">Consolida dezenas de artigos redundantes em um único bloco informativo ordenado, eliminando a duplicação no feed.</span></li>
+                        <li class="group relative cursor-help"><strong class="text-logoYellow font-semibold">Titulação jornalística neutra e bilíngue.</strong><span class="absolute bottom-full left-0 z-20 mb-2 hidden w-72 rounded-lg border border-white/10 bg-darkCard p-3 text-xs font-normal leading-relaxed text-slate-300 shadow-xl group-hover:block">Titular sintetizado e representativo gerado por IA no idioma ativo (Espanhol ou Português), livre de clickbait sensacionalista.</span></li>
+                        <li class="group relative cursor-help"><strong class="text-logoYellow font-semibold">Carrossel comparativo de fontes.</strong><span class="absolute bottom-full left-0 z-20 mb-2 hidden w-72 rounded-lg border border-white/10 bg-darkCard p-3 text-xs font-normal leading-relaxed text-slate-300 shadow-xl group-hover:block">Dentro de cada evento, um carrossel dinâmico reúne todos os veículos que estão cobrindo a notícia em tempo real para saltar de um ponto de vista a outro instantaneamente.</span></li>
+                    </ul>
                 </div>
 
-                <!-- Puntos Ciegos (Blindspots) -->
-                <div class="flex flex-col items-start p-8 glass rounded-3xl border border-white/5 hover:border-logoGreen/20 transition-all gap-4">
-                    <div class="w-12 h-12 rounded-xl bg-logoGreen/10 flex items-center justify-center text-logoGreen">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
+                <!-- Perk 04 -->
+                <div class="flex flex-col p-8 glass rounded-3xl border border-white/5 hover:border-logoGreen/30 transition-all gap-5">
+                    <div class="flex items-start gap-4">
+                        <span class="text-4xl font-outfit font-black text-logoGreen/70 leading-none pt-1">04</span>
+                        <h3 class="text-lg font-bold text-white leading-snug">Experiência de leitura rápida e otimizada</h3>
                     </div>
-                    <div>
-                        <h3 class="text-lg font-bold mb-2 text-white">Pontos Cegos Revelados</h3>
-                        <p class="text-sm text-slate-400 leading-relaxed font-light">Descubra quais histórias estão sendo ignoradas pela esquerda ou pela direita e evite vieses de omissão involuntários.</p>
-                    </div>
+                    <ul class="space-y-3 pl-5 text-sm font-light list-disc marker:text-slate-500 text-slate-400">
+                        <li class="group relative cursor-help"><strong class="text-logoGreen font-semibold">Leitor WebView de alta velocidade.</strong><span class="absolute bottom-full left-0 z-20 mb-2 hidden w-72 rounded-lg border border-white/10 bg-darkCard p-3 text-xs font-normal leading-relaxed text-slate-300 shadow-xl group-hover:block">Acesso ao site original de cada veículo com corte antecipado de carregamento, evitando a espera por anúncios pesados e rastreadores invasivos.</span></li>
+                        <li class="group relative cursor-help"><strong class="text-logoGreen font-semibold">Leitura fluida e sem conexão (cache local).</strong><span class="absolute bottom-full left-0 z-20 mb-2 hidden w-72 rounded-lg border border-white/10 bg-darkCard p-3 text-xs font-normal leading-relaxed text-slate-300 shadow-xl group-hover:block">Armazenamento local inteligente que permite continuar lendo notícias e portadas no transporte público ou zonas com sinal intermitente.</span></li>
+                        <li class="group relative cursor-help"><strong class="text-logoGreen font-semibold">Privacidade total e anônima.</strong><span class="absolute bottom-full left-0 z-20 mb-2 hidden w-72 rounded-lg border border-white/10 bg-darkCard p-3 text-xs font-normal leading-relaxed text-slate-300 shadow-xl group-hover:block">Não requer contas, e-mails nem cadastros obrigatórios; todas as preferências e configurações permanecem exclusivamente no dispositivo do usuário.</span></li>
+                    </ul>
                 </div>
 
-                <!-- Enfoque 100% LATAM -->
-                <div class="flex flex-col items-start p-8 glass rounded-3xl border border-white/5 hover:border-logoCeleste/20 transition-all gap-4">
-                    <div class="w-12 h-12 rounded-xl bg-logoCeleste/10 flex items-center justify-center text-logoCeleste">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 002 2h1.5A2.5 2.5 0 0019 9.5V8a2 2 0 00-2-2h-1a2 2 0 01-2-2v-.935M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                <!-- Perk 05 -->
+                <div class="flex flex-col p-8 glass rounded-3xl border border-white/5 hover:border-logoBlue/30 transition-all gap-5 md:col-span-2 lg:col-span-1">
+                    <div class="flex items-start gap-4">
+                        <span class="text-4xl font-outfit font-black text-logoCeleste/70 leading-none pt-1">05</span>
+                        <h3 class="text-lg font-bold text-white leading-snug">Modos de consumo para cada momento</h3>
                     </div>
-                    <div>
-                        <h3 class="text-lg font-bold mb-2 text-white">Foco na América Latina</h3>
-                        <p class="text-sm text-slate-400 leading-relaxed font-light">Cobertura especializada do ecossistema informativo de LATAM. Acesse os veículos de imprensa mais relevantes da região.</p>
-                    </div>
-                </div>
-
-                <!-- Regionalización y Filtros -->
-                <div class="flex flex-col items-start p-8 glass rounded-3xl border border-white/5 hover:border-logoBlue/20 transition-all gap-4">
-                    <div class="w-12 h-12 rounded-xl bg-logoBlue/10 flex items-center justify-center text-logoBlue">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-                    </div>
-                    <div>
-                        <h3 class="text-lg font-bold mb-2 text-white">Filtros por País e Estado</h3>
-                        <p class="text-sm text-slate-400 leading-relaxed font-light">Explore o que acontece no seu estado ou cidade, filtrando veículos locais junto aos grandes jornais globais.</p>
-                    </div>
+                    <ul class="space-y-3 pl-5 text-sm font-light list-disc marker:text-slate-500 text-slate-400">
+                        <li class="group relative cursor-help"><strong class="text-logoCeleste font-semibold">Notícias Curadas.</strong><span class="absolute bottom-full left-0 z-20 mb-2 hidden w-72 rounded-lg border border-white/10 bg-darkCard p-3 text-xs font-normal leading-relaxed text-slate-300 shadow-xl group-hover:block">O resumo panorâmico com os grandes eventos e clusters do dia.</span></li>
+                        <li class="group relative cursor-help"><strong class="text-logoCeleste font-semibold">Feed ao vivo.</strong><span class="absolute bottom-full left-0 z-20 mb-2 hidden w-72 rounded-lg border border-white/10 bg-darkCard p-3 text-xs font-normal leading-relaxed text-slate-300 shadow-xl group-hover:block">Fluxo cronológico ao minuto com barra de filtragem instantânea por jornal, país ou categoria.</span></li>
+                        <li class="group relative cursor-help"><strong class="text-logoCeleste font-semibold">Seção «Vários».</strong><span class="absolute bottom-full left-0 z-20 mb-2 hidden w-72 rounded-lg border border-white/10 bg-darkCard p-3 text-xs font-normal leading-relaxed text-slate-300 shadow-xl group-hover:block">Espaço independente para cultura, tecnologia, entretenimento e games, garantindo que a atualidade dura não se contamine com miscelâneas.</span></li>
+                        <li class="group relative cursor-help"><strong class="text-logoCeleste font-semibold">Filtro especializado em Esportes.</strong><span class="absolute bottom-full left-0 z-20 mb-2 hidden w-72 rounded-lg border border-white/10 bg-darkCard p-3 text-xs font-normal leading-relaxed text-slate-300 shadow-xl group-hover:block">Cobertura organizada por disciplinas esportivas concretas (futebol, tênis, basquete, automobilismo, etc.).</span></li>
+                    </ul>
                 </div>
 
             </div>
         </div>
     </section>
+
+
+
+    <!-- Estadísticas del catálogo de medios -->
+    <div class="stats-embed" id="catalog">
+        <section class="stats-intro text-center space-y-4 max-w-xl mx-auto px-6 pt-10">
+            <span class="text-prisma font-black tracking-[0.2em] text-xs uppercase block" data-i18n="kicker">Catálogo de imprensa</span>
+            <h2 class="text-3xl md:text-5xl font-outfit font-black tracking-tight leading-none text-white" data-i18n="title">O espectro da imprensa latino-americana</h2>
+            <p class="muted" id="hero-sub"></p>
+        </section>
+
+        <main class="container">
+
+            <!-- KPIs -->
+            <section class="kpis">
+                <div class="kpi"><strong id="kpi-medios">0</strong><span id="kpi-medios-label"></span></div>
+                <div class="kpi kpi-flags">
+                    <div class="flags-mosaic" id="flags-mosaic" aria-hidden="true"></div>
+                    <div class="kpi-content"><strong id="kpi-paises2">0</strong><span data-i18n="kpiPaises">países</span></div>
+                </div>
+                <div class="kpi"><strong id="kpi-cats">0</strong><span id="kpi-cats-label"></span></div>
+            </section>
+
+            <!-- Buscador -->
+            <section class="search-section">
+                <h2 data-i18n="searchTitle">Busque um veículo de imprensa</h2>
+                <p class="muted" data-i18n="searchSub">Digite o nome, país ou categoria para ver sua linha editorial.</p>
+                <input id="search" type="search" autocomplete="off" spellcheck="false"
+                       data-i18n-ph="searchPh" placeholder="Ex: Folha, Estadão, O Globo, Clarín…">
+                <div id="results" class="results"></div>
+                <div id="medio-detail" class="medio-detail hidden"></div>
+            </section>
+
+            <!-- Charts -->
+            <section class="charts">
+                <div class="chart-card chart-map">
+                    <h3 data-i18n="chartMap">Veículos por país — mapa</h3>
+                    <div id="map"></div>
+                </div>
+                <div class="chart-card chart-cats"><h3 data-i18n="chartCats">Veículos por categoria</h3><div id="chart-cats" class="bars"></div></div>
+            </section>
+
+            <section class="axes-section">
+                <h2 data-i18n="axesTitle">Distribuição por Perfil</h2>
+                <p class="muted" data-i18n="axesSub">Os veículos (excluídas as categorias de Esportes, Entretenimento e Estilo, e Ciência e Tecnologia) foram classificados em 6 dimensões temáticas. Cada coluna mostra quantos veículos caem em cada valor.</p>
+                <div id="axes-grid" class="axes-grid"></div>
+            </section>
+
+        </main>
+
+    </div>
 
     <!-- Visual Middle Section (App Screenshots Gallery) -->
     <section id="capturas" class="py-20 px-6 max-w-7xl mx-auto z-10">
@@ -316,29 +396,10 @@
             </div>
 
             <!-- Screenshots Grid / Scroll Container -->
-            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 md:gap-6">
-                <div class="group relative rounded-2xl overflow-hidden border border-white/10 glass hover:border-prisma/50 transition-all duration-300 shadow-xl hover:-translate-y-1">
-                    <img src="../assets/images/pantalla_1.jpeg" alt="Tela 1 - Prisma Notícias" class="w-full h-auto object-cover rounded-2xl">
-                </div>
-                <div class="group relative rounded-2xl overflow-hidden border border-white/10 glass hover:border-prisma/50 transition-all duration-300 shadow-xl hover:-translate-y-1">
-                    <img src="../assets/images/pantalla_2.jpeg" alt="Tela 2 - Prisma Notícias" class="w-full h-auto object-cover rounded-2xl">
-                </div>
-                <div class="group relative rounded-2xl overflow-hidden border border-white/10 glass hover:border-prisma/50 transition-all duration-300 shadow-xl hover:-translate-y-1">
-                    <img src="../assets/images/pantalla_3.jpeg" alt="Tela 3 - Prisma Notícias" class="w-full h-auto object-cover rounded-2xl">
-                </div>
-                <div class="group relative rounded-2xl overflow-hidden border border-white/10 glass hover:border-prisma/50 transition-all duration-300 shadow-xl hover:-translate-y-1">
-                    <img src="../assets/images/pantalla_4.jpeg" alt="Tela 4 - Prisma Notícias" class="w-full h-auto object-cover rounded-2xl">
-                </div>
-                <div class="group relative rounded-2xl overflow-hidden border border-white/10 glass hover:border-prisma/50 transition-all duration-300 shadow-xl hover:-translate-y-1">
-                    <img src="../assets/images/pantalla_5.jpeg" alt="Tela 5 - Prisma Notícias" class="w-full h-auto object-cover rounded-2xl">
-                </div>
-                <div class="group relative rounded-2xl overflow-hidden border border-white/10 glass hover:border-prisma/50 transition-all duration-300 shadow-xl hover:-translate-y-1">
-                    <img src="../assets/images/pantalla_6.jpeg" alt="Tela 6 - Prisma Notícias" class="w-full h-auto object-cover rounded-2xl">
-                </div>
-            </div>
+                        <!-- Screenshots endless carousel -->
+            <div class="shot-carousel" id="shot-carousel"><div class="shot-track" id="shot-track"></div></div>
         </div>
     </section>
-
     <!-- Cómo funciona (Workflow) -->
     <section id="como-funciona" class="py-24 px-6 max-w-7xl mx-auto z-10">
         <div class="space-y-16">
@@ -355,18 +416,21 @@
             <div class="grid md:grid-cols-3 gap-8">
                 
                 <!-- Paso 1 -->
-                <div class="relative p-8 rounded-3xl border border-white/5 glass text-center flex flex-col items-center gap-6 group hover:border-logoRed/20 transition-all">
-                    <span class="absolute top-4 right-6 text-6xl font-outfit font-black text-white/5 group-hover:text-logoRed/5 transition-colors">01</span>
+                <div class="relative p-8 rounded-3xl border border-white/5 glass text-center flex flex-col items-center gap-6 group hover:border-logoRed/30 transition-all" style="background: linear-gradient(165deg, rgba(255,68,68,.15), rgba(22,27,34,.85) 60%);">
+                    <span class="absolute top-4 right-6 text-6xl font-outfit font-black text-logoRed/15 transition-colors">01</span>
                     <div class="w-16 h-16 rounded-2xl bg-logoRed/10 text-logoRed flex items-center justify-center">
                         <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
                     </div>
                     <h3 class="text-xl font-bold text-white">Instale o App</h3>
                     <p class="text-slate-400 text-sm leading-relaxed font-light">Baixe o Prisma Notícias gratuitamente no seu dispositivo Android através da Google Play Store.</p>
+                    <a href="https://play.google.com/store/apps/details?id=dev.arandulabs.prisma&pli=1" target="_blank" class="inline-block transition-transform duration-300 hover:scale-[1.04]">
+                        <img src="../assets/images/download-google.svg" alt="Baixar no Google Play" class="h-12 w-auto">
+                    </a>
                 </div>
 
                 <!-- Paso 2 -->
-                <div class="relative p-8 rounded-3xl border border-white/5 glass text-center flex flex-col items-center gap-6 group hover:border-logoOrange/20 transition-all">
-                    <span class="absolute top-4 right-6 text-6xl font-outfit font-black text-white/5 group-hover:text-logoOrange/5 transition-colors">02</span>
+                <div class="relative p-8 rounded-3xl border border-white/5 glass text-center flex flex-col items-center gap-6 group hover:border-logoOrange/30 transition-all" style="background: linear-gradient(165deg, rgba(255,153,51,.15), rgba(22,27,34,.85) 60%);">
+                    <span class="absolute top-4 right-6 text-6xl font-outfit font-black text-logoOrange/15 transition-colors">02</span>
                     <div class="w-16 h-16 rounded-2xl bg-logoOrange/10 text-logoOrange flex items-center justify-center">
                         <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path></svg>
                     </div>
@@ -375,8 +439,8 @@
                 </div>
 
                 <!-- Paso 3 -->
-                <div class="relative p-8 rounded-3xl border border-white/5 glass text-center flex flex-col items-center gap-6 group hover:border-logoGreen/20 transition-all">
-                    <span class="absolute top-4 right-6 text-6xl font-outfit font-black text-white/5 group-hover:text-logoGreen/5 transition-colors">03</span>
+                <div class="relative p-8 rounded-3xl border border-white/5 glass text-center flex flex-col items-center gap-6 group hover:border-logoGreen/30 transition-all" style="background: linear-gradient(165deg, rgba(102,255,102,.13), rgba(22,27,34,.85) 60%);">
+                    <span class="absolute top-4 right-6 text-6xl font-outfit font-black text-logoGreen/15 transition-colors">03</span>
                     <div class="w-16 h-16 rounded-2xl bg-logoGreen/10 text-logoGreen flex items-center justify-center">
                         <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
                     </div>
@@ -410,5 +474,101 @@
             </p>
         </div>
     </footer>
+
+    <!-- Estadísticas del catálogo -->
+    <script src="/estadisticas/medios_data.js"></script>
+    <script src="/estadisticas/noticias_data.js"></script>
+    <script src="/estadisticas/app.js"></script>
+    <script>
+    (function () {
+        var track = document.getElementById("hero-feed-track");
+        if (!track) return;
+        var esc = function (s) {
+            return String(s || "").replace(/[&<>"']/g, function (c) {
+                return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+            });
+        };
+
+        function renderFeed(noticias) {
+            if (!Array.isArray(noticias) || !noticias.length) return;
+            var feed = noticias.slice(0, 80);
+            var items = feed.map(function (n) {
+                var fecha = n.f ? new Date(n.f) : null;
+                var hora = fecha && !isNaN(fecha) ? fecha.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }) : "";
+                var lugar = esc(n.p + (n.r ? " · " + n.r : ""));
+                return '<div class="hero-feed-item">'
+                    + '<div class="min-w-0 flex-1">'
+                    + '<div class="flex items-center gap-2 mb-1">'
+                    + (hora ? '<span class="text-[10px] text-slate-500 shrink-0">' + hora + '</span>' : '')
+                    + '<span class="text-[10px] font-bold uppercase tracking-wider text-logoCeleste truncate">' + esc(n.m) + '</span>'
+                    + '<span class="text-[10px] text-slate-500 truncate">' + lugar + '</span>'
+                    + '</div>'
+                    + '<a href="' + esc(n.u || "#") + '" target="_blank" rel="noopener" class="text-[13px] text-slate-300 leading-snug line-clamp-2 hover:text-white transition-colors">' + esc(n.t) + '</a>'
+                    + '</div></div>';
+            }).join("");
+            track.innerHTML = items + items;
+            track.style.animationDuration = Math.max(50, feed.length * 3.5) + "s";
+        }
+
+        // Render inicial con fallback local si existe
+        if (typeof NOTICIAS !== "undefined" && Array.isArray(NOTICIAS)) {
+            renderFeed(NOTICIAS);
+        }
+
+        // Conexión en vivo al bucket de Cloudflare R2
+        var cacheBuster = Math.floor(Date.now() / 300000);
+        fetch("https://prisma.data.arandulabs.dev/noticias.json?v=" + cacheBuster)
+            .then(function (res) { if (!res.ok) throw new Error(res.status); return res.json(); })
+            .then(function (liveData) { renderFeed(liveData); })
+            .catch(function () { /* Fallback ya cargado */ });
+    })();
+    </script>
+
+    <script>
+    (function () {
+        var car = document.getElementById("shot-carousel");
+        var track = document.getElementById("shot-track");
+        if (!car || !track) return;
+        var SRCS = ["../assets/images/pantalla_1.jpeg","../assets/images/pantalla_2_pt.jpeg","../assets/images/pantalla_3_pt.jpeg","../assets/images/pantalla_3_1_pt.jpeg","../assets/images/pantalla_3_2_pt.jpeg","../assets/images/pantalla_4_pt.jpeg","../assets/images/pantalla_5_pt.jpeg","../assets/images/pantalla_6_pt.jpeg","../assets/images/pantalla_7_pt.jpeg","../assets/images/pantalla_8_pt.jpeg","../assets/images/pantalla_9_pt.jpeg"];
+        var COPIES = 4, SPEED = 55;
+        var cards = [];
+        for (var c = 0; c < COPIES; c++) {
+            SRCS.forEach(function (src) {
+                var d = document.createElement("div");
+                d.className = "shot-card";
+                var img = document.createElement("img");
+                img.src = src; img.alt = "";
+                d.appendChild(img);
+                track.appendChild(d);
+                cards.push(d);
+            });
+        }
+        var CARD_W = cards[0].offsetWidth || 165;
+        var STEP = CARD_W * 0.8;
+        var seqW = SRCS.length * STEP;
+        var pos = 0, last = performance.now();
+        function tick(t) {
+            var dt = Math.min(0.05, (t - last) / 1000); last = t;
+            pos = (pos + SPEED * dt) % seqW;
+            var cx = car.clientWidth / 2, view = car.clientWidth;
+            for (var i = 0; i < cards.length; i++) {
+                var x = i * STEP - pos;
+                var el = cards[i];
+                if (x < -CARD_W - 90 || x > view + CARD_W + 90) { el.style.display = "none"; continue; }
+                el.style.display = "";
+                var dist = x + CARD_W / 2 - cx;
+                var near = Math.exp(-Math.pow(dist / 240, 2));
+                var shift = 44 * Math.tanh(dist / 160);
+                var fade = Math.min((x + CARD_W) / 170, (view - x) / 170, 1);
+                if (fade < 0) fade = 0;
+                el.style.transform = "translate(" + (x + shift).toFixed(1) + "px,-50%) translateZ(" + (near * 70).toFixed(1) + "px)";
+                el.style.opacity = (fade * (0.7 + 0.3 * near)).toFixed(2);
+            }
+            requestAnimationFrame(tick);
+        }
+        requestAnimationFrame(tick);
+    })();
+    </script>
 </body>
 </html>
+

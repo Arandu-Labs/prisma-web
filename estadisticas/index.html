@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prisma Noticias — Estadísticas del catálogo de medios</title>
+<meta name="description" content="Alcance de Prisma Noticias: catálogo de medios latinoamericanos clasificados en 6 ejes de perfil ideológico con evidencia verificable.">
+<link rel="stylesheet" href="styles.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📰</text></svg>">
+</head>
+<body>
+
+<header class="hero">
+  <nav class="nav">
+    <div class="brand">
+      <span class="brand-logo">Prisma Noticias</span>
+      <span class="brand-sub">by Arandu Labs</span>
+    </div>
+    <div class="lang-switch" role="group" aria-label="Idioma">
+      <button data-lang="es" class="active">ES</button>
+      <button data-lang="pt">PT</button>
+      <button data-lang="en">EN</button>
+    </div>
+  </nav>
+
+  <div class="hero-inner">
+    <p class="hero-kicker" data-i18n="kicker">Catálogo de medios</p>
+    <h1 data-i18n="title">El espectro de la prensa latinoamericana</h1>
+    <p class="hero-sub" id="hero-sub"></p>
+    <a class="hero-cta" href="https://play.google.com/store/apps/details?id=dev.arandulabs.prisma" target="_blank" rel="noopener">
+      <img id="play-badge" src="https://play.google.com/intl/es_419/badges/static/images/badges/es_badge_web_generic.png" alt="Google Play" height="60">
+    </a>
+  </div>
+</header>
+
+<main class="container">
+
+  <!-- KPIs -->
+  <section class="kpis">
+    <div class="kpi"><strong id="kpi-medios">0</strong><span id="kpi-medios-label"></span></div>
+    <div class="kpi kpi-flags">
+      <div class="flags-mosaic" id="flags-mosaic" aria-hidden="true"></div>
+      <div class="kpi-content"><strong id="kpi-paises2">0</strong><span data-i18n="kpiPaises">países</span></div>
+    </div>
+    <div class="kpi"><strong id="kpi-cats">0</strong><span id="kpi-cats-label"></span></div>
+  </section>
+
+  <!-- Buscador -->
+  <section class="search-section">
+    <h2 data-i18n="searchTitle">Buscá un medio</h2>
+    <p class="muted" data-i18n="searchSub">Escribí el nombre, país o categoría para ver su posicionamiento ideológico y el razonamiento de la clasificación.</p>
+    <input id="search" type="search" autocomplete="off" spellcheck="false"
+           data-i18n-ph="searchPh" placeholder="Ej: Clarín, Página 12, G1, El Mercurio…">
+    <div id="results" class="results"></div>
+    <div id="medio-detail" class="medio-detail hidden"></div>
+  </section>
+
+  <!-- Charts -->
+  <section class="charts">
+    <div class="chart-card chart-map">
+      <h3 data-i18n="chartMap">Medios por país — mapa</h3>
+      <div id="map"></div>
+    </div>
+    <div class="chart-card chart-cats"><h3 data-i18n="chartCats">Medios por categoría</h3><div id="chart-cats" class="bars"></div></div>
+  </section>
+
+  <section class="axes-section">
+    <h2 data-i18n="axesTitle">Distribución por Perfil</h2>
+    <p class="muted" data-i18n="axesSub">Los medios (excluidas las categorías de Deportes, Entretenimiento y Estilo, y Ciencia y Tecnología) han sido clasificados en 6 dimensiones temáticas. Cada columna muestra cuántos medios caen en cada valor.</p>
+    <div id="axes-grid" class="axes-grid"></div>
+  </section>
+
+</main>
+
+<!-- Ticker de noticias -->
+<section class="ticker-section">
+  <div class="ticker-head">
+    <div class="ticker-title-wrap">
+      <span class="live-badge"><span class="live-dot"></span><span data-i18n="tickerLive">EN VIVO</span></span>
+      <h2 data-i18n="tickerTitle">Últimas noticias</h2>
+    </div>
+    <select id="ticker-pais" class="ticker-select"></select>
+  </div>
+  <div class="ticker-viewport">
+    <div class="ticker-track" id="ticker-track"></div>
+  </div>
+</section>
+
+<script src="medios_data.js"></script>
+<script src="noticias_data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
