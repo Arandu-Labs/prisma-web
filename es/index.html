@@ -489,19 +489,28 @@
             });
         };
 
+        var FLAGS = {
+            "Argentina": "🇦🇷", "Brasil": "🇧🇷", "Colombia": "🇨🇴", "Chile": "🇨🇱",
+            "Perú": "🇵🇪", "Peru": "🇵🇪", "Venezuela": "🇻🇪", "Uruguay": "🇺🇾",
+            "Bolivia": "🇧🇴", "Ecuador": "🇪🇨", "Panamá": "🇵🇦", "Panama": "🇵🇦",
+            "Paraguay": "🇵🇾", "México": "🇲🇽", "Mexico": "🇲🇽", "Estados Unidos": "🇺🇸",
+            "USA": "🇺🇸", "España": "🇪🇸", "Espana": "🇪🇸", "Global": "🌐"
+        };
+
         function renderFeed(noticias) {
             if (!Array.isArray(noticias) || !noticias.length) return;
             var feed = noticias.slice(0, 80);
             var items = feed.map(function (n) {
                 var fecha = n.f ? new Date(n.f) : null;
                 var hora = fecha && !isNaN(fecha) ? fecha.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }) : "";
-                var lugar = esc(n.p + (n.r ? " · " + n.r : ""));
+                var flag = FLAGS[n.p] || "🌐";
+                var lugar = esc(flag + (n.r ? " " + n.r : ""));
                 return '<div class="hero-feed-item">'
                     + '<div class="min-w-0 flex-1">'
                     + '<div class="flex items-center gap-2 mb-1">'
                     + (hora ? '<span class="text-[10px] text-slate-500 shrink-0">' + hora + '</span>' : '')
                     + '<span class="text-[10px] font-bold uppercase tracking-wider text-logoCeleste truncate">' + esc(n.m) + '</span>'
-                    + '<span class="text-[10px] text-slate-500 truncate">' + lugar + '</span>'
+                    + '<span class="text-[10px] text-slate-400 shrink-0" title="' + esc(n.p) + '">' + lugar + '</span>'
                     + '</div>'
                     + '<a href="' + esc(n.u || "#") + '" target="_blank" rel="noopener" class="text-[13px] text-slate-300 leading-snug line-clamp-2 hover:text-white transition-colors">' + esc(n.t) + '</a>'
                     + '</div></div>';

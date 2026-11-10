@@ -691,10 +691,19 @@ function applyTickerFilter(force = false) {
   const fmt = LANG === "en" ? fmtDateEN : LANG === "pt" ? fmtDatePT : fmtDate;
   const filtered = pais ? NEWS.filter(n => n.p === pais) : NEWS;
   const items = filtered.slice(0, 60);
+  const FLAG_EMOJIS = {
+    "Argentina": "🇦🇷", "Brasil": "🇧🇷", "Colombia": "🇨🇴", "Chile": "🇨🇱",
+    "Perú": "🇵🇪", "Peru": "🇵🇪", "Venezuela": "🇻🇪", "Uruguay": "🇺🇾",
+    "Bolivia": "🇧🇴", "Ecuador": "🇪🇨", "Panamá": "🇵🇦", "Panama": "🇵🇦",
+    "Paraguay": "🇵🇾", "México": "🇲🇽", "Mexico": "🇲🇽", "Estados Unidos": "🇺🇸",
+    "USA": "🇺🇸", "España": "🇪🇸", "Espana": "🇪🇸", "Global": "🌐"
+  };
+
   // duplicar para loop continuo del marquee
   const html = items.map(n => {
     const fecha = n.f ? fmt.format(new Date(n.f)) : "";
-    const lugar = n.r ? `${n.p}, ${n.r}` : n.p;
+    const flag = FLAG_EMOJIS[n.p] || "🌐";
+    const lugar = flag + (n.r ? ` ${n.r}` : "");
     return `
     <span class="ticker-item">
       <span class="t-dot">◆</span>
