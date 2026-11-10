@@ -196,11 +196,11 @@ h3 { font-size: 1.05rem; margin-bottom: 1rem; }
 .sa-country.has-media:hover { filter: brightness(1.4) saturate(1.3); }
 .sa-country.active { stroke-width: 2.5; filter: brightness(1.6) saturate(1.4); }
 .pais-tip.map-tip {
-  position: absolute; z-index: 5; pointer-events: none;
+  position: absolute; z-index: 50; pointer-events: none;
   background: var(--bg-card-2); border: 1px solid var(--accent1); color: var(--text);
-  border-radius: 8px; font-size: .85rem; padding: .3rem .65rem;
+  border-radius: 8px; font-size: .85rem; padding: .4rem .75rem;
   transform: translate(-50%, -140%); white-space: nowrap;
-  box-shadow: 0 6px 18px rgba(0,0,0,.5);
+  box-shadow: 0 8px 24px rgba(0,0,0,.7);
 }
 .map-global-badge {
   position: absolute; right: 14px; bottom: 12px; z-index: 4;

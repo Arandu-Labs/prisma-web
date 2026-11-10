@@ -499,20 +499,52 @@
             "USA": "🇺🇸", "España": "🇪🇸", "Espana": "🇪🇸", "Global": "🌐"
         };
 
+        // Conjunto de medios de categoría Regionales para mostrar su región
+        var REGIONAL_OUTLETS = null;
+        function getRegionalSet() {
+            if (REGIONAL_OUTLETS !== null) return REGIONAL_OUTLETS;
+            REGIONAL_OUTLETS = new Set();
+            if (typeof MEDIOS !== "undefined" && Array.isArray(MEDIOS)) {
+                var clean = function (s) {
+                    return String(s || "").replace(/[\u{1F1E6}-\u{1F1FF}]{2}|[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}\u{FE0F}\u{200D}]+/gu, "").trim().toLowerCase();
+                };
+                MEDIOS.forEach(function (m) {
+                    if (m && m.categoria === "Regionales" && m.nombre) {
+                        REGIONAL_OUTLETS.add(clean(m.nombre));
+                        if (m.id) REGIONAL_OUTLETS.add(String(m.id).toLowerCase());
+                    }
+                });
+            }
+            return REGIONAL_OUTLETS;
+        }
+
         function renderFeed(noticias) {
             if (!Array.isArray(noticias) || !noticias.length) return;
+            var regSet = getRegionalSet();
+            var clean = function (s) {
+                return String(s || "").replace(/[\u{1F1E6}-\u{1F1FF}]{2}|[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}\u{FE0F}\u{200D}]+/gu, "").trim().toLowerCase();
+            };
             var feed = noticias.slice(0, 80);
             var items = feed.map(function (n) {
                 var fecha = n.f ? new Date(n.f) : null;
                 var hora = fecha && !isNaN(fecha) ? fecha.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }) : "";
-                var flag = FLAGS[n.p] || "🌐";
-                var lugar = esc(flag + (n.r ? " " + n.r : ""));
+                
+                // Se for Global -> emoji de mundo 🌐; se for país -> emoji de bandeira
+                var isGlobal = n.p === "Global" || !FLAGS[n.p];
+                var flag = isGlobal ? "🌐" : (FLAGS[n.p] || "🌐");
+                
+                // Mostrar região somente se for de categoria Regionais e tiver região cadastrada
+                var mClean = clean(n.m);
+                var isReg = n.cat === "Regionales" || regSet.has(mClean);
+                var regText = (isReg && n.r) ? " (" + n.r + ")" : "";
+
                 return '<div class="hero-feed-item">'
                     + '<div class="min-w-0 flex-1">'
                     + '<div class="flex items-center gap-2 mb-1">'
                     + (hora ? '<span class="text-[10px] text-slate-500 shrink-0">' + hora + '</span>' : '')
+                    + '<span class="text-[12px] leading-none shrink-0" title="' + esc(n.p) + '">' + flag + '</span>'
                     + '<span class="text-[10px] font-bold uppercase tracking-wider text-logoCeleste truncate">' + esc(n.m) + '</span>'
-                    + '<span class="text-[10px] text-slate-400 shrink-0" title="' + esc(n.p) + '">' + lugar + '</span>'
+                    + (regText ? '<span class="text-[10px] text-slate-400 shrink-0 truncate">' + esc(regText) + '</span>' : '')
                     + '</div>'
                     + '<a href="' + esc(n.u || "#") + '" target="_blank" rel="noopener" class="text-[13px] text-slate-300 leading-snug line-clamp-2 hover:text-white transition-colors">' + esc(n.t) + '</a>'
                     + '</div></div>';

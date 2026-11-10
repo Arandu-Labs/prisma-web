@@ -606,8 +606,17 @@ function renderMap() {
         showTip(`${pais} — ${n} ${(I18N[LANG] && I18N[LANG].mediosLabel) || "medios"}`, ev));
       path.addEventListener("click", ev => {
         ev.stopPropagation(); // evita que el render del mapa desmonte el target antes del listener global
+        showTip(`${pais} — ${n} ${(I18N[LANG] && I18N[LANG].mediosLabel) || "medios"}`, ev);
         setMapFilter(pais);
       });
+      path.addEventListener("touchend", ev => {
+        ev.stopPropagation();
+        const touch = ev.changedTouches && ev.changedTouches[0];
+        if (touch) {
+          showTip(`${pais} — ${n} ${(I18N[LANG] && I18N[LANG].mediosLabel) || "medios"}`, touch);
+        }
+        setMapFilter(pais);
+      }, { passive: false });
     }
     svg.appendChild(path);
   }
@@ -622,7 +631,8 @@ function renderMap() {
     badge.className = "map-global-badge";
     badge.setAttribute("aria-label", `Global — ${globalCount} ${mediosLbl}`);
     badge.textContent = "🌎";
-    const showGlobalTip = () => {
+    const showGlobalTip = (ev) => {
+      if (ev && ev.stopPropagation) ev.stopPropagation();
       tip.textContent = `Global — ${globalCount} ${mediosLbl}`;
       tip.style.display = "block";
       const r = el.getBoundingClientRect();
@@ -631,30 +641,43 @@ function renderMap() {
     };
     badge.addEventListener("mouseenter", showGlobalTip);
     badge.addEventListener("mouseleave", hideTip);
-    badge.addEventListener("click", () => {
-      if (tip.style.display === "block") hideTip();
-      else showGlobalTip();
+    badge.addEventListener("click", (ev) => {
+      if (tip.style.display === "block" && mapFilterPais === "Global") {
+        hideTip();
+      } else {
+        showGlobalTip(ev);
+      }
+      setMapFilter("Global");
     });
+    badge.addEventListener("touchend", (ev) => {
+      ev.stopPropagation();
+      showGlobalTip(ev);
+      setMapFilter("Global");
+    }, { passive: false });
     el.appendChild(badge);
   }
 }
 
-// click en un país del mapa → filtra la dona; segundo click lo desactiva
-function setMapFilter(pais) {
-  mapFilterPais = (mapFilterPais === pais) ? null : pais;
-  renderMap();
-  renderPieCurrent();
-}
-
-// click fuera del mapa → limpia el filtro
+// click fuera del mapa → oculta tooltip y limpia el filtro
 document.addEventListener("click", ev => {
   const mapEl = document.getElementById("map");
-  if (mapFilterPais && mapEl && !mapEl.contains(ev.target)) {
-    mapFilterPais = null;
-    renderMap();
-    renderPieCurrent();
+  if (mapEl && !mapEl.contains(ev.target)) {
+    const tip = mapEl.querySelector(".map-tip");
+    if (tip) tip.style.display = "none";
+    if (mapFilterPais) {
+      mapFilterPais = null;
+      renderMap();
+      renderPieCurrent();
+    }
   }
 });
+document.addEventListener("touchend", ev => {
+  const mapEl = document.getElementById("map");
+  if (mapEl && !mapEl.contains(ev.target)) {
+    const tip = mapEl.querySelector(".map-tip");
+    if (tip) tip.style.display = "none";
+  }
+}, { passive: true });
 
 /* ---------- ticker de noticias ---------- */
 const tickerSelect = document.getElementById("ticker-pais");
