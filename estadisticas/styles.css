@@ -345,7 +345,80 @@ h3 { font-size: 1.05rem; margin-bottom: 1rem; }
   .hero-inner { padding-top: 1rem; }
   .kpis { grid-template-columns: repeat(2, 1fr); }
   .kpi-flags { grid-column: 1 / -1; order: -1; }
+
+  /* 1) Reducir la dona y ajustar mapa para que ambos entren juntos en pantalla */
+  .charts {
+    gap: 0.8rem;
+  }
+  .chart-card {
+    padding: 0.9rem;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    max-width: 380px;
+  }
+  .chart-card h3 {
+    font-size: 0.88rem;
+    margin-bottom: 0.5rem;
+    text-align: center;
+  }
+  #map {
+    aspect-ratio: 1.55;
+    max-height: 190px;
+  }
+  .pie-wrap {
+    gap: 0.5rem;
+  }
+  .pie-donut {
+    width: 135px;
+    height: 135px;
+  }
+  .pie-total strong {
+    font-size: 1.45rem;
+  }
+  .pie-legend {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.25rem 0.6rem;
+    max-height: 115px;
+    font-size: 0.72rem;
+  }
+  .pie-legend-row {
+    font-size: 0.72rem;
+    gap: 0.35rem;
+  }
+  .pie-clear {
+    top: 1.2rem;
+    right: 0.8rem;
+    padding: 0.2rem 0.5rem;
+    font-size: 0.68rem;
+  }
+
+  /* 2) Centrado y alineación simétrica en móvil */
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  .search-section,
+  .axes-section,
+  .charts {
+    max-width: 440px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .search-section h2,
+  .search-section p,
+  .axes-section h2,
+  .axes-section p {
+    text-align: center;
+  }
+  .axes-grid {
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 0.75rem;
+  }
+  .axis-card {
+    padding: 0.9rem;
+  }
 }
-@media (max-width: 720px) {
+@media (max-width: 720px) and (min-width: 641px) {
   #map { aspect-ratio: 1.15; }
 }
