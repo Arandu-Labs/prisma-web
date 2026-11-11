@@ -318,7 +318,7 @@ function renderFlags() {
   // .mosaic-flag tiene aspect-ratio fijo en CSS así que el ancho ya es exacto en el frame 0.
   requestAnimationFrame(() => {
     const w = track.scrollWidth / 2;
-    const dur = w > 0 ? Math.max(18, Math.min(24, w / 95)) : 19;
+    const dur = w > 0 ? Math.max(36, Math.min(50, w / 40)) : 44;
     track.style.setProperty("--flags-dur", `${dur.toFixed(1)}s`);
   });
 }

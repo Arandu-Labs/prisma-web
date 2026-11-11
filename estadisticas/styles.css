@@ -97,7 +97,7 @@ h3 { font-size: 1.05rem; margin-bottom: 1rem; }
   width: max-content;
   display: flex; align-items: stretch;
   will-change: transform;
-  animation: flags-scroll var(--flags-dur, 19s) linear infinite;
+  animation: flags-scroll var(--flags-dur, 44s) linear infinite;
 }
 .flags-track .mosaic-flag {
   height: 100%; width: auto; aspect-ratio: 3 / 2; max-width: none; flex: none;
@@ -447,7 +447,7 @@ h3 { font-size: 1.05rem; margin-bottom: 1rem; }
     text-align: center;
   }
   .flags-track {
-    animation-duration: 15s !important;
+    animation-duration: 38s !important;
   }
   #map {
     aspect-ratio: 0.85;

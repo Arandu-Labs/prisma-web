@@ -90,7 +90,7 @@
   width: max-content;
   display: flex; align-items: stretch;
   will-change: transform;
-  animation: flags-scroll var(--flags-dur, 19s) linear infinite;
+  animation: flags-scroll var(--flags-dur, 44s) linear infinite;
 }
 .stats-embed .flags-track .mosaic-flag {
   height: 100%; width: auto; aspect-ratio: 3 / 2; max-width: none; flex: none;
@@ -440,7 +440,7 @@
     text-align: center;
   }
   .stats-embed .flags-track {
-    animation-duration: 15s !important;
+    animation-duration: 38s !important;
   }
   .stats-embed #map {
     aspect-ratio: 0.85;
