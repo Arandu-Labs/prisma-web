@@ -90,17 +90,17 @@
   width: max-content;
   display: flex; align-items: stretch;
   will-change: transform;
-  animation: flags-scroll var(--flags-dur, 13s) linear infinite;
+  animation: flags-scroll var(--flags-dur, 19s) linear infinite;
 }
 .stats-embed .flags-track .mosaic-flag {
-  height: 100%; width: auto; max-width: none; flex: none;
+  height: 100%; width: auto; aspect-ratio: 3 / 2; max-width: none; flex: none;
   margin-right: 4px;
   border-radius: 3px; box-shadow: 0 1px 3px rgba(0,0,0,.45);
   object-fit: cover;
 }
 @keyframes flags-scroll {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(-50%, 0, 0); }
 }
 .stats-embed .kpi-flags .kpi-content {
   position: relative; z-index: 3;
@@ -214,7 +214,7 @@
   .stats-embed .axes-grid { grid-template-columns: 1fr; }
 }
 .stats-embed #map {
-  aspect-ratio: 0.72; width: 100%; max-height: 360px; border-radius: 10px; overflow: hidden;
+  aspect-ratio: 0.72; width: 100%; max-height: 520px; border-radius: 10px; overflow: hidden;
   border: 1px solid var(--border); position: relative; background: #0a0e18;
 }
 .stats-embed #map svg { width: 100%; height: 100%; display: block; }
@@ -440,7 +440,7 @@
     text-align: center;
   }
   .stats-embed .flags-track {
-    animation-duration: 11s !important;
+    animation-duration: 15s !important;
   }
   .stats-embed #map {
     aspect-ratio: 0.85;

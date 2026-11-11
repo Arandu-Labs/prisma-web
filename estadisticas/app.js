@@ -295,12 +295,13 @@ function renderFlags() {
   const entries = countBy(MEDIOS, m => m.pais);
   const mosaic = document.getElementById("flags-mosaic");
 
-  // carrusel: una bandera por país (sin Global), secuencia duplicada
-  // para loop seamless; cada bandera aparece una vez por ciclo
+  // carrusel: una bandera por país (sin Global), en orden alfabético,
+  // secuencia duplicada para loop seamless
   const flags = entries
-    .map(([pais]) => FLAG_BY_PAIS[pais])
-    .filter(Boolean) // excluye Global y países sin código
-    .sort(() => Math.random() - 0.5); // orden aleatorio tipo mosaico
+    .map(([pais]) => pais)
+    .filter(pais => Boolean(FLAG_BY_PAIS[pais]))
+    .sort((a, b) => a.localeCompare(b, LANG || "es"))
+    .map(pais => FLAG_BY_PAIS[pais]);
 
   let track = mosaic.querySelector(".flags-track");
   if (!track) {
@@ -313,16 +314,13 @@ function renderFlags() {
   ).join("");
   track.innerHTML = seq + seq;
 
-  const updateFlagsDur = () => {
+  // Sin listener on-load para evitar recalcular --flags-dur a mitad de la animación;
+  // .mosaic-flag tiene aspect-ratio fijo en CSS así que el ancho ya es exacto en el frame 0.
+  requestAnimationFrame(() => {
     const w = track.scrollWidth / 2;
-    const dur = w > 0 ? Math.max(12, Math.min(18, w / 130)) : 13;
+    const dur = w > 0 ? Math.max(18, Math.min(24, w / 95)) : 19;
     track.style.setProperty("--flags-dur", `${dur.toFixed(1)}s`);
-  };
-  if (!track.dataset.loadBound) {
-    track.dataset.loadBound = "1";
-    track.addEventListener("load", () => requestAnimationFrame(updateFlagsDur), true);
-  }
-  requestAnimationFrame(updateFlagsDur);
+  });
 }
 
 function renderAxisTooltipHtml(ax, activeVal = null) {
