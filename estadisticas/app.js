@@ -310,12 +310,17 @@ function renderFlags() {
     `<img class="mosaic-flag" src="https://flagcdn.com/w320/${f}.png" alt="" decoding="async">`
   ).join("");
   track.innerHTML = seq + seq;
-  // velocidad ~420px/s proporcional al ancho de una secuencia
-  requestAnimationFrame(() => {
+
+  const updateFlagsDur = () => {
     const w = track.scrollWidth / 2;
-    const dur = w > 0 ? Math.max(3.5, Math.min(5, w / 420)) : 4;
+    const dur = w > 0 ? Math.max(5.5, Math.min(8.5, w / 260)) : 6.5;
     track.style.setProperty("--flags-dur", `${dur.toFixed(1)}s`);
-  });
+  };
+  if (!track.dataset.loadBound) {
+    track.dataset.loadBound = "1";
+    track.addEventListener("load", () => requestAnimationFrame(updateFlagsDur), true);
+  }
+  requestAnimationFrame(updateFlagsDur);
 }
 
 function renderAxisTooltipHtml(ax, activeVal = null) {

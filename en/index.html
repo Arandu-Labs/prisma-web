@@ -14,7 +14,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
     <!-- Estadísticas del catálogo de medios (embed) -->
-    <link rel="stylesheet" href="/estadisticas/embed.css?v=20261111">
+    <link rel="stylesheet" href="/estadisticas/embed.css?v=20261111c">
 
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -166,6 +166,8 @@
 
         @media (max-width: 640px) {
             .hero-feed { height: 300px; }
+            .hero-cta-group { flex-wrap: nowrap !important; gap: 0.45rem !important; width: 100%; }
+            .hero-cta-btn { flex: 1 1 auto; min-width: 0; padding: 0.62rem 0.55rem !important; font-size: 0.78rem !important; border-radius: 0.85rem !important; white-space: nowrap; }
             #benefits .w-72, #beneficios .w-72 { width: min(18rem, 80vw) !important; }
             .hero-mockup-wrap, section .glass { margin-left: auto; margin-right: auto; }
             .grid > div { margin-left: auto; margin-right: auto; width: 100%; max-width: 26rem; }
@@ -248,7 +250,7 @@
                     Prisma Noticias is a digital news kiosk and intelligent news aggregator. It provides access to a carefully curated inventory of media and news from Latam and the world, with local, national and global coverage. It also makes it possible to see how a wide range of outlets cover relevant events in the region.
                 </p>
 
-                <div class="flex flex-wrap gap-4 justify-center lg:justify-start">
+                <div class="hero-cta-group flex flex-wrap gap-4 justify-center lg:justify-start">
                     <a href="#benefits" class="hero-cta-btn inline-flex items-center justify-center px-6 py-3 rounded-2xl border border-white text-white text-sm font-bold shadow-lg shadow-black/20 hover:scale-[1.03] transition-all">Features</a>
                     <a href="#catalog" class="hero-cta-btn inline-flex items-center justify-center px-6 py-3 rounded-2xl border border-white text-white text-sm font-bold shadow-lg shadow-black/20 hover:scale-[1.03] transition-all">Coverage</a>
                     <a href="#how-it-works" class="hero-cta-btn inline-flex items-center justify-center px-6 py-3 rounded-2xl border border-white text-white text-sm font-bold shadow-lg shadow-black/20 hover:scale-[1.03] transition-all">Install</a>
@@ -512,7 +514,7 @@
     <!-- Estadísticas del catálogo -->
     <script src="/estadisticas/medios_data.js"></script>
     <script src="/estadisticas/noticias_data.js"></script>
-    <script src="/estadisticas/app.js?v=20261111"></script>
+    <script src="/estadisticas/app.js?v=20261111c"></script>
     <script>
     (function () {
         var track = document.getElementById("hero-feed-track");
