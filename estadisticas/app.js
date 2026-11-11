@@ -213,19 +213,21 @@ function currentMedios() {
 function renderPieCurrent() {
   renderPie("chart-cats", countBy(currentMedios(), m => m.categoria));
   const el = document.getElementById("chart-cats");
-  const old = el.querySelector(".pie-clear");
+  const card = el ? (el.closest(".chart-card") || el) : null;
+  if (!card) return;
+  const old = card.querySelector(".pie-clear");
   if (old) old.remove();
   if (mapFilterPais) {
     const btn = document.createElement("button");
     btn.type = "button";
     btn.className = "pie-clear";
     btn.textContent = I18N[LANG].clearFilter;
-    btn.addEventListener("click", () => {
+    btn.addEventListener("click", (ev) => {
+      ev.stopPropagation();
       mapFilterPais = null;
       renderMap();
       renderPieCurrent();
     });
-    const card = el.closest(".chart-card") || el;
     card.appendChild(btn);
   }
 }
@@ -313,7 +315,7 @@ function renderFlags() {
 
   const updateFlagsDur = () => {
     const w = track.scrollWidth / 2;
-    const dur = w > 0 ? Math.max(5.5, Math.min(8.5, w / 260)) : 6.5;
+    const dur = w > 0 ? Math.max(12, Math.min(18, w / 130)) : 13;
     track.style.setProperty("--flags-dur", `${dur.toFixed(1)}s`);
   };
   if (!track.dataset.loadBound) {
@@ -654,18 +656,30 @@ function renderMap() {
       path.addEventListener("mouseleave", hideTip);
       path.addEventListener("mouseenter", ev =>
         showTip(`${pais} — ${n} ${(I18N[LANG] && I18N[LANG].mediosLabel) || "medios"}`, ev));
+      let tapMoved = false, tapX = 0, tapY = 0;
+      path.addEventListener("touchstart", ev => {
+        const t = ev.touches && ev.touches[0];
+        tapMoved = false;
+        if (t) { tapX = t.clientX; tapY = t.clientY; }
+      }, { passive: true });
+      path.addEventListener("touchmove", ev => {
+        const t = ev.touches && ev.touches[0];
+        if (t && Math.hypot(t.clientX - tapX, t.clientY - tapY) > 10) tapMoved = true;
+      }, { passive: true });
       path.addEventListener("click", ev => {
         ev.stopPropagation(); // evita que el render del mapa desmonte el target antes del listener global
-        showTip(`${pais} — ${n} ${(I18N[LANG] && I18N[LANG].mediosLabel) || "medios"}`, ev);
-        setMapFilter(pais);
+        const r = el.getBoundingClientRect();
+        const text = `${pais} — ${n} ${(I18N[LANG] && I18N[LANG].mediosLabel) || "medios"}`;
+        setMapFilter(pais, { text, x: ev.clientX - r.left, y: ev.clientY - r.top });
       });
       path.addEventListener("touchend", ev => {
+        if (tapMoved) return;
+        if (ev.cancelable) ev.preventDefault();
         ev.stopPropagation();
         const touch = ev.changedTouches && ev.changedTouches[0];
-        if (touch) {
-          showTip(`${pais} — ${n} ${(I18N[LANG] && I18N[LANG].mediosLabel) || "medios"}`, touch);
-        }
-        setMapFilter(pais);
+        const r = el.getBoundingClientRect();
+        const text = `${pais} — ${n} ${(I18N[LANG] && I18N[LANG].mediosLabel) || "medios"}`;
+        setMapFilter(pais, touch ? { text, x: touch.clientX - r.left, y: touch.clientY - r.top } : null);
       }, { passive: false });
     }
     svg.appendChild(path);
@@ -681,6 +695,15 @@ function renderMap() {
     badge.className = "map-global-badge";
     badge.setAttribute("aria-label", `Global — ${globalCount} ${mediosLbl}`);
     badge.textContent = "🌎";
+    const getGlobalTipInfo = () => {
+      const r = el.getBoundingClientRect();
+      const br = badge.getBoundingClientRect();
+      return {
+        text: `Global — ${globalCount} ${mediosLbl}`,
+        x: br.left - r.left + br.width / 2,
+        y: br.top - r.top + 18,
+      };
+    };
     const showGlobalTip = (ev) => {
       if (ev && ev.stopPropagation) ev.stopPropagation();
       tip.textContent = `Global — ${globalCount} ${mediosLbl}`;
@@ -692,19 +715,37 @@ function renderMap() {
     badge.addEventListener("mouseenter", showGlobalTip);
     badge.addEventListener("mouseleave", hideTip);
     badge.addEventListener("click", (ev) => {
-      if (tip.style.display === "block" && mapFilterPais === "Global") {
-        hideTip();
-      } else {
-        showGlobalTip(ev);
-      }
-      setMapFilter("Global");
+      ev.stopPropagation();
+      setMapFilter("Global", getGlobalTipInfo());
     });
     badge.addEventListener("touchend", (ev) => {
+      if (ev.cancelable) ev.preventDefault();
       ev.stopPropagation();
-      showGlobalTip(ev);
-      setMapFilter("Global");
+      setMapFilter("Global", getGlobalTipInfo());
     }, { passive: false });
     el.appendChild(badge);
+  }
+}
+
+// click en un país del mapa → filtra la dona; segundo click lo desactiva
+function setMapFilter(pais, tipInfo) {
+  mapFilterPais = (mapFilterPais === pais) ? null : pais;
+  renderMap();
+  renderPieCurrent();
+  if (mapFilterPais && tipInfo && tipInfo.text) {
+    const mapEl = document.getElementById("map");
+    const tip = mapEl ? mapEl.querySelector(".map-tip") : null;
+    if (tip) {
+      tip.textContent = tipInfo.text;
+      tip.style.display = "block";
+      const r = mapEl.getBoundingClientRect();
+      const tw = tip.offsetWidth, th = tip.offsetHeight;
+      const pad = 6;
+      const minX = tw / 2 + pad, maxX = r.width - tw / 2 - pad;
+      const minY = th * 1.4 + pad, maxY = r.height + th * 0.4 - pad;
+      tip.style.left = Math.min(Math.max(tipInfo.x, minX), Math.max(minX, maxX)) + "px";
+      tip.style.top = Math.min(Math.max(tipInfo.y, minY), Math.max(minY, maxY)) + "px";
+    }
   }
 }
 

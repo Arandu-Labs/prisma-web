@@ -90,7 +90,7 @@
   width: max-content;
   display: flex; align-items: stretch;
   will-change: transform;
-  animation: flags-scroll var(--flags-dur, 6.5s) linear infinite;
+  animation: flags-scroll var(--flags-dur, 13s) linear infinite;
 }
 .stats-embed .flags-track .mosaic-flag {
   height: 100%; width: auto; max-width: none; flex: none;
@@ -214,7 +214,7 @@
   .stats-embed .axes-grid { grid-template-columns: 1fr; }
 }
 .stats-embed #map {
-  aspect-ratio: 0.72; width: 100%; max-height: 430px; border-radius: 10px; overflow: hidden;
+  aspect-ratio: 0.72; width: 100%; max-height: 360px; border-radius: 10px; overflow: hidden;
   border: 1px solid var(--border); position: relative; background: #0a0e18;
 }
 .stats-embed #map svg { width: 100%; height: 100%; display: block; }
@@ -248,10 +248,10 @@
 
 /* ---------- Gráfico de torta ---------- */
 .stats-embed .pie-wrap { display: flex; flex-direction: column; gap: 1.2rem; align-items: center; position: relative; }
-.stats-embed .pie-donut { position: relative; width: min(330px, 82vw); aspect-ratio: 1 / 1; height: auto; flex-shrink: 0; }
+.stats-embed .pie-donut { position: relative; width: min(260px, 82vw); aspect-ratio: 1 / 1; height: auto; flex-shrink: 0; }
 .stats-embed .pie-donut svg { width: 100%; height: 100%; display: block; }
 .stats-embed .pie-total { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-.stats-embed .pie-total strong { font-size: 2.4rem; line-height: 1; }
+.stats-embed .pie-total strong { font-size: 2.05rem; line-height: 1; }
 .stats-embed .pie-total span { font-size: .62rem; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; margin-top: .25rem; text-align: center; padding: 0 .4rem; }
 .stats-embed .pie-legend { width: 100%; display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: .4rem .8rem; max-height: 300px; overflow-y: auto; }
 .stats-embed .pie-legend-row { display: grid; grid-template-columns: 12px 1fr auto; gap: .6rem; align-items: center; font-size: .82rem; }
@@ -440,24 +440,24 @@
     text-align: center;
   }
   .stats-embed .flags-track {
-    animation-duration: 5s !important;
+    animation-duration: 11s !important;
   }
   .stats-embed #map {
-    aspect-ratio: 0.72;
+    aspect-ratio: 0.85;
     width: 100%;
-    min-height: 430px;
-    max-height: 540px;
+    min-height: 0;
+    max-height: 320px;
   }
   .stats-embed .pie-wrap {
     gap: 0.75rem;
   }
   .stats-embed .pie-donut {
-    width: min(300px, 78vw);
+    width: min(210px, 58vw);
     height: auto;
     aspect-ratio: 1 / 1;
   }
   .stats-embed .pie-total strong {
-    font-size: 2.35rem;
+    font-size: 1.9rem;
   }
   .stats-embed .pie-legend {
     grid-template-columns: repeat(2, 1fr);
@@ -532,7 +532,7 @@
   }
 }
 @media (max-width: 720px) and (min-width: 641px) {
-  .stats-embed #map { aspect-ratio: 0.78; max-height: 460px; }
+  .stats-embed #map { aspect-ratio: 0.9; max-height: 340px; }
 }
 
 /* ---------- overrides para integracion en la landing ---------- */

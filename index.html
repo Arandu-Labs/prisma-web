@@ -25,7 +25,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
     <!-- Estadísticas del catálogo de medios (embed) -->
-    <link rel="stylesheet" href="/estadisticas/embed.css?v=20261111c">
+    <link rel="stylesheet" href="/estadisticas/embed.css?v=20261111d">
 
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -381,6 +381,24 @@
 
 
 
+    <!-- Visual Middle Section (App Screenshots Gallery) -->
+    <section id="capturas" class="py-20 px-6 max-w-7xl mx-auto z-10">
+        <div class="space-y-12">
+            <div class="text-center space-y-4 max-w-xl mx-auto">
+                <span class="text-prisma font-black tracking-[0.2em] text-xs uppercase block">Interfaz de la App</span>
+                <h2 class="text-3xl md:text-5xl font-outfit font-black tracking-tight leading-none text-white">
+                    Explora la Experiencia Móvil
+                </h2>
+                <p class="text-slate-400 text-sm font-light">Visualiza las pantallas principales de Prisma Noticias en acción</p>
+                <div class="w-12 h-1 bg-prisma mx-auto rounded-full mt-4"></div>
+            </div>
+
+            <!-- Screenshots Grid / Scroll Container -->
+                        <!-- Screenshots endless carousel -->
+            <div class="shot-carousel" id="shot-carousel"><div class="shot-track" id="shot-track"></div></div>
+        </div>
+    </section>
+
     <!-- Estadísticas del catálogo de medios -->
     <div class="stats-embed" id="catalog">
         <section class="stats-intro text-center space-y-4 max-w-xl mx-auto px-6 pt-10">
@@ -429,24 +447,6 @@
         </main>
 
     </div>
-
-    <!-- Visual Middle Section (App Screenshots Gallery) -->
-    <section id="capturas" class="py-20 px-6 max-w-7xl mx-auto z-10">
-        <div class="space-y-12">
-            <div class="text-center space-y-4 max-w-xl mx-auto">
-                <span class="text-prisma font-black tracking-[0.2em] text-xs uppercase block">Interfaz de la App</span>
-                <h2 class="text-3xl md:text-5xl font-outfit font-black tracking-tight leading-none text-white">
-                    Explora la Experiencia Móvil
-                </h2>
-                <p class="text-slate-400 text-sm font-light">Visualiza las pantallas principales de Prisma Noticias en acción</p>
-                <div class="w-12 h-1 bg-prisma mx-auto rounded-full mt-4"></div>
-            </div>
-
-            <!-- Screenshots Grid / Scroll Container -->
-                        <!-- Screenshots endless carousel -->
-            <div class="shot-carousel" id="shot-carousel"><div class="shot-track" id="shot-track"></div></div>
-        </div>
-    </section>
     <!-- Cómo funciona (Workflow) -->
     <section id="como-funciona" class="py-24 px-6 max-w-7xl mx-auto z-10">
         <div class="space-y-16">
@@ -525,7 +525,7 @@
     <!-- Estadísticas del catálogo -->
     <script src="/estadisticas/medios_data.js"></script>
     <script src="/estadisticas/noticias_data.js"></script>
-    <script src="/estadisticas/app.js?v=20261111c"></script>
+    <script src="/estadisticas/app.js?v=20261111d"></script>
     <script>
     (function () {
         var track = document.getElementById("hero-feed-track");
