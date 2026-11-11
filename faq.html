@@ -139,6 +139,9 @@
                     <button type="button" onclick="setLanguage('pt')" data-nav-lang="pt" class="flex items-center px-2 py-1 rounded-md text-xs font-bold gap-1.5 transition-all text-slate-400 hover:text-white opacity-70 hover:opacity-100">
                         <img src="https://flagcdn.com/w20/br.png" width="16" alt="PT" class="rounded-sm"> PT
                     </button>
+                    <button type="button" onclick="setLanguage('it')" data-nav-lang="it" class="flex items-center px-2 py-1 rounded-md text-xs font-bold gap-1.5 transition-all text-slate-400 hover:text-white opacity-70 hover:opacity-100">
+                        <img src="https://flagcdn.com/w20/it.png" width="16" alt="IT" class="rounded-sm"> IT
+                    </button>
                     <button type="button" onclick="setLanguage('gn')" data-nav-lang="gn" class="flex items-center px-2 py-1 rounded-md text-xs font-bold gap-1.5 transition-all text-slate-400 hover:text-white opacity-70 hover:opacity-100">
                         <img src="https://flagcdn.com/w20/py.png" width="16" alt="GN" class="rounded-sm"> GN
                     </button>
@@ -381,6 +384,62 @@
                     }
                 ]
             },
+            it: {
+                title: "Domande Frequenti",
+                subtitle: "Trova risposte rapide su funzionalità, impostazioni, spettro politico multidimensionale e copertura di Prisma Noticias.",
+                searchPlaceholder: "Cerca domande o parole chiave...",
+                noResults: "Nessun risultato trovato per la tua ricerca.",
+                items: [
+                    {
+                        q: "Che cos'è Prisma Noticias?",
+                        a: "Prisma Noticias è un'applicazione mobile che ti permette di accedere alle notizie dei principali media dell'America Latina in un unico posto. L'app raggruppa le notizie per paese, testata e tema, offrendoti una visione diversificata ed equilibrata dell'informazione."
+                    },
+                    {
+                        q: "Cosa trovo nella sezione Edicola (📰)?",
+                        a: "L'Edicola è il punto di accesso principale dove puoi esplorare tutti i media di ogni paese. Qui puoi navigare i giornali, raggrupparli e filtrare quelli che vuoi seguire. L'interfaccia si adatta automaticamente al tuo dispositivo (mobile, tablet o desktop) per un'esperienza ottimale."
+                    },
+                    {
+                        q: "Cosa trovo nella sezione Notizie (📋)?",
+                        a: "La sezione Notizie è il feed con le ultime pubblicazioni di tutti i media che hai selezionato, in ordine cronologico. Puoi filtrare per categoria (Generale, Economia e Politica, Politica, Economia, Società, Sicurezza, Internazionale, Mondo, Polizia, Spettacolo, Intrattenimento e Stile, Opinione, Ambiente, Scienza e Tecnologia, Interno, Campagna e Turismo) e per paese. L'icona del megafono 📣 apre le Notizie in Evidenza."
+                    },
+                    {
+                        q: "Cosa trovo nella sezione Sport (⚽)?",
+                        a: "La sezione Sport è un feed dedicato alle notizie sportive. Puoi filtrare per disciplina: Calcio, Tennis (include paddle), Rugby, Pallavolo, Basket, Baseball, Automobilismo, Lotta (pugilato/MMA) e Altri."
+                    },
+                    {
+                        q: "Cosa sono le Notizie in Evidenza (📣) dentro Notizie?",
+                        a: "Le Notizie in Evidenza raggruppano gli articoli per evento o tema usando un clustering intelligente. Ogni tema mostra un titolo nella tua lingua, un riepilogo esecutivo generato dall'IA e un'analisi editoriale che rivela come ogni testata valutata ha coperto la notizia: quale angolazione ha privilegiato, quali fonti ha dato voce e come ha inquadrato i fatti. È il modo più rapido per vedere consenso e differenze di copertura tra i media."
+                    },
+                    {
+                        q: "Cosa trovo nella sezione Vari (🎭)?",
+                        a: "La sezione Vari raccoglie contenuti complementari: Astrologia, Previsioni Meteo ☀️ (con schermata climatica dedicata ⛅ con previsioni per le città dell'America Latina), Quotazione del Dollaro, Effemeridi, Giochi d'Azzardo e Animazione e Gaming. Puoi filtrare per sottocategoria."
+                    },
+                    {
+                        q: "Come viene valutato lo spettro politico di ogni testata?",
+                        a: "Per valutare la posizione di ogni testata, si amplia la semplificazione tradizionale di \"sinistra vs. destra\" e si applica un'analisi dei contenuti basata su 6 assi multidimensionali. La posizione non è definita da opinioni soggettive, ma valutando sistematicamente il comportamento della testata di fronte alle notizie: la sua agenda (quali temi privilegia o omette), il suo inquadramento (quali aggettivi usa nei titoli) e le fonti a cui dà voce. Sulla base di questa analisi, ogni testata riceve un punteggio da 1 a 5 sui seguenti assi, dove 3 rappresenta sempre il punto di neutralità o equilibrio:\n\n• Economico: Dall'interventismo statale (1) al libero mercato assoluto (5).\n• Sociale e Culturale: Dal progressismo (1) al conservatorismo (5).\n• Istituzionale: Dal garantismo civile (1) alla dottrina del \"law and order\" (5).\n• Geopolitico: Dal globalismo (1) al nazionalismo/sovranismo (5).\n• Linea Editoriale: Dalla difesa delle istituzioni tradizionali (1) a posizioni anti-sistema o \"anti-casta\" (5).\n• Stile Informativo: Dal rigore tecnico basato sui dati (1) al sensazionalismo o al giornalismo militante (5)."
+                    },
+                    {
+                        q: "Come configuro i paesi e cosa significa?",
+                        a: "Per configurare i paesi:\n• Vai su Impostazioni → \"Configura Paesi\"\n• Seleziona i paesi da cui vuoi ricevere notizie\n\nCosa significa configurare i paesi?\nSelezionando i paesi, filtri i contenuti che l'applicazione scarica. Verranno mostrate solo le notizie dei media appartenenti ai paesi che hai scelto. Questo ti permette di personalizzare la tua esperienza in base ai tuoi interessi geografici, ottimizzare l'uso di internet e ridurre il rumore informativo non rilevante per te."
+                    },
+                    {
+                        q: "Cos'è il Browser Avanzato e come lo attivo?",
+                        a: "Cos'è?\nIl Browser Avanzato è una modalità di navigazione integrata che offre funzionalità aggiuntive quando apri i link delle notizie, come cronologia di navigazione, gestione delle schede e opzioni di download.\n\nCome lo attivo?\n1. Vai su Impostazioni → \"Contenuto\"\n2. Attiva l'interruttore \"Browser Avanzato\"\n\nLa modalità leggera (predefinita) è più veloce e consuma meno risorse, mentre la modalità avanzata offre più controllo sulla navigazione."
+                    },
+                    {
+                        q: "Come funzionano le pubblicità e a cosa servono?",
+                        a: "Per mantenere l'applicazione gratuita e coprire i costi del servizio, è stabilito un requisito giornaliero di un numero massimo di annunci al giorno. Una volta raggiunto questo numero, l'applicazione resta completamente libera da pubblicità fino al giorno successivo per tua comodità.\n\nPurtroppo, questo limite è strettamente necessario per coprire i costi di infrastruttura e il nostro impegno fermo è mantenerlo sempre al minimo possibile.\n\nPuoi guardare questi annunci gradualmente mentre navighi normalmente tra le notizie, oppure guardarli direttamente da Impostazioni → \"Annunci visti oggi\" per liberare immediatamente l'applicazione, o una combinazione di entrambi.\n\nIl contatore degli annunci visti si trova in Impostazioni."
+                    },
+                    {
+                        q: "Come cambio la lingua?",
+                        a: "Per cambiare la lingua dell'app:\n1. Vai su Impostazioni → \"Lingua\"\n2. Seleziona la lingua preferita dal menu a tendina:\n   • Español\n   • English\n   • Português\n   • Italiano\n   • Avañe'ẽ (Guaraní)\n\nLa modifica si applica immediatamente a tutta l'interfaccia. Inoltre, i titoli degli argomenti delle Notizie in Evidenza sono generati in spagnolo e portoghese: l'app mostra automaticamente quello corrispondente alla tua lingua quando disponibile."
+                    },
+                    {
+                        q: "I dati vengono salvati nel cloud?",
+                        a: "Autenticazione: il tuo account utente (se lo crei collegando un'email) viene salvato in modo sicuro su Firebase per permetterti di sincronizzare le preferenze tra dispositivi.\n\nNotizie e contenuti: le notizie e i media sono pubblici e vengono scaricati da server esterni. Non salviamo la tua cronologia di lettura né le preferenze di visualizzazione nel cloud.\n\nPrivacy: i tuoi dati personali sono trattati secondo la nostra Informativa sulla Privacy disponibile in Impostazioni. Non condividiamo le tue informazioni con terzi e puoi eliminare il tuo account in qualsiasi momento."
+                    }
+                ]
+            },
             gn: {
                 title: "Porandu Ojejapojepáva (FAQ)",
                 subtitle: "Ehecha mbohovái pya'e Prisma Noticias tembiapo, ñembosako'i ha marandu rehegua.",
@@ -468,6 +527,7 @@
             if (['es', 'spanish', 'esp'].includes(param)) return 'es';
             if (['en', 'english', 'eng'].includes(param)) return 'en';
             if (['pt', 'portuguese', 'por', 'pt-br', 'pt_br'].includes(param)) return 'pt';
+            if (['it', 'italian', 'ita'].includes(param)) return 'it';
             if (['gn', 'guarani', 'gug', 'grn'].includes(param)) return 'gn';
             
             return 'es'; // default fallback
@@ -488,6 +548,7 @@
             if (badge) {
                 if (currentFaqLang === 'es') badge.textContent = 'Ayuda & Soporte';
                 else if (currentFaqLang === 'pt') badge.textContent = 'Ajuda & Suporte';
+                else if (currentFaqLang === 'it') badge.textContent = 'Aiuto & Supporto';
                 else if (currentFaqLang === 'gn') badge.textContent = 'Pytyvõ & Ñepytyvõ';
                 else badge.textContent = 'Help & Support';
             }
