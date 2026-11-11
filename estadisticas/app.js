@@ -307,15 +307,28 @@ function renderFlags() {
     mosaic.appendChild(track);
   }
   const seq = flags.map(f =>
-    `<img class="mosaic-flag" src="https://flagcdn.com/w320/${f}.png" alt="" loading="lazy">`
+    `<img class="mosaic-flag" src="https://flagcdn.com/w320/${f}.png" alt="" decoding="async">`
   ).join("");
   track.innerHTML = seq + seq;
-  // velocidad ~220px/s proporcional al ancho de una secuencia
+  // velocidad ~420px/s proporcional al ancho de una secuencia
   requestAnimationFrame(() => {
     const w = track.scrollWidth / 2;
-    const dur = w > 0 ? Math.max(7, w / 220) : 8;
+    const dur = w > 0 ? Math.max(3.5, Math.min(5, w / 420)) : 4;
     track.style.setProperty("--flags-dur", `${dur.toFixed(1)}s`);
   });
+}
+
+function renderAxisTooltipHtml(ax, activeVal = null) {
+  const rows = String(ax["desc_" + LANG] || "").split("\n").filter(Boolean).map(line => {
+    const m = line.match(/^(\d+)\s*[—–-]\s*(.+)$/);
+    if (!m) {
+      return `<span class="tip-row"><span class="tip-desc">${escapeHtml(line)}</span></span>`;
+    }
+    const num = Number(m[1]);
+    const activeCls = activeVal === num ? " is-active" : "";
+    return `<span class="tip-row${activeCls}"><span class="tip-num">${escapeHtml(m[1])}</span><span class="tip-desc">${escapeHtml(m[2])}</span></span>`;
+  }).join("");
+  return `<span class="tip" role="tooltip"><span class="tip-head">${escapeHtml(ax[LANG])}</span><span class="tip-list">${rows}</span></span>`;
 }
 
 function renderAxes() {
@@ -331,7 +344,7 @@ function renderAxes() {
     const card = document.createElement("div");
     card.className = "axis-card";
     card.innerHTML = `
-      <h4 class="has-tip" tabindex="0">${ax[LANG]}<span class="tip" role="tooltip">${ax["desc_" + LANG]}</span></h4>
+      <h4 class="has-tip" tabindex="0"><span>${escapeHtml(ax[LANG])}</span><span class="tip-icon" aria-hidden="true">?</span>${renderAxisTooltipHtml(ax)}</h4>
       <div class="axis-dist">
         ${[1, 2, 3, 4, 5].map(v => `
           <div class="col">
@@ -425,10 +438,10 @@ function showDetail(m) {
   const axisHtml = AXES.map(ax => {
     const v = m.e?.[ax.key] ?? 3;
     return `
-      <div class="axis-row has-tip">
-        <div class="axis-label"><span>${ax[LANG]}</span><span class="val">${v}/5</span></div>
+      <div class="axis-row has-tip" tabindex="0">
+        <div class="axis-label"><span>${escapeHtml(ax[LANG])}</span><span class="val">${v}/5</span></div>
         <div class="axis-bar"><div style="width:${v * 20}%"></div></div>
-        <span class="tip" role="tooltip">${ax["desc_" + LANG]}</span>
+        ${renderAxisTooltipHtml(ax, v)}
       </div>`;
   }).join("");
 
@@ -837,6 +850,46 @@ function applyLang(lang) {
 
 document.querySelectorAll(".lang-switch button").forEach(b =>
   b.addEventListener("click", () => applyLang(b.dataset.lang)));
+
+/* ---------- tooltips táctiles / cierre al desplazarse ---------- */
+function closeAllTooltips() {
+  document.querySelectorAll(".has-tip.tip-open").forEach(el => {
+    el.classList.remove("tip-open");
+    const card = el.closest(".axis-card");
+    if (card) card.classList.remove("has-open-tip");
+  });
+  if (document.activeElement && document.activeElement.classList && document.activeElement.classList.contains("has-tip")) {
+    document.activeElement.blur();
+  }
+}
+
+document.addEventListener("click", (e) => {
+  const tipTrigger = e.target.closest(".has-tip");
+  if (!tipTrigger) {
+    closeAllTooltips();
+    return;
+  }
+  const wasOpen = tipTrigger.classList.contains("tip-open");
+  closeAllTooltips();
+  if (!wasOpen) {
+    tipTrigger.classList.add("tip-open");
+    const card = tipTrigger.closest(".axis-card");
+    if (card) card.classList.add("has-open-tip");
+  }
+});
+
+let tipTouchStartY = null;
+window.addEventListener("touchstart", (e) => {
+  tipTouchStartY = e.touches && e.touches[0] ? e.touches[0].clientY : null;
+}, { passive: true });
+window.addEventListener("touchmove", (e) => {
+  if (tipTouchStartY === null || !e.touches || !e.touches[0]) return;
+  if (Math.abs(e.touches[0].clientY - tipTouchStartY) > 6) {
+    closeAllTooltips();
+    tipTouchStartY = null;
+  }
+}, { passive: true });
+window.addEventListener("scroll", closeAllTooltips, { passive: true });
 
 /* ---------- init ---------- */
 const _urlParams = new URLSearchParams(window.location.search);
