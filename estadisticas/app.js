@@ -838,7 +838,9 @@ document.querySelectorAll(".lang-switch button").forEach(b =>
   b.addEventListener("click", () => applyLang(b.dataset.lang)));
 
 /* ---------- init ---------- */
-const initialLang = (document.documentElement.lang && I18N[document.documentElement.lang])
-  ? document.documentElement.lang
-  : "es";
+const _urlParams = new URLSearchParams(window.location.search);
+const _urlLang = (_urlParams.get("idioma") || _urlParams.get("lang") || _urlParams.get("hl") || "").toLowerCase().trim();
+const initialLang = (_urlLang && I18N[_urlLang])
+  ? _urlLang
+  : ((document.documentElement.lang && I18N[document.documentElement.lang]) ? document.documentElement.lang : "es");
 applyLang(initialLang);

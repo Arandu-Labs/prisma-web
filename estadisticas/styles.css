@@ -364,19 +364,22 @@ h3 { font-size: 1.05rem; margin-bottom: 1rem; }
     margin-bottom: 0.5rem;
     text-align: center;
   }
+  .flags-track {
+    animation-duration: 12s !important;
+  }
   #map {
-    aspect-ratio: 1.55;
-    max-height: 190px;
+    aspect-ratio: 1.05;
+    max-height: 285px;
   }
   .pie-wrap {
     gap: 0.5rem;
   }
   .pie-donut {
-    width: 135px;
-    height: 135px;
+    width: 162px;
+    height: 162px;
   }
   .pie-total strong {
-    font-size: 1.45rem;
+    font-size: 1.75rem;
   }
   .pie-legend {
     grid-template-columns: repeat(2, 1fr);

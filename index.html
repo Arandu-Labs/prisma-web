@@ -1,12 +1,23 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="es" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prisma Noticias | The Intelligent and Unbiased News Reader | Arandu Labs</title>
+        <script>
+    (function () {
+        var params = new URLSearchParams(window.location.search);
+        var param = (params.get('idioma') || params.get('lang') || params.get('hl') || '').toLowerCase().trim();
+        if (['en', 'english', 'eng'].includes(param)) {
+            window.location.replace('en/index.html' + window.location.hash);
+        } else if (['pt', 'portuguese', 'por', 'pt-br', 'pt_br'].includes(param)) {
+            window.location.replace('pt/index.html' + window.location.hash);
+        }
+    })();
+    </script>
+    <title>Prisma Noticias | El Lector de Noticias Plural e Inteligente | Arandu Labs</title>
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="assets/images/prisma_logo.png">
-    <meta name="description" content="Discover Prisma Noticias: the intelligent press aggregator and kiosk that shows you the political spectrum, reveals blindspots, and compares media coverage in LATAM. Total privacy.">
+    <meta name="description" content="Descubre Prisma Noticias: el kiosco y agregador de prensa inteligente que te muestra el espectro político, revela puntos ciegos y compara la cobertura de diferentes diarios de LATAM. Privacidad total.">
     
     <!-- Google Fonts: Outfit (headings) & Inter (body) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -42,11 +53,12 @@
     </script>
     
     <style>
-        body {
+        html, body {
             background-color: #0B0E14;
             color: #f3f4f6;
             font-family: 'Inter', sans-serif;
             overflow-x: hidden;
+            max-width: 100%;
         }
 
         /* Prisma Spectrum Gradients */
@@ -137,8 +149,14 @@
         @media (max-width: 640px) {
             .hero-feed { height: 300px; }
             #benefits .w-72, #beneficios .w-72 { width: min(18rem, 80vw) !important; }
-            .hero-mockup-wrap, .glass { margin-left: auto; margin-right: auto; }
+            .hero-mockup-wrap, section .glass { margin-left: auto; margin-right: auto; }
             .grid > div { margin-left: auto; margin-right: auto; width: 100%; max-width: 26rem; }
+            .hero-cta-btn {
+                background-image: url('assets/images/logo_background.png');
+                background-size: cover;
+                background-position: center;
+                text-shadow: 0 0 6px rgba(255, 255, 255, 0.45);
+            }
         }
 
         /* Screenshots endless carousel */
@@ -165,37 +183,39 @@
 <body class="antialiased">
 
     <!-- Glowing Background Elements -->
-    <div class="glow-blob-1 top-10 -left-48"></div>
-    <div class="glow-blob-2 top-[40%] -right-48"></div>
-    <div class="glow-blob-1 bottom-10 left-[20%]"></div>
+    <div class="fixed inset-0 overflow-hidden pointer-events-none z-0">
+        <div class="glow-blob-1 top-10 -left-48"></div>
+        <div class="glow-blob-2 top-[40%] -right-48"></div>
+        <div class="glow-blob-1 bottom-10 left-[20%]"></div>
+    </div>
 
     <!-- Navigation Header -->
-    <header class="fixed w-full top-0 left-0 z-50 transition-all duration-300 border-b border-white/5 bg-dark/70 backdrop-blur-md">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 py-2.5 sm:py-0 sm:h-20 flex flex-wrap sm:flex-nowrap items-center justify-between gap-y-2">
-            <div class="flex items-center gap-2.5 sm:gap-3 order-1">
-                <img src="assets/images/prisma_logo.png" alt="Prisma Noticias Logo" class="w-8 h-8 sm:w-10 sm:h-10 object-contain">
-                <div class="flex flex-col sm:flex-row sm:items-baseline">
-                    <span class="text-xl sm:text-2xl font-outfit font-black tracking-tight text-white whitespace-nowrap">Prisma Noticias</span>
+    <header class="fixed w-full max-w-[100vw] overflow-x-hidden top-0 left-0 z-50 transition-all duration-300 border-b border-white/5 bg-dark/70 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto px-3 sm:px-6 py-2.5 sm:py-0 sm:h-20 flex flex-wrap sm:flex-nowrap items-center justify-between gap-x-2 gap-y-2">
+            <div class="flex items-center gap-2 sm:gap-3 order-1 min-w-0 flex-1 sm:flex-initial">
+                <img src="assets/images/prisma_logo.png" alt="Prisma Noticias Logo" class="w-7 h-7 sm:w-10 sm:h-10 shrink-0 object-contain">
+                <div class="flex flex-col sm:flex-row sm:items-baseline min-w-0">
+                    <span class="text-lg sm:text-2xl font-outfit font-black tracking-tight text-white truncate">Prisma Noticias</span>
                     <span class="text-[9px] sm:text-[10px] text-slate-500 font-normal sm:ml-2 whitespace-nowrap">by Arandu Labs</span>
                 </div>
             </div>
 
             <!-- Language Selector (Row 2 on mobile, between logo and button on desktop) -->
             <div class="order-3 sm:order-2 w-full sm:w-auto sm:ml-auto flex items-center justify-center sm:justify-start gap-3 sm:border-r sm:border-white/10 sm:pr-6 sm:mr-6 sm:h-8 pt-1.5 sm:pt-0 border-t border-white/5 sm:border-t-0">
-                <a href="es/index.html" class="flex items-center hover:scale-110 transition-transform opacity-60 hover:opacity-100 text-xs font-bold gap-1.5">
-                    <img src="https://flagcdn.com/w20/es.png" width="16" alt="Spain" class="rounded-sm"> ES
-                </a>
                 <span class="flex items-center text-white bg-white/5 px-2 py-0.5 rounded-md border border-white/10 text-xs font-bold gap-1.5">
-                    <img src="https://flagcdn.com/w20/us.png" width="16" alt="USA" class="rounded-sm"> EN
+                    <img src="https://flagcdn.com/w20/es.png" width="16" alt="España" class="rounded-sm"> ES
                 </span>
+                <a href="en/index.html" class="flex items-center hover:scale-110 transition-transform opacity-60 hover:opacity-100 text-xs font-bold gap-1.5">
+                    <img src="https://flagcdn.com/w20/us.png" width="16" alt="USA" class="rounded-sm"> EN
+                </a>
                 <a href="pt/index.html" class="flex items-center hover:scale-110 transition-transform opacity-60 hover:opacity-100 text-xs font-bold gap-1.5">
-                    <img src="https://flagcdn.com/w20/br.png" width="16" alt="Brazil" class="rounded-sm"> PT
+                    <img src="https://flagcdn.com/w20/br.png" width="16" alt="Brasil" class="rounded-sm"> PT
                 </a>
             </div>
 
             <!-- Arandu Labs button (Row 1 right on mobile, far right on desktop) -->
-            <div class="order-2 sm:order-3">
-                <a href="https://arandulabs.dev" target="_blank" class="px-3.5 py-1.5 sm:px-5 sm:py-2 rounded-full border border-white/10 hover:border-white/20 glass text-[11px] sm:text-xs font-bold uppercase tracking-wider sm:tracking-widest text-white transition-all whitespace-nowrap">
+            <div class="order-2 sm:order-3 shrink-0">
+                <a href="https://arandulabs.dev" target="_blank" class="inline-flex items-center px-3 py-1.5 sm:px-5 sm:py-2 rounded-full border border-white/10 hover:border-white/20 glass text-[10px] sm:text-xs font-bold uppercase tracking-wider sm:tracking-widest text-white transition-all whitespace-nowrap">
                     Arandu Labs
                 </a>
             </div>
@@ -209,17 +229,17 @@
             <!-- Hero Text -->
             <div class="lg:col-span-6 space-y-8 text-center lg:text-left">
                 <h1 class="text-4xl sm:text-5xl lg:text-6xl font-outfit font-black tracking-tight leading-[1.05] text-white">
-                    All LATAM media in one place
+                    Todos los medios de Latam en un solo lugar
                 </h1>
                 
                 <p class="text-slate-400 text-lg leading-relaxed font-light max-w-xl mx-auto lg:mx-0">
-                    Prisma Noticias is a digital news kiosk and intelligent news aggregator. It provides access to a carefully curated inventory of media and news from Latam and the world, with local, national and global coverage. It also makes it possible to see how a wide range of outlets cover relevant events in the region.
+                    Prisma Noticias es un kiosco digital y agregador inteligente de noticias. Permite acceder a un inventario cuidadosamente curado de medios y noticias de Latam y el mundo con cobertura local, nacional y global. También posibilita visualizar el tratamiento en un amplio número de medios de eventos relevantes de la región.
                 </p>
 
                 <div class="flex flex-wrap gap-4 justify-center lg:justify-start">
-                    <a href="#benefits" class="inline-flex items-center justify-center px-6 py-3 rounded-2xl border border-white bg-prisma text-black text-sm font-bold shadow-lg shadow-black/20 hover:opacity-95 hover:scale-[1.03] transition-all">Features</a>
-                    <a href="#catalog" class="inline-flex items-center justify-center px-6 py-3 rounded-2xl border border-white bg-prisma text-black text-sm font-bold shadow-lg shadow-black/20 hover:opacity-95 hover:scale-[1.03] transition-all">Coverage</a>
-                    <a href="#how-it-works" class="inline-flex items-center justify-center px-6 py-3 rounded-2xl border border-white bg-prisma text-black text-sm font-bold shadow-lg shadow-black/20 hover:opacity-95 hover:scale-[1.03] transition-all">Install</a>
+                    <a href="#beneficios" class="hero-cta-btn inline-flex items-center justify-center px-6 py-3 rounded-2xl border border-white bg-prisma text-black text-sm font-bold shadow-lg shadow-black/20 hover:opacity-95 hover:scale-[1.03] transition-all">Características</a>
+                    <a href="#catalog" class="hero-cta-btn inline-flex items-center justify-center px-6 py-3 rounded-2xl border border-white bg-prisma text-black text-sm font-bold shadow-lg shadow-black/20 hover:opacity-95 hover:scale-[1.03] transition-all">Cobertura</a>
+                    <a href="#como-funciona" class="hero-cta-btn inline-flex items-center justify-center px-6 py-3 rounded-2xl border border-white bg-prisma text-black text-sm font-bold shadow-lg shadow-black/20 hover:opacity-95 hover:scale-[1.03] transition-all">Instalar</a>
                 </div>
             </div>
 
@@ -235,7 +255,7 @@
                             <span class="w-3 h-3 rounded-full bg-logoOrange"></span>
                             <span class="w-3 h-3 rounded-full bg-logoGreen"></span>
                         </div>
-                        <span class="text-[10px] text-slate-500 font-bold uppercase tracking-widest font-outfit">Prisma Noticias - Latin America</span>
+                        <span class="text-[10px] text-slate-500 font-bold uppercase tracking-widest font-outfit">Prisma Noticias - América Latina</span>
                         <span class="w-3"></span>
                     </div>
 
@@ -250,13 +270,13 @@
     </section>
 
     <!-- Beneficios (Features) -->
-    <section id="benefits" class="py-24 px-6 bg-dark/60 border-y border-white/5 relative z-10">
+    <section id="beneficios" class="py-24 px-6 bg-dark/60 border-y border-white/5 relative z-10">
         <div class="max-w-7xl mx-auto space-y-16">
             
             <div class="text-center space-y-4 max-w-xl mx-auto">
-                <span class="text-prisma font-black tracking-[0.2em] text-xs uppercase block">Features</span>
+                <span class="text-prisma font-black tracking-[0.2em] text-xs uppercase block">Características</span>
                 <h2 class="text-3xl md:text-5xl font-outfit font-black tracking-tight leading-none text-white">
-                    All the news and its different perspectives in a single read
+                    Toda la actualidad y sus distintas perspectivas en una sola lectura
                 </h2>
                 <div class="w-12 h-1 bg-prisma mx-auto rounded-full mt-4"></div>
             </div>
@@ -268,12 +288,12 @@
                 <div class="flex flex-col p-8 glass rounded-3xl border border-white/5 hover:border-logoCeleste/30 transition-all gap-5">
                     <div class="flex items-start gap-4">
                         <span class="text-4xl font-outfit font-black text-logoRed/70 leading-none pt-1">01</span>
-                        <h3 class="text-lg font-bold text-white leading-snug">Access to all media from a single place</h3>
+                        <h3 class="text-lg font-bold text-white leading-snug">Acceso a todos los medios desde un único lugar</h3>
                     </div>
                     <ul class="space-y-3 pl-5 text-sm font-light list-disc marker:text-slate-500 text-slate-400">
-                        <li class="group relative cursor-help"><strong class="text-logoRed font-semibold">Integrated press hub.</strong><span class="absolute bottom-full left-0 z-20 mb-2 hidden w-72 rounded-lg border border-white/10 bg-darkCard p-3 text-xs font-normal leading-relaxed text-slate-300 shadow-xl group-hover:block">Centralizes 940+ outlets (local, provincial, national and international) in a single direct access point.</span></li>
-                        <li class="group relative cursor-help"><strong class="text-logoRed font-semibold">Digital kiosk by countries and regions.</strong><span class="absolute bottom-full left-0 z-20 mb-2 hidden w-72 rounded-lg border border-white/10 bg-darkCard p-3 text-xs font-normal leading-relaxed text-slate-300 shadow-xl group-hover:block">Explore and open the digital editions of each newspaper with a single tap, without having to remember URLs, open dozens of tabs or browse cluttered browsers.</span></li>
-                        <li class="group relative cursor-help"><strong class="text-logoRed font-semibold">Assisted geographic setup.</strong><span class="absolute bottom-full left-0 z-20 mb-2 hidden w-72 rounded-lg border border-white/10 bg-darkCard p-3 text-xs font-normal leading-relaxed text-slate-300 shadow-xl group-hover:block">Interactive map to discover and prioritize outlets from your province or region, along with global reference mastheads (The Economist, Bloomberg Línea, El País, BBC, etc.).</span></li>
+                        <li class="group relative cursor-help"><strong class="text-logoRed font-semibold">Hub integral de prensa.</strong><span class="absolute bottom-full left-0 z-20 mb-2 hidden w-72 rounded-lg border border-white/10 bg-darkCard p-3 text-xs font-normal leading-relaxed text-slate-300 shadow-xl group-hover:block">Centraliza más de 940 medios (locales, provinciales, nacionales e internacionales) en un único punto de acceso directo.</span></li>
+                        <li class="group relative cursor-help"><strong class="text-logoRed font-semibold">Kiosco digital por países y regiones.</strong><span class="absolute bottom-full left-0 z-20 mb-2 hidden w-72 rounded-lg border border-white/10 bg-darkCard p-3 text-xs font-normal leading-relaxed text-slate-300 shadow-xl group-hover:block">Permite explorar y entrar a las ediciones digitales de cada diario con un solo toque, sin tener que recordar URLs, abrir decenas de pestañas o navegar por navegadores saturados.</span></li>
+                        <li class="group relative cursor-help"><strong class="text-logoRed font-semibold">Configuración geográfica asistida.</strong><span class="absolute bottom-full left-0 z-20 mb-2 hidden w-72 rounded-lg border border-white/10 bg-darkCard p-3 text-xs font-normal leading-relaxed text-slate-300 shadow-xl group-hover:block">Mapa interactivo para descubrir y priorizar medios de tu provincia o región, junto con las cabeceras de referencia global (The Economist, Bloomberg Línea, El País, BBC, etc.).</span></li>
                     </ul>
                 </div>
 
@@ -281,12 +301,12 @@
                 <div class="flex flex-col p-8 glass rounded-3xl border border-white/5 hover:border-logoOrange/30 transition-all gap-5">
                     <div class="flex items-start gap-4">
                         <span class="text-4xl font-outfit font-black text-logoOrange/70 leading-none pt-1">02</span>
-                        <h3 class="text-lg font-bold text-white leading-snug">Multi-perspective view of the editorial spectrum</h3>
+                        <h3 class="text-lg font-bold text-white leading-snug">Visión multi-perspectiva del espectro editorial</h3>
                     </div>
                     <ul class="space-y-3 pl-5 text-sm font-light list-disc marker:text-slate-500 text-slate-400">
-                        <li class="group relative cursor-help"><strong class="text-logoOrange font-semibold">Editorial line contrast.</strong><span class="absolute bottom-full left-0 z-20 mb-2 hidden w-72 rounded-lg border border-white/10 bg-darkCard p-3 text-xs font-normal leading-relaxed text-slate-300 shadow-xl group-hover:block">Each event brings together the different views of the informative spectrum (social, institutional, economic and geopolitical), letting the reader see how each newspaper frames, ranks and headlines the same reality.</span></li>
-                        <li class="group relative cursor-help"><strong class="text-logoOrange font-semibold">Diversity without a single bias.</strong><span class="absolute bottom-full left-0 z-20 mb-2 hidden w-72 rounded-lg border border-white/10 bg-darkCard p-3 text-xs font-normal leading-relaxed text-slate-300 shadow-xl group-hover:block">Breaks filter bubbles by placing outlets with different editorial tendencies side by side on the same news event.</span></li>
-                        <li class="group relative cursor-help"><strong class="text-logoOrange font-semibold">Source transparency.</strong><span class="absolute bottom-full left-0 z-20 mb-2 hidden w-72 rounded-lg border border-white/10 bg-darkCard p-3 text-xs font-normal leading-relaxed text-slate-300 shadow-xl group-hover:block">Clear identification of the outlet of origin, its provenance and coverage to foster the reader's own judgment.</span></li>
+                        <li class="group relative cursor-help"><strong class="text-logoOrange font-semibold">Contraste de líneas editoriales.</strong><span class="absolute bottom-full left-0 z-20 mb-2 hidden w-72 rounded-lg border border-white/10 bg-darkCard p-3 text-xs font-normal leading-relaxed text-slate-300 shadow-xl group-hover:block">Cada acontecimiento reúne las diversas miradas del espectro informativo (social, institucional, económico y geopolítico), permitiendo al lector ver cómo cada periódico enfoca, jerarquiza y titula la misma realidad.</span></li>
+                        <li class="group relative cursor-help"><strong class="text-logoOrange font-semibold">Diversidad sin sesgo único.</strong><span class="absolute bottom-full left-0 z-20 mb-2 hidden w-72 rounded-lg border border-white/10 bg-darkCard p-3 text-xs font-normal leading-relaxed text-slate-300 shadow-xl group-hover:block">Rompe las burbujas de filtro al poner frente a frente medios de distintas tendencias editoriales sobre el mismo hecho noticioso.</span></li>
+                        <li class="group relative cursor-help"><strong class="text-logoOrange font-semibold">Transparencia en la fuente.</strong><span class="absolute bottom-full left-0 z-20 mb-2 hidden w-72 rounded-lg border border-white/10 bg-darkCard p-3 text-xs font-normal leading-relaxed text-slate-300 shadow-xl group-hover:block">Identificación clara del medio de origen, su procedencia y cobertura para fomentar un criterio propio en el lector.</span></li>
                     </ul>
                 </div>
 
@@ -294,12 +314,12 @@
                 <div class="flex flex-col p-8 glass rounded-3xl border border-white/5 hover:border-logoYellow/30 transition-all gap-5">
                     <div class="flex items-start gap-4">
                         <span class="text-4xl font-outfit font-black text-logoYellow/70 leading-none pt-1">03</span>
-                        <h3 class="text-lg font-bold text-white leading-snug">Smart grouping of news by event</h3>
+                        <h3 class="text-lg font-bold text-white leading-snug">Agrupación inteligente de noticias por evento</h3>
                     </div>
                     <ul class="space-y-3 pl-5 text-sm font-light list-disc marker:text-slate-500 text-slate-400">
-                        <li class="group relative cursor-help"><strong class="text-logoYellow font-semibold">One card per event (Clusters).</strong><span class="absolute bottom-full left-0 z-20 mb-2 hidden w-72 rounded-lg border border-white/10 bg-darkCard p-3 text-xs font-normal leading-relaxed text-slate-300 shadow-xl group-hover:block">Consolidates dozens of redundant articles into a single organized news block, eliminating duplication in the feed.</span></li>
-                        <li class="group relative cursor-help"><strong class="text-logoYellow font-semibold">Neutral, bilingual headline.</strong><span class="absolute bottom-full left-0 z-20 mb-2 hidden w-72 rounded-lg border border-white/10 bg-darkCard p-3 text-xs font-normal leading-relaxed text-slate-300 shadow-xl group-hover:block">AI-synthesized representative headline in the active language (English or Spanish), stripped of sensationalist clickbait.</span></li>
-                        <li class="group relative cursor-help"><strong class="text-logoYellow font-semibold">Comparative source carousel.</strong><span class="absolute bottom-full left-0 z-20 mb-2 hidden w-72 rounded-lg border border-white/10 bg-darkCard p-3 text-xs font-normal leading-relaxed text-slate-300 shadow-xl group-hover:block">Within each event, a dynamic carousel gathers every outlet covering the story in real time to jump from one point of view to another instantly.</span></li>
+                        <li class="group relative cursor-help"><strong class="text-logoYellow font-semibold">Una sola tarjeta por suceso (Clústeres).</strong><span class="absolute bottom-full left-0 z-20 mb-2 hidden w-72 rounded-lg border border-white/10 bg-darkCard p-3 text-xs font-normal leading-relaxed text-slate-300 shadow-xl group-hover:block">Consolida decenas de artículos redundantes en un único bloque informativo ordenado, eliminando la duplicación en el feed.</span></li>
+                        <li class="group relative cursor-help"><strong class="text-logoYellow font-semibold">Titulación periodística neutral y bilingüe.</strong><span class="absolute bottom-full left-0 z-20 mb-2 hidden w-72 rounded-lg border border-white/10 bg-darkCard p-3 text-xs font-normal leading-relaxed text-slate-300 shadow-xl group-hover:block">Titular sintetizado y representativo generado por IA en el idioma activo (Español o Portugués), despojado del clickbait sensacionalista.</span></li>
+                        <li class="group relative cursor-help"><strong class="text-logoYellow font-semibold">Carrusel comparativo de fuentes.</strong><span class="absolute bottom-full left-0 z-20 mb-2 hidden w-72 rounded-lg border border-white/10 bg-darkCard p-3 text-xs font-normal leading-relaxed text-slate-300 shadow-xl group-hover:block">Dentro de cada evento, un carrusel dinámico reúne a todos los medios que están cubriendo la noticia en tiempo real para saltar de un punto de vista a otro al instante.</span></li>
                     </ul>
                 </div>
 
@@ -307,12 +327,12 @@
                 <div class="flex flex-col p-8 glass rounded-3xl border border-white/5 hover:border-logoGreen/30 transition-all gap-5">
                     <div class="flex items-start gap-4">
                         <span class="text-4xl font-outfit font-black text-logoGreen/70 leading-none pt-1">04</span>
-                        <h3 class="text-lg font-bold text-white leading-snug">Fast and optimized reading experience</h3>
+                        <h3 class="text-lg font-bold text-white leading-snug">Experiencia de lectura rápida y optimizada</h3>
                     </div>
                     <ul class="space-y-3 pl-5 text-sm font-light list-disc marker:text-slate-500 text-slate-400">
-                        <li class="group relative cursor-help"><strong class="text-logoGreen font-semibold">High-speed WebView reader.</strong><span class="absolute bottom-full left-0 z-20 mb-2 hidden w-72 rounded-lg border border-white/10 bg-darkCard p-3 text-xs font-normal leading-relaxed text-slate-300 shadow-xl group-hover:block">Access to each outlet's original site with early load cutoff, avoiding the wait for heavy ads and invasive trackers.</span></li>
-                        <li class="group relative cursor-help"><strong class="text-logoGreen font-semibold">Smooth offline reading (local cache).</strong><span class="absolute bottom-full left-0 z-20 mb-2 hidden w-72 rounded-lg border border-white/10 bg-darkCard p-3 text-xs font-normal leading-relaxed text-slate-300 shadow-xl group-hover:block">Smart local storage lets you keep reading news and front pages on public transport or areas with intermittent signal.</span></li>
-                        <li class="group relative cursor-help"><strong class="text-logoGreen font-semibold">Total anonymous privacy.</strong><span class="absolute bottom-full left-0 z-20 mb-2 hidden w-72 rounded-lg border border-white/10 bg-darkCard p-3 text-xs font-normal leading-relaxed text-slate-300 shadow-xl group-hover:block">No accounts, emails or mandatory sign-ups required; all preferences and settings stay exclusively on the user's device.</span></li>
+                        <li class="group relative cursor-help"><strong class="text-logoGreen font-semibold">Lector WebView de alta velocidad.</strong><span class="absolute bottom-full left-0 z-20 mb-2 hidden w-72 rounded-lg border border-white/10 bg-darkCard p-3 text-xs font-normal leading-relaxed text-slate-300 shadow-xl group-hover:block">Acceso a la web original de cada medio con corte temprano de carga, evitando la espera por anuncios pesados y rastreadores invasivos.</span></li>
+                        <li class="group relative cursor-help"><strong class="text-logoGreen font-semibold">Lectura fluida y sin conexión (Caché local).</strong><span class="absolute bottom-full left-0 z-20 mb-2 hidden w-72 rounded-lg border border-white/10 bg-darkCard p-3 text-xs font-normal leading-relaxed text-slate-300 shadow-xl group-hover:block">Almacenamiento local inteligente que permite seguir leyendo noticias y portadas en el transporte público o zonas con señal intermitente.</span></li>
+                        <li class="group relative cursor-help"><strong class="text-logoGreen font-semibold">Privacidad total y anónima.</strong><span class="absolute bottom-full left-0 z-20 mb-2 hidden w-72 rounded-lg border border-white/10 bg-darkCard p-3 text-xs font-normal leading-relaxed text-slate-300 shadow-xl group-hover:block">No requiere crear cuentas, ni correos ni registros obligatorios; todas las preferencias y configuraciones permanecen exclusivamente en el dispositivo del usuario.</span></li>
                     </ul>
                 </div>
 
@@ -320,13 +340,13 @@
                 <div class="flex flex-col p-8 glass rounded-3xl border border-white/5 hover:border-logoBlue/30 transition-all gap-5 md:col-span-2 lg:col-span-1">
                     <div class="flex items-start gap-4">
                         <span class="text-4xl font-outfit font-black text-logoCeleste/70 leading-none pt-1">05</span>
-                        <h3 class="text-lg font-bold text-white leading-snug">Consumption modes for every moment</h3>
+                        <h3 class="text-lg font-bold text-white leading-snug">Modos de consumo adaptados a cada momento</h3>
                     </div>
                     <ul class="space-y-3 pl-5 text-sm font-light list-disc marker:text-slate-500 text-slate-400">
-                        <li class="group relative cursor-help"><strong class="text-logoCeleste font-semibold">Curated News.</strong><span class="absolute bottom-full left-0 z-20 mb-2 hidden w-72 rounded-lg border border-white/10 bg-darkCard p-3 text-xs font-normal leading-relaxed text-slate-300 shadow-xl group-hover:block">The panoramic summary with the day's major events and clusters.</span></li>
-                        <li class="group relative cursor-help"><strong class="text-logoCeleste font-semibold">Live feed.</strong><span class="absolute bottom-full left-0 z-20 mb-2 hidden w-72 rounded-lg border border-white/10 bg-darkCard p-3 text-xs font-normal leading-relaxed text-slate-300 shadow-xl group-hover:block">Minute-by-minute chronological flow with instant filtering by newspaper, country or category.</span></li>
-                        <li class="group relative cursor-help"><strong class="text-logoCeleste font-semibold">"Variety" section.</strong><span class="absolute bottom-full left-0 z-20 mb-2 hidden w-72 rounded-lg border border-white/10 bg-darkCard p-3 text-xs font-normal leading-relaxed text-slate-300 shadow-xl group-hover:block">Independent space for culture, technology, entertainment and gaming, keeping hard news free of miscellany.</span></li>
-                        <li class="group relative cursor-help"><strong class="text-logoCeleste font-semibold">Specialized Sports filter.</strong><span class="absolute bottom-full left-0 z-20 mb-2 hidden w-72 rounded-lg border border-white/10 bg-darkCard p-3 text-xs font-normal leading-relaxed text-slate-300 shadow-xl group-hover:block">Coverage organized by specific sports disciplines (soccer, tennis, basketball, motorsport, etc.).</span></li>
+                        <li class="group relative cursor-help"><strong class="text-logoCeleste font-semibold">Noticias Curadas.</strong><span class="absolute bottom-full left-0 z-20 mb-2 hidden w-72 rounded-lg border border-white/10 bg-darkCard p-3 text-xs font-normal leading-relaxed text-slate-300 shadow-xl group-hover:block">El resumen panorámico con los grandes eventos y clústeres del día.</span></li>
+                        <li class="group relative cursor-help"><strong class="text-logoCeleste font-semibold">Feed en vivo.</strong><span class="absolute bottom-full left-0 z-20 mb-2 hidden w-72 rounded-lg border border-white/10 bg-darkCard p-3 text-xs font-normal leading-relaxed text-slate-300 shadow-xl group-hover:block">Flujo cronológico al minuto con barra de filtrado instantáneo por diario, país o categoría.</span></li>
+                        <li class="group relative cursor-help"><strong class="text-logoCeleste font-semibold">Sección «Varios».</strong><span class="absolute bottom-full left-0 z-20 mb-2 hidden w-72 rounded-lg border border-white/10 bg-darkCard p-3 text-xs font-normal leading-relaxed text-slate-300 shadow-xl group-hover:block">Espacio independiente para cultura, tecnología, entretenimiento y gaming, garantizando que la actualidad dura no se contamine con misceláneas.</span></li>
+                        <li class="group relative cursor-help"><strong class="text-logoCeleste font-semibold">Filtro especializado en Deportes.</strong><span class="absolute bottom-full left-0 z-20 mb-2 hidden w-72 rounded-lg border border-white/10 bg-darkCard p-3 text-xs font-normal leading-relaxed text-slate-300 shadow-xl group-hover:block">Cobertura organizada por disciplinas deportivas concretas (fútbol, tenis, básquet, automovilismo, etc.).</span></li>
                     </ul>
                 </div>
 
@@ -339,8 +359,8 @@
     <!-- Estadísticas del catálogo de medios -->
     <div class="stats-embed" id="catalog">
         <section class="stats-intro text-center space-y-4 max-w-xl mx-auto px-6 pt-10">
-            <span class="text-prisma font-black tracking-[0.2em] text-xs uppercase block" data-i18n="kicker">Media catalog</span>
-            <h2 class="text-3xl md:text-5xl font-outfit font-black tracking-tight leading-none text-white" data-i18n="title">From local pulse to global horizon: all the information in one place</h2>
+            <span class="text-prisma font-black tracking-[0.2em] text-xs uppercase block" data-i18n="kicker">Catálogo de medios</span>
+            <h2 class="text-3xl md:text-5xl font-outfit font-black tracking-tight leading-none text-white" data-i18n="title">Del pulso local al horizonte global: toda la información en un solo lugar</h2>
             <p class="muted" id="hero-sub"></p>
         </section>
 
@@ -351,17 +371,17 @@
                 <div class="kpi"><strong id="kpi-medios">0</strong><span id="kpi-medios-label"></span></div>
                 <div class="kpi kpi-flags">
                     <div class="flags-mosaic" id="flags-mosaic" aria-hidden="true"></div>
-                    <div class="kpi-content"><strong id="kpi-paises2">0</strong><span data-i18n="kpiPaises">countries</span></div>
+                    <div class="kpi-content"><strong id="kpi-paises2">0</strong><span data-i18n="kpiPaises">países</span></div>
                 </div>
                 <div class="kpi"><strong id="kpi-cats">0</strong><span id="kpi-cats-label"></span></div>
             </section>
 
             <!-- Buscador -->
             <section class="search-section">
-                <h2 data-i18n="searchTitle">Search an outlet</h2>
-                <p class="muted" data-i18n="searchSub">Type a name, country or category to see its editorial line.</p>
+                <h2 data-i18n="searchTitle">Busca un medio</h2>
+                <p class="muted" data-i18n="searchSub">Escribe el nombre, país o categoría para ver su línea editorial.</p>
                 <input id="search" type="search" autocomplete="off" spellcheck="false"
-                       data-i18n-ph="searchPh" placeholder="E.g.: Clarín, Página 12, G1, El Mercurio…">
+                       data-i18n-ph="searchPh" placeholder="Ej: Clarín, Página 12, G1, El Mercurio…">
                 <div id="results" class="results"></div>
                 <div id="medio-detail" class="medio-detail hidden"></div>
             </section>
@@ -369,15 +389,15 @@
             <!-- Charts -->
             <section class="charts">
                 <div class="chart-card chart-map">
-                    <h3 data-i18n="chartMap">Outlets by country</h3>
+                    <h3 data-i18n="chartMap">Medios por país</h3>
                     <div id="map"></div>
                 </div>
-                <div class="chart-card chart-cats"><h3 data-i18n="chartCats">Outlets by category</h3><div id="chart-cats" class="bars"></div></div>
+                <div class="chart-card chart-cats"><h3 data-i18n="chartCats">Medios por categoría</h3><div id="chart-cats" class="bars"></div></div>
             </section>
 
             <section class="axes-section">
-                <h2 data-i18n="axesTitle">Profile Distribution</h2>
-                <p class="muted" data-i18n="axesSub">Outlets (excluding the Sports, Entertainment &amp; Style, and Science &amp; Technology categories) have been classified on 6 thematic dimensions. Each column shows how many outlets fall on each value.</p>
+                <h2 data-i18n="axesTitle">Distribución por Perfil</h2>
+                <p class="muted" data-i18n="axesSub">Los medios (excluidas las categorías de Deportes, Entretenimiento y Estilo, y Ciencia y Tecnología) han sido clasificados en 6 dimensiones temáticas. Cada columna muestra cuántos medios caen en cada valor.</p>
                 <div id="axes-grid" class="axes-grid"></div>
             </section>
 
@@ -386,14 +406,14 @@
     </div>
 
     <!-- Visual Middle Section (App Screenshots Gallery) -->
-    <section id="screenshots" class="py-20 px-6 max-w-7xl mx-auto z-10">
+    <section id="capturas" class="py-20 px-6 max-w-7xl mx-auto z-10">
         <div class="space-y-12">
             <div class="text-center space-y-4 max-w-xl mx-auto">
-                <span class="text-prisma font-black tracking-[0.2em] text-xs uppercase block">App Interface</span>
+                <span class="text-prisma font-black tracking-[0.2em] text-xs uppercase block">Interfaz de la App</span>
                 <h2 class="text-3xl md:text-5xl font-outfit font-black tracking-tight leading-none text-white">
-                    Explore the Mobile Experience
+                    Explora la Experiencia Móvil
                 </h2>
-                <p class="text-slate-400 text-sm font-light">Preview key screens of Prisma Noticias in action</p>
+                <p class="text-slate-400 text-sm font-light">Visualiza las pantallas principales de Prisma Noticias en acción</p>
                 <div class="w-12 h-1 bg-prisma mx-auto rounded-full mt-4"></div>
             </div>
 
@@ -403,13 +423,13 @@
         </div>
     </section>
     <!-- Cómo funciona (Workflow) -->
-    <section id="how-it-works" class="py-24 px-6 max-w-7xl mx-auto z-10">
+    <section id="como-funciona" class="py-24 px-6 max-w-7xl mx-auto z-10">
         <div class="space-y-16">
             
             <div class="text-center space-y-4 max-w-xl mx-auto">
-                <span class="text-prisma font-black tracking-[0.2em] text-xs uppercase block">Three Simple Steps</span>
+                <span class="text-prisma font-black tracking-[0.2em] text-xs uppercase block">Tres pasos simples</span>
                 <h2 class="text-3xl md:text-5xl font-outfit font-black tracking-tight leading-none text-white">
-                    Start reading with your own judgment
+                    Comienza a leer con criterio propio
                 </h2>
                 <div class="w-12 h-1 bg-prisma mx-auto rounded-full mt-4"></div>
             </div>
@@ -423,10 +443,10 @@
                     <div class="w-16 h-16 rounded-2xl bg-logoRed/10 text-logoRed flex items-center justify-center">
                         <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
                     </div>
-                    <h3 class="text-xl font-bold text-white">Install the App</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed font-light">Download Prisma Noticias for free on your Android device through the Google Play Store.</p>
+                    <h3 class="text-xl font-bold text-white">Instala la App</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed font-light">Descarga Prisma Noticias de forma gratuita en tu dispositivo Android a través de Google Play Store.</p>
                     <a href="https://play.google.com/store/apps/details?id=dev.arandulabs.prisma&pli=1" target="_blank" class="inline-block transition-transform duration-300 hover:scale-[1.04]">
-                        <img src="assets/images/download-google.svg" alt="Download on Google Play" class="h-12 w-auto">
+                        <img src="assets/images/download-google.svg" alt="Descargar en Google Play" class="h-12 w-auto">
                     </a>
                 </div>
 
@@ -436,8 +456,8 @@
                     <div class="w-16 h-16 rounded-2xl bg-logoOrange/10 text-logoOrange flex items-center justify-center">
                         <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path></svg>
                     </div>
-                    <h3 class="text-xl font-bold text-white">Adjust Your Filters</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed font-light">Customize your feed by selecting your favorite topics, countries, or regions, and view the political bias of news.</p>
+                    <h3 class="text-xl font-bold text-white">Ajusta tus Filtros</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed font-light">Personaliza tu feed indicando tus temas preferidos, países, regiones y visualiza el sesgo de las noticias.</p>
                 </div>
 
                 <!-- Paso 3 -->
@@ -446,8 +466,8 @@
                     <div class="w-16 h-16 rounded-2xl bg-logoGreen/10 text-logoGreen flex items-center justify-center">
                         <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
                     </div>
-                    <h3 class="text-xl font-bold text-white">Read, Compare &amp; Analyze</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed font-light">Click on any article to see how other outlets cover it and enrich your knowledge with alternative perspectives.</p>
+                    <h3 class="text-xl font-bold text-white">Lee, Compara y Analiza</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed font-light">Haz clic en cualquier artículo para ver cómo lo cubren otros medios y enriquece tu conocimiento con perspectivas alternativas.</p>
                 </div>
 
             </div>
@@ -463,16 +483,16 @@
             </div>
             
             <div class="flex flex-wrap gap-8 justify-center text-sm font-semibold text-slate-400">
-                <a href="faq.html" class="hover:text-white transition-colors">FAQ</a>
-                <a href="privacy.html" class="hover:text-white transition-colors">Privacy Policy</a>
-                <a href="terms.html" class="hover:text-white transition-colors">Terms of Service</a>
-                <a href="delete-account/" class="hover:text-white transition-colors">Delete Account</a>
+                <a href="es/faq.html" class="hover:text-white transition-colors">FAQ</a>
+                <a href="es/privacy.html" class="hover:text-white transition-colors">Política de Privacidad</a>
+                <a href="es/terms.html" class="hover:text-white transition-colors">Términos de Servicio</a>
+                <a href="delete-account/" class="hover:text-white transition-colors">Eliminar Cuenta</a>
             </div>
 
             <div class="w-12 h-[1px] bg-white/10"></div>
 
             <p class="text-xs text-slate-500 font-bold uppercase tracking-[0.2em]">
-                &copy; 2026 Arandu Labs LLC | Developed with integrity & security
+                &copy; 2026 Arandu Labs LLC | Desarrollado con integridad & seguridad
             </p>
         </div>
     </footer>
@@ -614,3 +634,4 @@
     </script>
 </body>
 </html>
+

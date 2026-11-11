@@ -42,11 +42,12 @@
     </script>
     
     <style>
-        body {
+        html, body {
             background-color: #0B0E14;
             color: #f3f4f6;
             font-family: 'Inter', sans-serif;
             overflow-x: hidden;
+            max-width: 100%;
         }
 
         /* Prisma Spectrum Gradients */
@@ -137,8 +138,14 @@
         @media (max-width: 640px) {
             .hero-feed { height: 300px; }
             #benefits .w-72, #beneficios .w-72 { width: min(18rem, 80vw) !important; }
-            .hero-mockup-wrap, .glass { margin-left: auto; margin-right: auto; }
+            .hero-mockup-wrap, section .glass { margin-left: auto; margin-right: auto; }
             .grid > div { margin-left: auto; margin-right: auto; width: 100%; max-width: 26rem; }
+            .hero-cta-btn {
+                background-image: url('../assets/images/logo_background.png');
+                background-size: cover;
+                background-position: center;
+                text-shadow: 0 0 6px rgba(255, 255, 255, 0.45);
+            }
         }
 
         /* Screenshots endless carousel */
@@ -165,17 +172,19 @@
 <body class="antialiased">
 
     <!-- Glowing Background Elements -->
-    <div class="glow-blob-1 top-10 -left-48"></div>
-    <div class="glow-blob-2 top-[40%] -right-48"></div>
-    <div class="glow-blob-1 bottom-10 left-[20%]"></div>
+    <div class="fixed inset-0 overflow-hidden pointer-events-none z-0">
+        <div class="glow-blob-1 top-10 -left-48"></div>
+        <div class="glow-blob-2 top-[40%] -right-48"></div>
+        <div class="glow-blob-1 bottom-10 left-[20%]"></div>
+    </div>
 
     <!-- Navigation Header -->
-    <header class="fixed w-full top-0 left-0 z-50 transition-all duration-300 border-b border-white/5 bg-dark/70 backdrop-blur-md">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 py-2.5 sm:py-0 sm:h-20 flex flex-wrap sm:flex-nowrap items-center justify-between gap-y-2">
-            <div class="flex items-center gap-2.5 sm:gap-3 order-1">
-                <img src="../assets/images/prisma_logo.png" alt="Prisma Notícias Logo" class="w-8 h-8 sm:w-10 sm:h-10 object-contain">
-                <div class="flex flex-col sm:flex-row sm:items-baseline">
-                    <span class="text-xl sm:text-2xl font-outfit font-black tracking-tight text-white whitespace-nowrap">Prisma Notícias</span>
+    <header class="fixed w-full max-w-[100vw] overflow-x-hidden top-0 left-0 z-50 transition-all duration-300 border-b border-white/5 bg-dark/70 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto px-3 sm:px-6 py-2.5 sm:py-0 sm:h-20 flex flex-wrap sm:flex-nowrap items-center justify-between gap-x-2 gap-y-2">
+            <div class="flex items-center gap-2 sm:gap-3 order-1 min-w-0 flex-1 sm:flex-initial">
+                <img src="../assets/images/prisma_logo.png" alt="Prisma Notícias Logo" class="w-7 h-7 sm:w-10 sm:h-10 shrink-0 object-contain">
+                <div class="flex flex-col sm:flex-row sm:items-baseline min-w-0">
+                    <span class="text-lg sm:text-2xl font-outfit font-black tracking-tight text-white truncate">Prisma Notícias</span>
                     <span class="text-[9px] sm:text-[10px] text-slate-500 font-normal sm:ml-2 whitespace-nowrap">by Arandu Labs</span>
                 </div>
             </div>
@@ -185,7 +194,7 @@
                 <a href="../es/index.html" class="flex items-center hover:scale-110 transition-transform opacity-60 hover:opacity-100 text-xs font-bold gap-1.5">
                     <img src="https://flagcdn.com/w20/es.png" width="16" alt="Espanha" class="rounded-sm"> ES
                 </a>
-                <a href="../index.html" class="flex items-center hover:scale-110 transition-transform opacity-60 hover:opacity-100 text-xs font-bold gap-1.5">
+                <a href="../en/index.html" class="flex items-center hover:scale-110 transition-transform opacity-60 hover:opacity-100 text-xs font-bold gap-1.5">
                     <img src="https://flagcdn.com/w20/us.png" width="16" alt="USA" class="rounded-sm"> EN
                 </a>
                 <span class="flex items-center text-white bg-white/5 px-2 py-0.5 rounded-md border border-white/10 text-xs font-bold gap-1.5">
@@ -194,8 +203,8 @@
             </div>
 
             <!-- Arandu Labs button (Row 1 right on mobile, far right on desktop) -->
-            <div class="order-2 sm:order-3">
-                <a href="https://arandulabs.dev" target="_blank" class="px-3.5 py-1.5 sm:px-5 sm:py-2 rounded-full border border-white/10 hover:border-white/20 glass text-[11px] sm:text-xs font-bold uppercase tracking-wider sm:tracking-widest text-white transition-all whitespace-nowrap">
+            <div class="order-2 sm:order-3 shrink-0">
+                <a href="https://arandulabs.dev" target="_blank" class="inline-flex items-center px-3 py-1.5 sm:px-5 sm:py-2 rounded-full border border-white/10 hover:border-white/20 glass text-[10px] sm:text-xs font-bold uppercase tracking-wider sm:tracking-widest text-white transition-all whitespace-nowrap">
                     Arandu Labs
                 </a>
             </div>
@@ -217,9 +226,9 @@
                 </p>
 
                 <div class="flex flex-wrap gap-4 justify-center lg:justify-start">
-                    <a href="#beneficios" class="inline-flex items-center justify-center px-6 py-3 rounded-2xl border border-white bg-prisma text-black text-sm font-bold shadow-lg shadow-black/20 hover:opacity-95 hover:scale-[1.03] transition-all">Características</a>
-                    <a href="#catalog" class="inline-flex items-center justify-center px-6 py-3 rounded-2xl border border-white bg-prisma text-black text-sm font-bold shadow-lg shadow-black/20 hover:opacity-95 hover:scale-[1.03] transition-all">Cobertura</a>
-                    <a href="#como-funciona" class="inline-flex items-center justify-center px-6 py-3 rounded-2xl border border-white bg-prisma text-black text-sm font-bold shadow-lg shadow-black/20 hover:opacity-95 hover:scale-[1.03] transition-all">Instalar</a>
+                    <a href="#beneficios" class="hero-cta-btn inline-flex items-center justify-center px-6 py-3 rounded-2xl border border-white bg-prisma text-black text-sm font-bold shadow-lg shadow-black/20 hover:opacity-95 hover:scale-[1.03] transition-all">Características</a>
+                    <a href="#catalog" class="hero-cta-btn inline-flex items-center justify-center px-6 py-3 rounded-2xl border border-white bg-prisma text-black text-sm font-bold shadow-lg shadow-black/20 hover:opacity-95 hover:scale-[1.03] transition-all">Cobertura</a>
+                    <a href="#como-funciona" class="hero-cta-btn inline-flex items-center justify-center px-6 py-3 rounded-2xl border border-white bg-prisma text-black text-sm font-bold shadow-lg shadow-black/20 hover:opacity-95 hover:scale-[1.03] transition-all">Instalar</a>
                 </div>
             </div>
 

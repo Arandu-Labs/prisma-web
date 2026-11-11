@@ -357,19 +357,22 @@
     margin-bottom: 0.5rem;
     text-align: center;
   }
+  .stats-embed .flags-track {
+    animation-duration: 12s !important;
+  }
   .stats-embed #map {
-    aspect-ratio: 1.55;
-    max-height: 190px;
+    aspect-ratio: 1.05;
+    max-height: 285px;
   }
   .stats-embed .pie-wrap {
     gap: 0.5rem;
   }
   .stats-embed .pie-donut {
-    width: 135px;
-    height: 135px;
+    width: 162px;
+    height: 162px;
   }
   .stats-embed .pie-total strong {
-    font-size: 1.45rem;
+    font-size: 1.75rem;
   }
   .stats-embed .pie-legend {
     grid-template-columns: repeat(2, 1fr);
