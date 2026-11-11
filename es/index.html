@@ -135,17 +135,35 @@
             display: flex; gap: .75rem; padding: .8rem 1rem;
             border-bottom: 1px solid rgba(255, 255, 255, .05);
         }
+        /* Hero CTA buttons unified prism background */
+        .hero-cta-btn {
+            position: relative;
+            overflow: hidden;
+            background-color: #0B0E14;
+            z-index: 1;
+            text-shadow: 0 1px 4px rgba(0, 0, 0, 0.65);
+        }
+        .hero-cta-btn::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-image: url('../assets/images/logo_background.png');
+            background-size: 300% auto;
+            background-position: 50% 50%;
+            opacity: 0.55;
+            z-index: -1;
+            transition: opacity 0.2s ease;
+        }
+        .hero-cta-btn:nth-child(1)::before { background-position: 0% 50%; }
+        .hero-cta-btn:nth-child(2)::before { background-position: 50% 50%; }
+        .hero-cta-btn:nth-child(3)::before { background-position: 100% 50%; }
+        .hero-cta-btn:hover::before { opacity: 0.72; }
+
         @media (max-width: 640px) {
             .hero-feed { height: 300px; }
             #benefits .w-72, #beneficios .w-72 { width: min(18rem, 80vw) !important; }
             .hero-mockup-wrap, section .glass { margin-left: auto; margin-right: auto; }
             .grid > div { margin-left: auto; margin-right: auto; width: 100%; max-width: 26rem; }
-            .hero-cta-btn {
-                background-image: url('../assets/images/logo_background.png');
-                background-size: cover;
-                background-position: center;
-                text-shadow: 0 0 6px rgba(255, 255, 255, 0.45);
-            }
         }
 
         /* Screenshots endless carousel */
@@ -226,9 +244,9 @@
                 </p>
 
                 <div class="flex flex-wrap gap-4 justify-center lg:justify-start">
-                    <a href="#beneficios" class="hero-cta-btn inline-flex items-center justify-center px-6 py-3 rounded-2xl border border-white bg-prisma text-black text-sm font-bold shadow-lg shadow-black/20 hover:opacity-95 hover:scale-[1.03] transition-all">Características</a>
-                    <a href="#catalog" class="hero-cta-btn inline-flex items-center justify-center px-6 py-3 rounded-2xl border border-white bg-prisma text-black text-sm font-bold shadow-lg shadow-black/20 hover:opacity-95 hover:scale-[1.03] transition-all">Cobertura</a>
-                    <a href="#como-funciona" class="hero-cta-btn inline-flex items-center justify-center px-6 py-3 rounded-2xl border border-white bg-prisma text-black text-sm font-bold shadow-lg shadow-black/20 hover:opacity-95 hover:scale-[1.03] transition-all">Instalar</a>
+                    <a href="#beneficios" class="hero-cta-btn inline-flex items-center justify-center px-6 py-3 rounded-2xl border border-white text-white text-sm font-bold shadow-lg shadow-black/20 hover:scale-[1.03] transition-all">Características</a>
+                    <a href="#catalog" class="hero-cta-btn inline-flex items-center justify-center px-6 py-3 rounded-2xl border border-white text-white text-sm font-bold shadow-lg shadow-black/20 hover:scale-[1.03] transition-all">Cobertura</a>
+                    <a href="#como-funciona" class="hero-cta-btn inline-flex items-center justify-center px-6 py-3 rounded-2xl border border-white text-white text-sm font-bold shadow-lg shadow-black/20 hover:scale-[1.03] transition-all">Instalar</a>
                 </div>
             </div>
 
