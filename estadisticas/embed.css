@@ -88,7 +88,7 @@
 .stats-embed .flags-track {
   position: absolute; top: 0; bottom: 0; left: 0;
   display: flex; align-items: stretch; gap: 4px;
-  animation: flags-scroll var(--flags-dur, 60s) linear infinite;
+  animation: flags-scroll var(--flags-dur, 8s) linear infinite;
 }
 .stats-embed .flags-track .mosaic-flag {
   height: 100%; width: auto; flex: none;
@@ -358,27 +358,28 @@
     text-align: center;
   }
   .stats-embed .flags-track {
-    animation-duration: 12s !important;
+    animation-duration: 5.5s !important;
   }
   .stats-embed #map {
-    aspect-ratio: 1.05;
-    max-height: 285px;
+    aspect-ratio: 0.78;
+    max-height: 430px;
   }
   .stats-embed .pie-wrap {
-    gap: 0.5rem;
+    gap: 0.75rem;
   }
   .stats-embed .pie-donut {
-    width: 162px;
-    height: 162px;
+    width: min(280px, 72vw);
+    height: auto;
+    aspect-ratio: 1 / 1;
   }
   .stats-embed .pie-total strong {
-    font-size: 1.75rem;
+    font-size: 2.3rem;
   }
   .stats-embed .pie-legend {
     grid-template-columns: repeat(2, 1fr);
-    gap: 0.25rem 0.6rem;
-    max-height: 115px;
-    font-size: 0.72rem;
+    gap: 0.3rem 0.6rem;
+    max-height: 170px;
+    font-size: 0.74rem;
   }
   .stats-embed .pie-legend-row {
     font-size: 0.72rem;

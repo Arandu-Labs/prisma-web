@@ -310,10 +310,11 @@ function renderFlags() {
     `<img class="mosaic-flag" src="https://flagcdn.com/w320/${f}.png" alt="" loading="lazy">`
   ).join("");
   track.innerHTML = seq + seq;
-  // velocidad ~30px/s proporcional al ancho de una secuencia
+  // velocidad ~220px/s proporcional al ancho de una secuencia
   requestAnimationFrame(() => {
     const w = track.scrollWidth / 2;
-    track.style.setProperty("--flags-dur", `${Math.max(30, w / 160)}s`);
+    const dur = w > 0 ? Math.max(7, w / 220) : 8;
+    track.style.setProperty("--flags-dur", `${dur.toFixed(1)}s`);
   });
 }
 

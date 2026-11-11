@@ -157,9 +157,8 @@
         .hero-cta-btn {
             position: relative;
             overflow: hidden;
-            background-color: #0B0E14;
             z-index: 1;
-            text-shadow: 0 1px 4px rgba(0, 0, 0, 0.65);
+            text-shadow: 0 1px 4px rgba(0, 0, 0, 0.75);
         }
         .hero-cta-btn::before {
             content: "";
@@ -168,14 +167,13 @@
             background-image: url('assets/images/logo_background.png');
             background-size: 300% auto;
             background-position: 50% 50%;
-            opacity: 0.55;
             z-index: -1;
-            transition: opacity 0.2s ease;
+            transition: filter 0.2s ease;
         }
         .hero-cta-btn:nth-child(1)::before { background-position: 0% 50%; }
         .hero-cta-btn:nth-child(2)::before { background-position: 50% 50%; }
         .hero-cta-btn:nth-child(3)::before { background-position: 100% 50%; }
-        .hero-cta-btn:hover::before { opacity: 0.72; }
+        .hero-cta-btn:hover::before { filter: brightness(1.08); }
 
         @media (max-width: 640px) {
             .hero-feed { height: 300px; }
