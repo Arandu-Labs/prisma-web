@@ -1,11 +1,11 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Prisma Noticias — Estadísticas del catálogo de medios</title>
-<meta name="description" content="Alcance de Prisma Noticias: catálogo de medios latinoamericanos clasificados en 6 ejes de perfil ideológico con evidencia verificable.">
-<link rel="stylesheet" href="styles.css?v=20261111f">
+<title>Prisma Noticias â€” EstadÃ­sticas del catÃ¡logo de medios</title>
+<meta name="description" content="Alcance de Prisma Noticias: catÃ¡logo de medios latinoamericanos clasificados en 6 ejes de perfil ideolÃ³gico con evidencia verificable.">
+<link rel="stylesheet" href="styles.css?v=20261121">
 <link rel="icon" type="image/png" href="../assets/images/prisma_logo.png">
 </head>
 <body>
@@ -24,7 +24,7 @@
   </nav>
 
   <div class="hero-inner">
-    <p class="hero-kicker" data-i18n="kicker">Catálogo de medios</p>
+    <p class="hero-kicker" data-i18n="kicker">CatÃ¡logo de medios</p>
     <h1 data-i18n="title">El espectro de la prensa latinoamericana</h1>
     <p class="hero-sub" id="hero-sub"></p>
     <a class="hero-cta" href="https://play.google.com/store/apps/details?id=dev.arandulabs.prisma" target="_blank" rel="noopener">
@@ -39,7 +39,7 @@
   <section class="kpis">
     <div class="kpi kpi-flags">
       <div class="flags-mosaic" id="flags-mosaic" aria-hidden="true"></div>
-      <div class="kpi-content"><strong id="kpi-paises2">0</strong><span data-i18n="kpiPaises">países</span></div>
+      <div class="kpi-content"><strong id="kpi-paises2">0</strong><span data-i18n="kpiPaises">paÃ­ses</span></div>
     </div>
     <div class="kpi"><strong id="kpi-medios">0</strong><span id="kpi-medios-label"></span></div>
     <div class="kpi"><strong id="kpi-cats">0</strong><span id="kpi-cats-label"></span></div>
@@ -47,10 +47,10 @@
 
   <!-- Buscador -->
   <section class="search-section">
-    <h2 data-i18n="searchTitle">Buscá un medio</h2>
-    <p class="muted" data-i18n="searchSub">Escribí el nombre, país o categoría para ver su posicionamiento ideológico y el razonamiento de la clasificación.</p>
+    <h2 data-i18n="searchTitle">BuscÃ¡ un medio</h2>
+    <p class="muted" data-i18n="searchSub">EscribÃ­ el nombre, paÃ­s o categorÃ­a para ver su posicionamiento ideolÃ³gico y el razonamiento de la clasificaciÃ³n.</p>
     <input id="search" type="search" autocomplete="off" spellcheck="false"
-           data-i18n-ph="searchPh" placeholder="Ej: Clarín, Página 12, G1, El Mercurio…">
+           data-i18n-ph="searchPh" placeholder="Ej: ClarÃ­n, PÃ¡gina 12, G1, El Mercurioâ€¦">
     <div id="results" class="results"></div>
     <div id="medio-detail" class="medio-detail hidden"></div>
   </section>
@@ -58,15 +58,19 @@
   <!-- Charts -->
   <section class="charts">
     <div class="chart-card chart-map">
-      <h3 data-i18n="chartMap">Medios por país</h3>
-      <div id="map"></div>
+      <h3 data-i18n="chartMap">Medios por paÃ­s</h3>
+      <div id="map" class="map-view"></div>
     </div>
-    <div class="chart-card chart-cats"><h3 data-i18n="chartCats">Medios por categoría</h3><div id="chart-cats" class="bars"></div></div>
+    <div class="chart-card chart-cats"><h3 data-i18n="chartCats">Medios por categorÃ­a</h3><div id="chart-cats" class="bars"></div></div>
+    <div class="chart-card chart-map">
+        <h3 data-i18n="chartMapNorth">Medios por paÃ­s â€” MÃ©xico, CentroamÃ©rica y Caribe</h3>
+        <div id="map-north" class="map-view"></div>
+    </div>
   </section>
 
   <section class="axes-section">
-    <h2 data-i18n="axesTitle">Distribución por Perfil</h2>
-    <p class="muted" data-i18n="axesSub">Los medios (excluidas las categorías de Deportes, Entretenimiento y Estilo, y Ciencia y Tecnología) han sido clasificados en 6 dimensiones temáticas. Cada columna muestra cuántos medios caen en cada valor.</p>
+    <h2 data-i18n="axesTitle">DistribuciÃ³n por Perfil</h2>
+    <p class="muted" data-i18n="axesSub">Los medios (excluidas las categorÃ­as de Deportes, Entretenimiento y Estilo, y Ciencia y TecnologÃ­a) han sido clasificados en 6 dimensiones temÃ¡ticas. Cada columna muestra cuÃ¡ntos medios caen en cada valor.</p>
     <div id="axes-grid" class="axes-grid"></div>
   </section>
 
@@ -77,7 +81,7 @@
   <div class="ticker-head">
     <div class="ticker-title-wrap">
       <span class="live-badge"><span class="live-dot"></span><span data-i18n="tickerLive">EN VIVO</span></span>
-      <h2 data-i18n="tickerTitle">Últimas noticias</h2>
+      <h2 data-i18n="tickerTitle">Ãšltimas noticias</h2>
     </div>
     <select id="ticker-pais" class="ticker-select"></select>
   </div>
@@ -86,8 +90,8 @@
   </div>
 </section>
 
-<script src="medios_data.js"></script>
-<script src="noticias_data.js"></script>
-<script src="app.js?v=20261111f"></script>
+<script src="medios_data.js?v=20261121"></script>
+<script src="noticias_data.js?v=20261121"></script>
+<script src="app.js?v=20261121"></script>
 </body>
 </html>

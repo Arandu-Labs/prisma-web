@@ -25,6 +25,7 @@ const I18N = {
     axesTitle: "Distribución por Perfil",
     axesSub: "Los medios (excluidas las categorías de Deportes, Entretenimiento y Estilo, y Ciencia y Tecnología) han sido clasificados en 6 dimensiones temáticas. Cada columna muestra cuántos medios caen en cada valor.",
     chartMap: "Medios por país",
+    chartMapNorth: "México, Centroamérica y Caribe",
     chartPaises: "Medios por país",
     chartCats: "Medios por categoría",
     footer: "Datos de clasificación editorial con evidencia — proyecto de transparencia informativa para América Latina.",
@@ -62,6 +63,7 @@ const I18N = {
     axesTitle: "Distribuição por Perfil",
     axesSub: "Os veículos (excluídas as categorias de Esportes, Entretenimento e Estilo, e Ciência e Tecnologia) foram classificados em 6 dimensões temáticas. Cada coluna mostra quantos veículos caem em cada valor.",
     chartMap: "Veículos por país",
+    chartMapNorth: "México, América Central e Caribe",
     chartPaises: "Veículos por país",
     chartCats: "Veículos por categoria",
     footer: "Dados de classificação editorial com evidência — projeto de transparência informativa para a América Latina.",
@@ -99,6 +101,7 @@ const I18N = {
     axesTitle: "Profile Distribution",
     axesSub: "Outlets (excluding the Sports, Entertainment & Style, and Science & Technology categories) have been classified on 6 thematic dimensions. Each column shows how many outlets fall on each value.",
     chartMap: "Outlets by country",
+    chartMapNorth: "Mexico, Central America and the Caribbean",
     chartPaises: "Outlets by country",
     chartCats: "Outlets by category",
     footer: "Editorial classification data with evidence — an informative transparency project for Latin America.",
@@ -280,7 +283,8 @@ const FLAG_BY_PAIS = {
   "Perú": "pe", "Peru": "pe", "Venezuela": "ve", "Uruguay": "uy",
   "Bolivia": "bo", "Ecuador": "ec", "Panamá": "pa", "Panama": "pa",
   "Paraguay": "py", "México": "mx", "Mexico": "mx",
-  "Global": null, "Estados Unidos": "us", "USA": "us",
+  "República Dominicana": "do", "Global": null, "Estados Unidos": "us", "USA": "us",
+  "Costa Rica": "cr", "El Salvador": "sv", "Honduras": "hn",
 };
 
 function flagHtml(pais, cls = "") {
@@ -475,9 +479,11 @@ function showDetail(m) {
   detailEl.scrollIntoView({ behavior: "smooth", block: "nearest" });
 }
 
-/* ---------- mapa de medios por país (Sudamérica, SVG) ---------- */
-let saGeoJSON = null;
-let saView = null;
+/* ---------- mapas de medios por país (SVG) ---------- */
+const MAPS = [
+  { id: "map", file: "south_america.geojson", geojson: null, view: null, globalBadge: true },
+  { id: "map-north", file: "mexico_centroamerica_caribe.geojson", geojson: null, view: null, globalBadge: false },
+];
 
 function eachCoord(coords, cb) {
   if (typeof coords[0] === "number") { cb(coords[0], coords[1]); return; }
@@ -496,7 +502,7 @@ function computeView(features) {
   const cosLat = Math.cos(((latTop + latBottom) / 2) * Math.PI / 180);
   const wDeg = (lonMax - lonMin) * cosLat, hDeg = latTop - latBottom;
   const unit = 1000 / wDeg;
-  return { lonMin, latBottom, latTop, cosLat, unit, w: 1000, h: Math.round(hDeg * unit) };
+  return { lonMin, lonMax, latBottom, latTop, cosLat, unit, w: 1000, h: Math.round(hDeg * unit) };
 }
 
 function px(lon, v) { return ((lon - v.lonMin) * v.cosLat * v.unit).toFixed(1); }
@@ -521,12 +527,14 @@ function geomPath(geom, v) {
 }
 
 // el mapa puede embeberse en /, /es/ o /pt/ además de /estadisticas/
-const GEOJSON_CANDIDATES = [
-  "/estadisticas/south_america.geojson",
-  "south_america.geojson",
-  "estadisticas/south_america.geojson",
-  "../estadisticas/south_america.geojson",
-];
+function geojsonCandidates(file) {
+  return [
+    "/estadisticas/" + file,
+    file,
+    "estadisticas/" + file,
+    "../estadisticas/" + file,
+  ];
+}
 
 function fetchGeoJSON(urls, i = 0) {
   if (i >= urls.length) return Promise.reject(new Error("geojson no encontrado"));
@@ -558,29 +566,35 @@ function applyMapBackground(el) {
 }
 
 function renderMap() {
-  const el = document.getElementById("map");
-  if (!el) return;
-  applyMapBackground(el);
+  for (const m of MAPS) {
+    const el = document.getElementById(m.id);
+    if (!el) continue;
+    applyMapBackground(el);
 
-  if (!saGeoJSON) {
-    fetchGeoJSON(GEOJSON_CANDIDATES)
-      .then(gj => {
-        saGeoJSON = gj;
-        saView = computeView(gj.features);
-        renderMap();
-      })
-      .catch(() => {});
-    return;
+    if (!m.geojson) {
+      fetchGeoJSON(geojsonCandidates(m.file))
+        .then(gj => {
+          m.geojson = gj;
+          m.view = computeView(gj.features);
+          renderMap();
+        })
+        .catch(() => {});
+      continue;
+    }
+    if (!m.view) continue;
+    drawMap(el, m);
   }
-  if (!saView) return;
+}
 
-  const counts = new Map(countBy(MEDIOS, m => m.pais));
+function drawMap(el, map) {
+  const view = map.view;
+  const counts = new Map(countBy(MEDIOS, x => x.pais));
   const max = Math.max(1, ...counts.values());
   const NS = "http://www.w3.org/2000/svg";
 
   el.innerHTML = "";
   const svg = document.createElementNS(NS, "svg");
-  svg.setAttribute("viewBox", `0 0 ${saView.w} ${saView.h}`);
+  svg.setAttribute("viewBox", `0 0 ${view.w} ${view.h}`);
   svg.setAttribute("preserveAspectRatio", "xMidYMid meet");
   svg.setAttribute("role", "img");
   svg.setAttribute("aria-label", (I18N[LANG] && I18N[LANG].mapAria) || "Mapa");
@@ -590,16 +604,16 @@ function renderMap() {
   grat.setAttribute("stroke", "rgba(255,255,255,.05)");
   grat.setAttribute("stroke-width", "1");
   const step = 10;
-  for (let lon = Math.floor(-81 / step) * step; lon <= -34; lon += step) {
+  for (let lon = Math.floor(view.lonMin / step) * step; lon <= view.lonMax; lon += step) {
     const l = document.createElementNS(NS, "line");
-    l.setAttribute("x1", px(lon, saView)); l.setAttribute("x2", px(lon, saView));
-    l.setAttribute("y1", 0); l.setAttribute("y2", saView.h);
+    l.setAttribute("x1", px(lon, view)); l.setAttribute("x2", px(lon, view));
+    l.setAttribute("y1", 0); l.setAttribute("y2", view.h);
     grat.appendChild(l);
   }
-  for (let lat = Math.floor(-56 / step) * step; lat <= 12; lat += step) {
+  for (let lat = Math.floor(view.latBottom / step) * step; lat <= view.latTop; lat += step) {
     const l = document.createElementNS(NS, "line");
-    l.setAttribute("y1", py(lat, saView)); l.setAttribute("y2", py(lat, saView));
-    l.setAttribute("x1", 0); l.setAttribute("x2", saView.w);
+    l.setAttribute("y1", py(lat, view)); l.setAttribute("y2", py(lat, view));
+    l.setAttribute("x1", 0); l.setAttribute("x2", view.w);
     grat.appendChild(l);
   }
   svg.appendChild(grat);
@@ -633,11 +647,11 @@ function renderMap() {
   };
   const hideTip = () => { tip.style.display = "none"; };
 
-  for (const f of saGeoJSON.features) {
+  for (const f of map.geojson.features) {
     const pais = f.properties.pais;
     const n = counts.get(pais) || 0;
     const path = document.createElementNS(NS, "path");
-    path.setAttribute("d", geomPath(f.geometry, saView));
+    path.setAttribute("d", geomPath(f.geometry, view));
     path.setAttribute("class", "sa-country" + (n ? " has-media" : "") + (pais === mapFilterPais ? " active" : ""));
     if (n) {
       const t = n / max;
@@ -668,7 +682,7 @@ function renderMap() {
         ev.stopPropagation(); // evita que el render del mapa desmonte el target antes del listener global
         const r = el.getBoundingClientRect();
         const text = `${pais} — ${n} ${(I18N[LANG] && I18N[LANG].mediosLabel) || "medios"}`;
-        setMapFilter(pais, { text, x: ev.clientX - r.left, y: ev.clientY - r.top });
+        setMapFilter(pais, { text, x: ev.clientX - r.left, y: ev.clientY - r.top }, el);
       });
       path.addEventListener("touchend", ev => {
         if (tapMoved) return;
@@ -677,7 +691,7 @@ function renderMap() {
         const touch = ev.changedTouches && ev.changedTouches[0];
         const r = el.getBoundingClientRect();
         const text = `${pais} — ${n} ${(I18N[LANG] && I18N[LANG].mediosLabel) || "medios"}`;
-        setMapFilter(pais, touch ? { text, x: touch.clientX - r.left, y: touch.clientY - r.top } : null);
+        setMapFilter(pais, touch ? { text, x: touch.clientX - r.left, y: touch.clientY - r.top } : null, el);
       }, { passive: false });
     }
     svg.appendChild(path);
@@ -686,7 +700,7 @@ function renderMap() {
 
   // globo de medios globales (esquina inferior derecha, sin fondo)
   const globalCount = MEDIOS.filter(m => m.pais === "Global").length;
-  if (globalCount) {
+  if (map.globalBadge && globalCount) {
     const mediosLbl = (I18N[LANG] && I18N[LANG].mediosLabel) || "medios";
     const badge = document.createElement("button");
     badge.type = "button";
@@ -714,25 +728,24 @@ function renderMap() {
     badge.addEventListener("mouseleave", hideTip);
     badge.addEventListener("click", (ev) => {
       ev.stopPropagation();
-      setMapFilter("Global", getGlobalTipInfo());
+      setMapFilter("Global", getGlobalTipInfo(), el);
     });
     badge.addEventListener("touchend", (ev) => {
       if (ev.cancelable) ev.preventDefault();
       ev.stopPropagation();
-      setMapFilter("Global", getGlobalTipInfo());
+      setMapFilter("Global", getGlobalTipInfo(), el);
     }, { passive: false });
     el.appendChild(badge);
   }
 }
 
 // click en un país del mapa → filtra la dona; segundo click lo desactiva
-function setMapFilter(pais, tipInfo) {
+function setMapFilter(pais, tipInfo, mapEl) {
   mapFilterPais = (mapFilterPais === pais) ? null : pais;
   renderMap();
   renderPieCurrent();
-  if (mapFilterPais && tipInfo && tipInfo.text) {
-    const mapEl = document.getElementById("map");
-    const tip = mapEl ? mapEl.querySelector(".map-tip") : null;
+  if (mapFilterPais && tipInfo && tipInfo.text && mapEl) {
+    const tip = mapEl.querySelector(".map-tip");
     if (tip) {
       tip.textContent = tipInfo.text;
       tip.style.display = "block";
@@ -749,23 +762,17 @@ function setMapFilter(pais, tipInfo) {
 
 // click fuera del mapa → oculta tooltip y limpia el filtro
 document.addEventListener("click", ev => {
-  const mapEl = document.getElementById("map");
-  if (mapEl && !mapEl.contains(ev.target)) {
-    const tip = mapEl.querySelector(".map-tip");
-    if (tip) tip.style.display = "none";
-    if (mapFilterPais) {
-      mapFilterPais = null;
-      renderMap();
-      renderPieCurrent();
-    }
+  if (ev.target.closest(".map-view")) return;
+  document.querySelectorAll(".map-view .map-tip").forEach(t => { t.style.display = "none"; });
+  if (mapFilterPais) {
+    mapFilterPais = null;
+    renderMap();
+    renderPieCurrent();
   }
 });
 document.addEventListener("touchend", ev => {
-  const mapEl = document.getElementById("map");
-  if (mapEl && !mapEl.contains(ev.target)) {
-    const tip = mapEl.querySelector(".map-tip");
-    if (tip) tip.style.display = "none";
-  }
+  if (ev.target.closest(".map-view")) return;
+  document.querySelectorAll(".map-view .map-tip").forEach(t => { t.style.display = "none"; });
 }, { passive: true });
 
 /* ---------- ticker de noticias ---------- */

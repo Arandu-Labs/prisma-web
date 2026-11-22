@@ -14,7 +14,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
     <!-- Estadísticas del catálogo de medios (embed) -->
-    <link rel="stylesheet" href="/estadisticas/embed.css?v=20261111f">
+    <link rel="stylesheet" href="/estadisticas/embed.css?v=20261117c">
 
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -305,7 +305,7 @@
                         <h3 class="text-lg font-bold text-white leading-snug">Acesso a todos os veículos a partir de um só lugar</h3>
                     </div>
                     <ul class="space-y-3 pl-5 text-sm font-light list-disc marker:text-slate-500 text-slate-400">
-                        <li class="group relative cursor-help"><strong class="text-logoRed font-semibold">Hub integral de imprensa.</strong><span class="absolute bottom-full left-0 z-20 mb-2 hidden w-72 rounded-lg border border-white/10 bg-darkCard p-3 text-xs font-normal leading-relaxed text-slate-300 shadow-xl group-hover:block">Centraliza mais de 940 veículos (locais, provinciais, nacionais e internacionais) em um único ponto de acesso direto.</span></li>
+                        <li class="group relative cursor-help"><strong class="text-logoRed font-semibold">Hub integral de imprensa.</strong><span class="absolute bottom-full left-0 z-20 mb-2 hidden w-72 rounded-lg border border-white/10 bg-darkCard p-3 text-xs font-normal leading-relaxed text-slate-300 shadow-xl group-hover:block">Centraliza mais de 1.100 veículos (locais, provinciais, nacionais e internacionais) em um único ponto de acesso direto.</span></li>
                         <li class="group relative cursor-help"><strong class="text-logoRed font-semibold">Quiosque digital por países e regiões.</strong><span class="absolute bottom-full left-0 z-20 mb-2 hidden w-72 rounded-lg border border-white/10 bg-darkCard p-3 text-xs font-normal leading-relaxed text-slate-300 shadow-xl group-hover:block">Permite explorar e acessar as edições digitais de cada jornal com um só toque, sem precisar lembrar URLs, abrir dezenas de abas ou navegar por navegadores saturados.</span></li>
                         <li class="group relative cursor-help"><strong class="text-logoRed font-semibold">Configuração geográfica assistida.</strong><span class="absolute bottom-full left-0 z-20 mb-2 hidden w-72 rounded-lg border border-white/10 bg-darkCard p-3 text-xs font-normal leading-relaxed text-slate-300 shadow-xl group-hover:block">Mapa interativo para descobrir e priorizar veículos da sua província ou região, junto com os títulos de referência global (The Economist, Bloomberg Línea, El País, BBC, etc.).</span></li>
                     </ul>
@@ -422,9 +422,13 @@
             <section class="charts">
                 <div class="chart-card chart-map">
                     <h3 data-i18n="chartMap">Veículos por país</h3>
-                    <div id="map"></div>
+                    <div id="map" class="map-view"></div>
                 </div>
                 <div class="chart-card chart-cats"><h3 data-i18n="chartCats">Veículos por categoria</h3><div id="chart-cats" class="bars"></div></div>
+                <div class="chart-card chart-map">
+                    <h3 data-i18n="chartMapNorth">Medios por país — México, Centroamérica y Caribe</h3>
+                    <div id="map-north" class="map-view"></div>
+                </div>
             </section>
 
             <section class="axes-section">
@@ -512,9 +516,9 @@
     </footer>
 
     <!-- Estadísticas del catálogo -->
-    <script src="/estadisticas/medios_data.js"></script>
-    <script src="/estadisticas/noticias_data.js"></script>
-    <script src="/estadisticas/app.js?v=20261111f"></script>
+    <script src="/estadisticas/medios_data.js?v=20261117c"></script>
+    <script src="/estadisticas/noticias_data.js?v=20261117c"></script>
+    <script src="/estadisticas/app.js?v=20261117c"></script>
     <script>
     (function () {
         var track = document.getElementById("hero-feed-track");
