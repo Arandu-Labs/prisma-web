@@ -36,6 +36,9 @@ const I18N = {
     de: "de",
     clearFilter: "Limpiar filtro",
     mapAria: "Mapa de América del Sur: medios por país",
+    mapRegions: ["América del Sur", "México, Centroamérica y Caribe", "América del Norte"],
+    mapPrev: "Mapa anterior",
+    mapNext: "Mapa siguiente",
     mediosLabel: "medios",
     closeAria: "Cerrar",
   },
@@ -74,6 +77,9 @@ const I18N = {
     de: "de",
     clearFilter: "Limpar filtro",
     mapAria: "Mapa da América do Sul: veículos por país",
+    mapRegions: ["América do Sul", "México, América Central e Caribe", "América do Norte"],
+    mapPrev: "Mapa anterior",
+    mapNext: "Próximo mapa",
     mediosLabel: "veículos",
     closeAria: "Fechar",
   },
@@ -112,6 +118,9 @@ const I18N = {
     de: "of",
     clearFilter: "Clear filter",
     mapAria: "South America map: outlets by country",
+    mapRegions: ["South America", "Mexico, Central America and the Caribbean", "North America"],
+    mapPrev: "Previous map",
+    mapNext: "Next map",
     mediosLabel: "outlets",
     closeAria: "Close",
   },
@@ -196,7 +205,11 @@ function renderKPIs() {
   document.getElementById("kpi-medios-label").innerHTML =
     `${escapeHtml(I18N[LANG].kpiMediosCats)}<br><span class="kpi-line2">${escapeHtml(I18N[LANG].kpiMediosCatsSub.replace("{n}", catsMedios))}</span>`;
   document.getElementById("kpi-paises2").textContent = paises;
-  document.getElementById("kpi-cats").textContent = NOTICIAS_TIPOS;
+  const totalNoticias = Math.max(
+    (typeof NOTICIAS !== "undefined" ? NOTICIAS.length : 0),
+    (typeof NEWS !== "undefined" && NEWS.length) || 0
+  );
+  document.getElementById("kpi-cats").textContent = totalNoticias;
   document.getElementById("kpi-cats-label").innerHTML =
     `${escapeHtml(I18N[LANG].kpiCatsNews.replace("{t}", NOTICIAS_TIPOS))}<br><span class="kpi-line2">${escapeHtml(I18N[LANG].kpiCatsNewsSub.replace("{s}", NOTICIAS_SUBTIPOS))}</span>`;
 }
@@ -284,7 +297,7 @@ const FLAG_BY_PAIS = {
   "Bolivia": "bo", "Ecuador": "ec", "Panamá": "pa", "Panama": "pa",
   "Paraguay": "py", "México": "mx", "Mexico": "mx",
   "República Dominicana": "do", "Global": null, "Estados Unidos": "us", "USA": "us",
-  "Costa Rica": "cr", "El Salvador": "sv", "Honduras": "hn",
+  "Costa Rica": "cr", "El Salvador": "sv", "Honduras": "hn", "Canadá": "ca", "Canada": "ca",
 };
 
 function flagHtml(pais, cls = "") {
@@ -481,9 +494,11 @@ function showDetail(m) {
 
 /* ---------- mapas de medios por país (SVG) ---------- */
 const MAPS = [
-  { id: "map", file: "south_america.geojson", geojson: null, view: null, globalBadge: true },
-  { id: "map-north", file: "mexico_centroamerica_caribe.geojson", geojson: null, view: null, globalBadge: false },
+  { file: "south_america.geojson", geojson: null, view: null, globalBadge: true },
+  { file: "mexico_centroamerica_caribe.geojson", geojson: null, view: null, globalBadge: false },
+  { file: "north_america.geojson", geojson: null, view: null, globalBadge: false },
 ];
+let activeMapIdx = 0;
 
 function eachCoord(coords, cb) {
   if (typeof coords[0] === "number") { cb(coords[0], coords[1]); return; }
@@ -566,25 +581,40 @@ function applyMapBackground(el) {
 }
 
 function renderMap() {
-  for (const m of MAPS) {
-    const el = document.getElementById(m.id);
-    if (!el) continue;
-    applyMapBackground(el);
+  const el = document.getElementById("map");
+  if (!el) return;
+  const t = I18N[LANG] || {};
+  const regionEl = document.getElementById("map-region");
+  if (regionEl && t.mapRegions) regionEl.textContent = t.mapRegions[activeMapIdx] || "";
 
-    if (!m.geojson) {
-      fetchGeoJSON(geojsonCandidates(m.file))
-        .then(gj => {
-          m.geojson = gj;
-          m.view = computeView(gj.features);
-          renderMap();
-        })
-        .catch(() => {});
-      continue;
-    }
-    if (!m.view) continue;
-    drawMap(el, m);
+  // precargar todos los geojson; solo se dibuja el mapa activo
+  for (const m of MAPS) {
+    if (m.geojson || m.loading) continue;
+    m.loading = true;
+    fetchGeoJSON(geojsonCandidates(m.file))
+      .then(gj => {
+        m.geojson = gj;
+        m.view = computeView(gj.features);
+        renderMap();
+      })
+      .catch(() => { m.loading = false; });
   }
+
+  const m = MAPS[activeMapIdx];
+  if (!m || !m.geojson || !m.view) return;
+  applyMapBackground(el);
+  drawMap(el, m);
 }
+
+function stepMap(delta) {
+  activeMapIdx = (activeMapIdx + delta + MAPS.length) % MAPS.length;
+  renderMap();
+}
+
+const mapPrevBtn = document.getElementById("map-prev");
+const mapNextBtn = document.getElementById("map-next");
+if (mapPrevBtn) mapPrevBtn.addEventListener("click", () => stepMap(-1));
+if (mapNextBtn) mapNextBtn.addEventListener("click", () => stepMap(1));
 
 function drawMap(el, map) {
   const view = map.view;
@@ -597,7 +627,8 @@ function drawMap(el, map) {
   svg.setAttribute("viewBox", `0 0 ${view.w} ${view.h}`);
   svg.setAttribute("preserveAspectRatio", "xMidYMid meet");
   svg.setAttribute("role", "img");
-  svg.setAttribute("aria-label", (I18N[LANG] && I18N[LANG].mapAria) || "Mapa");
+  const regionName = (I18N[LANG] && I18N[LANG].mapRegions && I18N[LANG].mapRegions[activeMapIdx]) || "";
+  svg.setAttribute("aria-label", regionName || (I18N[LANG] && I18N[LANG].mapAria) || "Mapa");
 
   // retícula de fondo cada 10°
   const grat = document.createElementNS(NS, "g");
@@ -889,6 +920,10 @@ function applyLang(lang) {
     b.classList.toggle("active", b.dataset.lang === lang));
   const badge = document.getElementById("play-badge");
   if (badge && PLAY_BADGES[lang]) badge.src = PLAY_BADGES[lang];
+  const prevBtn = document.getElementById("map-prev");
+  const nextBtn = document.getElementById("map-next");
+  if (prevBtn && I18N[lang].mapPrev) prevBtn.setAttribute("aria-label", I18N[lang].mapPrev);
+  if (nextBtn && I18N[lang].mapNext) nextBtn.setAttribute("aria-label", I18N[lang].mapNext);
   // re-render dynamic parts
   renderKPIs();
   renderFlags();

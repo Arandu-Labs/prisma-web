@@ -419,16 +419,19 @@
             </section>
 
             <!-- Charts -->
-            <section class="charts">
+                        <section class="charts">
                 <div class="chart-card chart-map">
-                    <h3 data-i18n="chartMap">Outlets by country</h3>
+                    <div class="chart-map-head">
+                        <h3 data-i18n="chartMap">Outlets by country</h3>
+                        <div class="map-nav">
+                            <button type="button" id="map-prev" class="map-nav-btn" aria-label="‹">&#8249;</button>
+                            <span id="map-region" class="map-region"></span>
+                            <button type="button" id="map-next" class="map-nav-btn" aria-label="›">&#8250;</button>
+                        </div>
+                    </div>
                     <div id="map" class="map-view"></div>
                 </div>
                 <div class="chart-card chart-cats"><h3 data-i18n="chartCats">Outlets by category</h3><div id="chart-cats" class="bars"></div></div>
-                <div class="chart-card chart-map">
-                    <h3 data-i18n="chartMapNorth">Medios por país — México, Centroamérica y Caribe</h3>
-                    <div id="map-north" class="map-view"></div>
-                </div>
             </section>
 
             <section class="axes-section">
