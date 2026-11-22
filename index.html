@@ -532,7 +532,7 @@
     <!-- Estadísticas del catálogo -->
     <script src="/estadisticas/medios_data.js?v=20261122a"></script>
     <script src="/estadisticas/noticias_data.js?v=20261122a"></script>
-    <script src="/estadisticas/app.js?v=20261122c"></script>
+    <script src="/estadisticas/app.js?v=20261122e"></script>
     <script>
     (function () {
         var track = document.getElementById("hero-feed-track");
@@ -544,11 +544,14 @@
         };
 
         var FLAGS = {
-            "Argentina": "🇦🇷", "Brasil": "🇧🇷", "Colombia": "🇨🇴", "Chile": "🇨🇱",
-            "Perú": "🇵🇪", "Peru": "🇵🇪", "Venezuela": "🇻🇪", "Uruguay": "🇺🇾",
-            "Bolivia": "🇧🇴", "Ecuador": "🇪🇨", "Panamá": "🇵🇦", "Panama": "🇵🇦",
-            "Paraguay": "🇵🇾", "México": "🇲🇽", "Mexico": "🇲🇽", "Estados Unidos": "🇺🇸",
-            "USA": "🇺🇸", "España": "🇪🇸", "Espana": "🇪🇸", "Global": "🌐"
+            "Argentina": "ar", "Brasil": "br", "Colombia": "co", "Chile": "cl",
+            "Perú": "pe", "Peru": "pe", "Venezuela": "ve", "Uruguay": "uy",
+            "Bolivia": "bo", "Ecuador": "ec", "Panamá": "pa", "Panama": "pa",
+            "Paraguay": "py", "México": "mx", "Mexico": "mx", "Estados Unidos": "us",
+            "USA": "us", "España": "es", "Espana": "es",
+            "Costa Rica": "cr", "El Salvador": "sv", "Honduras": "hn",
+            "República Dominicana": "do", "Guatemala": "gt", "Nicaragua": "ni",
+            "Cuba": "cu", "Puerto Rico": "pr", "Belice": "bz", "Belize": "bz"
         };
 
         // Conjunto de medios de categoría Regionales para mostrar su región
@@ -582,8 +585,10 @@
                 var hora = fecha && !isNaN(fecha) ? fecha.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }) : "";
                 
                 // Si es Global -> emoji de mundo 🌐; si es país -> emoji de bandera
-                var isGlobal = n.p === "Global" || !FLAGS[n.p];
-                var flag = isGlobal ? "🌐" : (FLAGS[n.p] || "🌐");
+                var code = FLAGS[n.p];
+                var flag = code
+                    ? '<img src="https://flagcdn.com/h16/' + code + '.png" alt="" style="height:16px;width:auto;vertical-align:-3px" loading="lazy">'
+                    : "🌐";
                 
                 // Mostrar región solo si es de categoría Regionales y tiene región cargada
                 var mClean = clean(n.m);

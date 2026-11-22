@@ -496,7 +496,8 @@ function showDetail(m) {
 const MAPS = [
   { file: "south_america.geojson", geojson: null, view: null, globalBadge: true },
   { file: "centroamerica_caribe.geojson", geojson: null, view: null, globalBadge: false, stretchY: 1.7 },
-  { file: "north_america.geojson", geojson: null, view: null, globalBadge: false, stretchY: 1.45 },
+  { file: "north_america.geojson", geojson: null, view: null, globalBadge: false, stretchY: 1.15,
+    bounds: { lonMin: -119, lonMax: -86, latBottom: 13, latTop: 36 } },
 ];
 let activeMapIdx = 0;
 
@@ -505,23 +506,33 @@ function eachCoord(coords, cb) {
   for (const c of coords) eachCoord(c, cb);
 }
 
-function computeView(features, stretchY = 1) {
+function computeView(features, stretchY = 1, latGamma = 1, bounds = null) {
   let lonMin = 180, lonMax = -180, latMin = 90, latMax = -90;
   for (const f of features) eachCoord(f.geometry.coordinates, (lon, lat) => {
     lonMin = Math.min(lonMin, lon); lonMax = Math.max(lonMax, lon);
     latMin = Math.min(latMin, lat); latMax = Math.max(latMax, lat);
   });
+  if (bounds) {
+    lonMin = bounds.lonMin; lonMax = bounds.lonMax;
+    latMin = bounds.latBottom; latMax = bounds.latTop;
+  }
   const padLon = (lonMax - lonMin) * 0.04, padLat = (latMax - latMin) * 0.04;
   lonMin -= padLon; lonMax += padLon;
   const latTop = latMax + padLat, latBottom = latMin - padLat;
   const cosLat = Math.cos(((latTop + latBottom) / 2) * Math.PI / 180);
   const wDeg = (lonMax - lonMin) * cosLat, hDeg = latTop - latBottom;
   const unit = 1000 / wDeg;
-  return { lonMin, lonMax, latBottom, latTop, cosLat, unit, stretchY, w: 1000, h: Math.round(hDeg * unit * stretchY) };
+  return { lonMin, lonMax, latBottom, latTop, cosLat, unit, stretchY, latGamma, w: 1000, h: Math.round(hDeg * unit * stretchY) };
 }
 
 function px(lon, v) { return ((lon - v.lonMin) * v.cosLat * v.unit).toFixed(1); }
-function py(lat, v) { return ((v.latTop - lat) * v.unit * (v.stretchY || 1)).toFixed(1); }
+function py(lat, v) {
+  if (v.latGamma && v.latGamma !== 1) {
+    const t = (v.latTop - lat) / (v.latTop - v.latBottom);
+    return (v.h * Math.pow(Math.min(1, Math.max(0, t)), v.latGamma)).toFixed(1);
+  }
+  return ((v.latTop - lat) * v.unit * (v.stretchY || 1)).toFixed(1);
+}
 
 function geomPath(geom, v) {
   const polys = geom.type === "Polygon" ? [geom.coordinates]
@@ -596,7 +607,7 @@ function renderMap() {
     fetchGeoJSON(geojsonCandidates(m.file))
       .then(gj => {
         m.geojson = gj;
-        m.view = computeView(gj.features, m.stretchY || 1);
+        m.view = computeView(gj.features, m.stretchY || 1, m.latGamma || 1, m.bounds || null);
         renderMap();
       })
       .catch(() => { m.loading = false; });
@@ -844,11 +855,14 @@ function applyTickerFilter(force = false) {
   const filtered = pais ? NEWS.filter(n => n.p === pais) : NEWS;
   const items = filtered.slice(0, 60);
   const FLAG_EMOJIS = {
-    "Argentina": "🇦🇷", "Brasil": "🇧🇷", "Colombia": "🇨🇴", "Chile": "🇨🇱",
-    "Perú": "🇵🇪", "Peru": "🇵🇪", "Venezuela": "🇻🇪", "Uruguay": "🇺🇾",
-    "Bolivia": "🇧🇴", "Ecuador": "🇪🇨", "Panamá": "🇵🇦", "Panama": "🇵🇦",
-    "Paraguay": "🇵🇾", "México": "🇲🇽", "Mexico": "🇲🇽", "Estados Unidos": "🇺🇸",
-    "USA": "🇺🇸", "España": "🇪🇸", "Espana": "🇪🇸", "Global": "🌐"
+    "Argentina": "ar", "Brasil": "br", "Colombia": "co", "Chile": "cl",
+    "Perú": "pe", "Peru": "pe", "Venezuela": "ve", "Uruguay": "uy",
+    "Bolivia": "bo", "Ecuador": "ec", "Panamá": "pa", "Panama": "pa",
+    "Paraguay": "py", "México": "mx", "Mexico": "mx", "Estados Unidos": "us",
+    "USA": "us", "España": "es", "Espana": "es", "Global": null,
+    "Costa Rica": "cr", "El Salvador": "sv", "Honduras": "hn",
+    "República Dominicana": "do", "Guatemala": "gt", "Nicaragua": "ni",
+    "Cuba": "cu", "Puerto Rico": "pr", "Belice": "bz", "Belize": "bz"
   };
 
   // Set de medios regionales para mostrar región condicionalmente
@@ -861,8 +875,10 @@ function applyTickerFilter(force = false) {
   // duplicar para loop continuo del marquee
   const html = items.map(n => {
     const fecha = n.f ? fmt.format(new Date(n.f)) : "";
-    const isGlobal = n.p === "Global" || !FLAG_EMOJIS[n.p];
-    const flag = isGlobal ? "🌐" : (FLAG_EMOJIS[n.p] || "🌐");
+    const flagCode = FLAG_EMOJIS[n.p];
+    const flag = flagCode
+      ? `<img src="https://flagcdn.com/h16/${flagCode}.png" alt="" style="height:16px;width:auto;vertical-align:-3px" loading="lazy">`
+      : "🌐";
     const mClean = cleanName(n.m).toLowerCase();
     const isReg = n.cat === "Regionales" || regSet.has(mClean);
     const regText = (isReg && n.r) ? ` (${n.r})` : "";
