@@ -36,7 +36,7 @@ const I18N = {
     de: "de",
     clearFilter: "Limpiar filtro",
     mapAria: "Mapa de América del Sur: medios por país",
-    mapRegions: ["América del Sur", "México, Centroamérica y Caribe", "América del Norte"],
+    mapRegions: ["América del Sur", "Centroamérica y Caribe", "América del Norte"],
     mapPrev: "Mapa anterior",
     mapNext: "Mapa siguiente",
     mediosLabel: "medios",
@@ -77,7 +77,7 @@ const I18N = {
     de: "de",
     clearFilter: "Limpar filtro",
     mapAria: "Mapa da América do Sul: veículos por país",
-    mapRegions: ["América do Sul", "México, América Central e Caribe", "América do Norte"],
+    mapRegions: ["América do Sul", "América Central e Caribe", "América do Norte"],
     mapPrev: "Mapa anterior",
     mapNext: "Próximo mapa",
     mediosLabel: "veículos",
@@ -118,7 +118,7 @@ const I18N = {
     de: "of",
     clearFilter: "Clear filter",
     mapAria: "South America map: outlets by country",
-    mapRegions: ["South America", "Mexico, Central America and the Caribbean", "North America"],
+    mapRegions: ["South America", "Central America and the Caribbean", "North America"],
     mapPrev: "Previous map",
     mapNext: "Next map",
     mediosLabel: "outlets",
@@ -495,8 +495,8 @@ function showDetail(m) {
 /* ---------- mapas de medios por país (SVG) ---------- */
 const MAPS = [
   { file: "south_america.geojson", geojson: null, view: null, globalBadge: true },
-  { file: "mexico_centroamerica_caribe.geojson", geojson: null, view: null, globalBadge: false },
-  { file: "north_america.geojson", geojson: null, view: null, globalBadge: false },
+  { file: "centroamerica_caribe.geojson", geojson: null, view: null, globalBadge: false, stretchY: 1.7 },
+  { file: "north_america.geojson", geojson: null, view: null, globalBadge: false, stretchY: 1.45 },
 ];
 let activeMapIdx = 0;
 
@@ -505,7 +505,7 @@ function eachCoord(coords, cb) {
   for (const c of coords) eachCoord(c, cb);
 }
 
-function computeView(features) {
+function computeView(features, stretchY = 1) {
   let lonMin = 180, lonMax = -180, latMin = 90, latMax = -90;
   for (const f of features) eachCoord(f.geometry.coordinates, (lon, lat) => {
     lonMin = Math.min(lonMin, lon); lonMax = Math.max(lonMax, lon);
@@ -517,11 +517,11 @@ function computeView(features) {
   const cosLat = Math.cos(((latTop + latBottom) / 2) * Math.PI / 180);
   const wDeg = (lonMax - lonMin) * cosLat, hDeg = latTop - latBottom;
   const unit = 1000 / wDeg;
-  return { lonMin, lonMax, latBottom, latTop, cosLat, unit, w: 1000, h: Math.round(hDeg * unit) };
+  return { lonMin, lonMax, latBottom, latTop, cosLat, unit, stretchY, w: 1000, h: Math.round(hDeg * unit * stretchY) };
 }
 
 function px(lon, v) { return ((lon - v.lonMin) * v.cosLat * v.unit).toFixed(1); }
-function py(lat, v) { return ((v.latTop - lat) * v.unit).toFixed(1); }
+function py(lat, v) { return ((v.latTop - lat) * v.unit * (v.stretchY || 1)).toFixed(1); }
 
 function geomPath(geom, v) {
   const polys = geom.type === "Polygon" ? [geom.coordinates]
@@ -551,9 +551,11 @@ function geojsonCandidates(file) {
   ];
 }
 
+const GEOJSON_V = "20261122b";
 function fetchGeoJSON(urls, i = 0) {
   if (i >= urls.length) return Promise.reject(new Error("geojson no encontrado"));
-  return fetch(urls[i])
+  const url = urls[i] + (urls[i].includes("?") ? "" : "?v=" + GEOJSON_V);
+  return fetch(url)
     .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
     .catch(() => fetchGeoJSON(urls, i + 1));
 }
@@ -594,7 +596,7 @@ function renderMap() {
     fetchGeoJSON(geojsonCandidates(m.file))
       .then(gj => {
         m.geojson = gj;
-        m.view = computeView(gj.features);
+        m.view = computeView(gj.features, m.stretchY || 1);
         renderMap();
       })
       .catch(() => { m.loading = false; });
