@@ -495,8 +495,8 @@ function showDetail(m) {
 /* ---------- mapas de medios por país (SVG) ---------- */
 const MAPS = [
   { file: "south_america.geojson", geojson: null, view: null, globalBadge: true },
-  { file: "centroamerica_caribe.geojson", geojson: null, view: null, globalBadge: false, stretchY: 1.7 },
-  { file: "north_america.geojson", geojson: null, view: null, globalBadge: false, stretchY: 1.0,
+  { file: "centroamerica_caribe.geojson", geojson: null, view: null, globalBadge: true, stretchY: 1.7 },
+  { file: "north_america.geojson", geojson: null, view: null, globalBadge: true, stretchY: 1.0,
     bounds: { lonMin: -122, lonMax: -83, latBottom: 11, latTop: 39 } },
 ];
 let activeMapIdx = 0;
