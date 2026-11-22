@@ -14,7 +14,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
     <!-- Estadísticas del catálogo de medios (embed) -->
-    <link rel="stylesheet" href="/estadisticas/embed.css?v=20261117c">
+    <link rel="stylesheet" href="/estadisticas/embed.css?v=20261122a">
 
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -423,13 +423,13 @@
                 <div class="chart-card chart-map">
                     <div class="chart-map-head">
                         <h3 data-i18n="chartMap">Veículos por país</h3>
-                        <div class="map-nav">
-                            <button type="button" id="map-prev" class="map-nav-btn" aria-label="‹">&#8249;</button>
-                            <span id="map-region" class="map-region"></span>
-                            <button type="button" id="map-next" class="map-nav-btn" aria-label="›">&#8250;</button>
-                        </div>
+                        <span id="map-region" class="map-region"></span>
                     </div>
-                    <div id="map" class="map-view"></div>
+                    <div class="map-wrap">
+                        <div id="map" class="map-view"></div>
+                        <button type="button" id="map-prev" class="map-nav-btn map-nav-prev" aria-label="&#8249;">&#8249;</button>
+                        <button type="button" id="map-next" class="map-nav-btn map-nav-next" aria-label="&#8250;">&#8250;</button>
+                    </div>
                 </div>
                 <div class="chart-card chart-cats"><h3 data-i18n="chartCats">Veículos por categoria</h3><div id="chart-cats" class="bars"></div></div>
             </section>
@@ -519,9 +519,9 @@
     </footer>
 
     <!-- Estadísticas del catálogo -->
-    <script src="/estadisticas/medios_data.js?v=20261117c"></script>
-    <script src="/estadisticas/noticias_data.js?v=20261117c"></script>
-    <script src="/estadisticas/app.js?v=20261117c"></script>
+    <script src="/estadisticas/medios_data.js?v=20261122a"></script>
+    <script src="/estadisticas/noticias_data.js?v=20261122a"></script>
+    <script src="/estadisticas/app.js?v=20261122a"></script>
     <script>
     (function () {
         var track = document.getElementById("hero-feed-track");

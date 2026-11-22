@@ -553,3 +553,15 @@ h3 { font-size: 1.05rem; margin-bottom: 1rem; }
 @media (max-width: 720px) and (min-width: 641px) {
   #map { aspect-ratio: 0.9; max-height: 340px; }
 }
+/* navegacion del mapa (flotante sobre el mapa) */
+.map-wrap { position: relative; }
+.map-nav-btn { position: absolute; top: 50%; transform: translateY(-50%); z-index: 6; }
+.map-nav-prev { left: 10px; }
+.map-nav-next { right: 10px; }
+
+/* dona: aprovecha todo el ancho de la tarjeta en desktop */
+@media (min-width: 901px) {
+  .pie-wrap { flex-direction: row; align-items: center; justify-content: center; gap: 2rem; }
+  .pie-donut { width: min(340px, 34vw); }
+  .pie-legend { flex: 1; max-width: 460px; }
+}

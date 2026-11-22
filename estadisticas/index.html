@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Prisma Noticias â€” EstadÃ­sticas del catÃ¡logo de medios</title>
 <meta name="description" content="Alcance de Prisma Noticias: catÃ¡logo de medios latinoamericanos clasificados en 6 ejes de perfil ideolÃ³gico con evidencia verificable.">
-<link rel="stylesheet" href="styles.css?v=20261121">
+<link rel="stylesheet" href="styles.css?v=20261122a">
 <link rel="icon" type="image/png" href="../assets/images/prisma_logo.png">
 </head>
 <body>
@@ -60,13 +60,13 @@
                 <div class="chart-card chart-map">
                     <div class="chart-map-head">
                         <h3 data-i18n="chartMap">Medios por paÃ­s</h3>
-                        <div class="map-nav">
-                            <button type="button" id="map-prev" class="map-nav-btn" aria-label="‹">&#8249;</button>
-                            <span id="map-region" class="map-region"></span>
-                            <button type="button" id="map-next" class="map-nav-btn" aria-label="›">&#8250;</button>
-                        </div>
+                        <span id="map-region" class="map-region"></span>
                     </div>
-                    <div id="map" class="map-view"></div>
+                    <div class="map-wrap">
+                        <div id="map" class="map-view"></div>
+                        <button type="button" id="map-prev" class="map-nav-btn map-nav-prev" aria-label="&#8249;">&#8249;</button>
+                        <button type="button" id="map-next" class="map-nav-btn map-nav-next" aria-label="&#8250;">&#8250;</button>
+                    </div>
                 </div>
                 <div class="chart-card chart-cats"><h3 data-i18n="chartCats">Medios por categorÃ­a</h3><div id="chart-cats" class="bars"></div></div>
             </section>
@@ -93,8 +93,8 @@
   </div>
 </section>
 
-<script src="medios_data.js?v=20261121"></script>
-<script src="noticias_data.js?v=20261121"></script>
-<script src="app.js?v=20261121"></script>
+<script src="medios_data.js?v=20261122a"></script>
+<script src="noticias_data.js?v=20261122a"></script>
+<script src="app.js?v=20261122a"></script>
 </body>
 </html>
