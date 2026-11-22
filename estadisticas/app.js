@@ -495,8 +495,8 @@ function showDetail(m) {
 /* ---------- mapas de medios por país (SVG) ---------- */
 const MAPS = [
   { file: "south_america.geojson", geojson: null, view: null, globalBadge: true },
-  { file: "centroamerica_caribe.geojson", geojson: null, view: null, globalBadge: true, stretchY: 1.7 },
-  { file: "north_america.geojson", geojson: null, view: null, globalBadge: true, stretchY: 1.0,
+  { file: "centroamerica_caribe.geojson", geojson: null, view: null, globalBadge: true, pad: 0.012 },
+  { file: "north_america.geojson", geojson: null, view: null, globalBadge: true, stretchY: 1.0, pad: 0.015,
     bounds: { lonMin: -122, lonMax: -83, latBottom: 11, latTop: 39 } },
 ];
 let activeMapIdx = 0;
@@ -506,7 +506,7 @@ function eachCoord(coords, cb) {
   for (const c of coords) eachCoord(c, cb);
 }
 
-function computeView(features, stretchY = 1, latGamma = 1, bounds = null) {
+function computeView(features, stretchY = 1, latGamma = 1, bounds = null, pad = 0.04) {
   let lonMin = 180, lonMax = -180, latMin = 90, latMax = -90;
   for (const f of features) eachCoord(f.geometry.coordinates, (lon, lat) => {
     lonMin = Math.min(lonMin, lon); lonMax = Math.max(lonMax, lon);
@@ -516,7 +516,7 @@ function computeView(features, stretchY = 1, latGamma = 1, bounds = null) {
     lonMin = bounds.lonMin; lonMax = bounds.lonMax;
     latMin = bounds.latBottom; latMax = bounds.latTop;
   }
-  const padLon = (lonMax - lonMin) * 0.04, padLat = (latMax - latMin) * 0.04;
+  const padLon = (lonMax - lonMin) * pad, padLat = (latMax - latMin) * pad;
   lonMin -= padLon; lonMax += padLon;
   const latTop = latMax + padLat, latBottom = latMin - padLat;
   const cosLat = Math.cos(((latTop + latBottom) / 2) * Math.PI / 180);
@@ -607,7 +607,7 @@ function renderMap() {
     fetchGeoJSON(geojsonCandidates(m.file))
       .then(gj => {
         m.geojson = gj;
-        m.view = computeView(gj.features, m.stretchY || 1, m.latGamma || 1, m.bounds || null);
+        m.view = computeView(gj.features, m.stretchY || 1, m.latGamma || 1, m.bounds || null, m.pad ?? 0.04);
         renderMap();
       })
       .catch(() => { m.loading = false; });
